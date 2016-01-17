@@ -1,0 +1,28 @@
+[{
+  "userName": "Kolman",
+  "name": {
+    "firstName": "Andrea",
+    "lastName": "Mangala"
+  },
+  "role": "Documentarian",
+  "email": "andreamangala@gmail.com",
+  "password": "StaffAdviser"
+}, {
+  "userName": "Godson",
+  "name": {
+    "firstName": "Goddy",
+    "lastName": "Ukpere"
+  },
+  "role": "Trainer",
+  "email": "godsonukpere@gmail.com",
+  "password": "SeniorTechTrainer"
+}, {
+  "userName": "Ify",
+  "name": {
+    "firstName": "Ifeanyi",
+    "lastName": "Oraeolosi"
+  },
+  "role": "Librarian",
+  "email": "ifeanyioraeolosi@gmail.com",
+  "password": "EngineeringLead"
+}]
