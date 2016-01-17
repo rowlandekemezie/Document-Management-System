@@ -4,6 +4,7 @@ var gulp = require('gulp'),
   mocha = require('gulp-mocha'),
   Server = require('karma').Server,
   browserSync = require('browser-sync'),
+  bower = require('gulp-bower'),
   stripeDebug = require('gulp-strip-debug'),
   istanbul = require('gulp-istanbul'),
   nodemon = require('gulp-nodemon'),
@@ -87,7 +88,7 @@ gulp.task('jade', function() {
 // bower install task
 gulp.task('bower', function() {
   return bower()
-    .pipe(gulp.dest('/public/lib/'))
+    .pipe(gulp.dest('public/lib/'))
     .pipe(notify({
       message: 'bower task completed'
     }));
