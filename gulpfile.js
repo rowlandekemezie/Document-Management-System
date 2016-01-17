@@ -10,6 +10,7 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   change = require('gulp-changed'),
   rename = require('gulp-rename'),
+  bower = require('gulp-bower'),
   del = require('del'),
   browserify = require('browserify'),
   source = require('vinyl-source-stream'),
@@ -151,7 +152,7 @@ gulp.task('test-coverage', function() {
 
 //  task for back end test
 gulp.task('test:bend', function() {
-  return gulp.src('spec/server/*', {
+  return gulp.src('spec/server/*.js', {
       read: false
     })
     .pipe(mocha({
@@ -211,7 +212,7 @@ gulp.task('nodemon', function() {
 
 // staatic files task
 gulp.task('static-files', function() {
-  return gutil.src(['!app/**/*.+(less|css|js|jade)',
+  return gulp.src(['!app/**/*.+(less|css|js|jade)',
       '!app/images/**/*',
       'app/**/*.*'
     ])
