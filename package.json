@@ -92,6 +92,7 @@
     "karma-jasmine": "^0.3.6",
     "mocha": "^2.3.4",
     "rev": "0.0.1",
+    "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "config": {

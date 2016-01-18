@@ -169,9 +169,9 @@
             expect(res.body[0]).contain({
               title: 'The regalia',
               role: 'Documentarian',
-              content: 'Kings and people of royal heritage are known for their ' +
-                'great outward look at all times as a demonstration of their ' +
-                'royalty'
+              content: 'Kings and people of royal heritage are known for ' +
+                'their great outward look at all times as a demonstration ' +
+                'of their royalty'
             });
             expect(res.body[1]).contain({
               title: 'The quest for dividends of democracy',
@@ -183,8 +183,9 @@
             expect(res.body[2]).contain({
               title: 'The beautiful ones are not yet born',
               role: 'Librarian',
-              content: 'It makes more sense when people understand the essence ' +
-                'of existence rather outward beauty that fades away and is no more'
+              content: 'It makes more sense when people understand the ' +
+                'essence of existence rather outward beauty that fades '+
+                'away and is no more'
             });
             done();
           });
@@ -199,9 +200,9 @@
             expect(res.body[0]).contain({
               title: 'The regalia',
               role: 'Documentarian',
-              content: 'Kings and people of royal heritage are known for their ' +
-                'great outward look at all times as a demonstration of their ' +
-                'royalty'
+              content: 'Kings and people of royal heritage are known for ' +
+                'their great outward look at all times as a demonstration ' +
+                'of their royalty'
             });
             done();
           });
@@ -234,8 +235,9 @@
             expect(res.body[1]).contain({
               title: 'The beautiful ones are not yet born',
               role: 'Librarian',
-              content: 'It makes more sense when people understand the essence ' +
-                'of existence rather outward beauty that fades away and is no more'
+              content: 'It makes more sense when people understand the ' +
+                'essence of existence rather outward beauty that fades '+
+                'away and is no more'
             });
             done();
           });
@@ -299,9 +301,9 @@
             expect(res.body).contain({
               title: 'The regalia',
               role: 'Documentarian',
-              content: 'Kings and people of royal heritage are known for their ' +
-                'great outward look at all times as a demonstration of their ' +
-                'royalty'
+              content: 'Kings and people of royal heritage are known for ' +
+                'their great outward look at all times as a demonstration of ' +
+                'their royalty'
             });
             done();
           });

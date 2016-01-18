@@ -16,6 +16,8 @@
   // instantiate an object instance of express
   var app = express();
 
+  app.use(cookieParser());
+  app.use(morgan('dev'));
   // connect to the database
   app.use(bodyParser.json());
   app.use(session({
@@ -23,6 +25,7 @@
     resave: false,
     saveUninitialized: true,
   }));
+
   app.use(methodOverride('X-HTTP-Method-Override'));
   app.use(bodyParser.json({
     type: 'application/vnd.api+json'
@@ -30,8 +33,6 @@
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(cookieParser());
-  app.use(morgan('dev'));
 
   // mount the router on api root directory
   app.use('/api', router);

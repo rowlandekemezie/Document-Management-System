@@ -22,22 +22,13 @@ var gulp = require('gulp'),
   ngAnnotate = require('gulp-ng-annotate'),
   jshint = require('gulp-jshint'),
   uglify = require('gulp-uglify'),
+  buffer = require('vinyl-buffer'),
   minifyCss = require('gulp-minify-css'),
   sourcemaps = require('gulp-sourcemaps'),
   gutil = require('gulp-util'),
   cache = require('gulp-cache'),
   coveralls = require('gulp-coveralls'),
   rev = require('rev');
-
-// define jshint lint
-gulp.task('jshint', function() {
-  return gulp.src(['./app/js/**/*.js', './server/**/*.js', './index.js', './spec/**/*.js'])
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(notify({
-      message: 'jshint task completed'
-    }));
-});
 
 // define clean task
 gulp.task('clean', function() {
@@ -60,12 +51,12 @@ gulp.task('less', ['jshint'], function() {
     .pipe(browserSync.reload({
       stream: true
     }))
-    .pipe(notify({
-      message: 'less task completed'
-    }))
+   // .pipe(notify({
+    //  message: 'less task completed'
+    //}))
     .on('error', function(error) {
       gutil.log(gutil.colors.red(error.message))
-      // Notify on error. Uses node-notifier 
+      // Notify on error. Uses node-notifier
       notifier.notify({
         title: 'Less compilation error',
         message: error.message
@@ -77,22 +68,36 @@ gulp.task('less', ['jshint'], function() {
 gulp.task('jade', function() {
   return gulp.src(['!app/shared/**', 'app/**/*.jade'])
     .pipe(jade())
-    .pipe(rename({
-      suffix: '.min'
-    }))
+   // .pipe(rename({
+    //  suffix: '.min'
+   // }))
     .pipe(gulp.dest('./public/'))
-    .pipe(notify({
-      message: 'jade task completed'
-    }));
+   // .pipe(notify({
+    //  message: 'jade task completed'
+   // }));
 });
 
+// define task for imagemin
+gulp.task('imagemin', function() {
+  return del(['public/images']),
+    gulp.src('app/images/**/*')
+    .pipe(cache(imagemin({
+      optimizationLevel: 3,
+      progressive: true,
+      interlaced: true
+    })))
+    .pipe(gulp.dest('public/images'))
+    .pipe(notify({
+      message: 'Images task completed'
+    }));
+});
 // bower install task
 gulp.task('bower', function() {
   return bower()
     .pipe(gulp.dest('public/lib/'))
-    .pipe(notify({
-      message: 'bower task completed'
-    }));
+    //.pipe(notify({
+     // message: 'bower task completed'
+    //}));
 });
 
 // browserify function
@@ -106,6 +111,7 @@ gulp.task('browserify', function() {
     // vinyl-source-stream makes the bundle compatible with gulp
     .pipe(source('application.js')) // Desired filename
     .pipe(ngAnnotate())
+    .pipe(buffer())
     .pipe(uglify())
     .pipe(stripeDebug())
     // Output the file
@@ -117,28 +123,31 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./public/js/'));
 });
 
+// define jshint lint
+gulp.task('jshint', function() {
+  return gulp.src(['./app/js/**/*.js', './server/**/*.js', './index.js', './spec/**/*.js'])
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+   // .pipe(notify({
+    //  message: 'jshint task completed'
+   // }));
+});
+// staatic files task
+gulp.task('static-files', function() {
+  return gulp.src(['!app/**/*.+(less|css|js|jade)',
+      '!app/images/**/*',
+      'app/**/*.*'
+    ])
+    .pipe(gulp.dest('./public/'));
+});
+
 // browser-sync task
 gulp.task('browser-sync', ['default'], function() {
   browserSync.init(null, {
     baseDir: 'public',
     proxy: 'http://localhost:5555',
-    injecttChanges: true
+    injectChanges: true
   });
-});
-
-// define task for imagemin
-gulp.task('imagemin', function() {
-  return del(['public/images']),
-    gulp.src('app/images/**/*')
-    .pipe(cache(imagemin({
-      optimizationLevel: 3,
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest('dist/images'))
-    .pipe(notify({
-      message: 'Images task completed'
-    }));
 });
 
 // define coverage report
@@ -188,48 +197,38 @@ gulp.task('test:e2e', function(cb) {
     .on('end', cb);
 });
 
-// task to watch files
-gulp.task('watch', ['browser-sync'], function() {
-  gulp.watch('./app/**/*.jade', ['jade'], browserSync.reload);
-  gulp.watch('./app/styles/*.+(less|css)', ['less'], browserSync.reload);
-  gulp.watch('./app/**/*.js', ['browserify'], browserSync.reload);
-  gulp.watch(['./gulpfile.js'], ['build', 'watch'], browserSync.reload);
-});
-
 // task for nodemon
 gulp.task('nodemon', function() {
   nodemon({
-    ext: 'jade less js',
+    ext: 'js',
     script: 'index.js',
-    ignore: ['nodde_modules/', 'public/', 'coverage/']
+    ignore: ['node_modules/', 'public/', 'coverage/']
   })
-    .on('watch', ['watch'])
-    .on('start', ['watch'])
+   // .on('watch', ['watch'])
+    .on('change', ['watch'])
     .on('restart', function() {
       console.log('Appliction restarted..>>');
     });
 });
 
-// staatic files task
-gulp.task('static-files', function() {
-  return gulp.src(['!app/**/*.+(less|css|js|jade)',
-      '!app/images/**/*',
-      'app/**/*.*'
-    ])
-    .pipe(gulp.dest('./public/'));
+// task to watch files
+gulp.task('watch', function() {
+  gulp.watch('./app/**/*.jade', ['jade'], browserSync.reload);
+  gulp.watch('./app/styles/*.+(less|css)', ['less'], browserSync.reload);
+  gulp.watch('./app/**/*.js', ['browserify'], browserSync.reload);
+  gulp.watch('./gulpfile.js', ['build'], browserSync.reload);
 });
 
 // build task
-gulp.task('build', ['less', 'jade', 'bower', 'browserify', 'imagemin', 'static-files'])
-
-// register default tasks
-gulp.task('default', ['clean'], function() {
-  gulp.start('build', 'watch', 'nodemon');
-});
+gulp.task('build', ['jade', 'less', 'static-files', 'imagemin', 'browserify', 'bower']);
 
 // register test task
-gulp.task('test', ['test:fend', 'test:bend', 'test-coverage', ])
+gulp.task('test', ['test:fend', 'test:bend', 'test-coverage']);
 // deployment tasks
 gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
+// register default tasks
+gulp.task('default', function(){
+ gulp.start(['nodemon', 'watch', 'build']);
+});
