@@ -1,0 +1,14 @@
+md-content
+  md-toolbar.header-spacing(ng-controller="loginCtrl")
+    .md-toolbar-tools
+      md-button.md-icon-button(ui-sref="home" aria-label='Settings')
+        img(src="images/logo.png" height="24" hide-sm)
+      h2
+        span Dockip
+      span(flex)
+      md-button.md-icon-button(aria-label='logout')
+        i.md-accent.fa.fa-sign-out
+        md-tooltip logout
+      md-button.md-icon-button(aria-label='login')
+        i.md-accent.fa.fa-sign-in
+        md-tooltip login
