@@ -51,7 +51,7 @@ gulp.task('less', ['jshint'], function() {
     .pipe(browserSync.reload({
       stream: true
     }))
-   // .pipe(notify({
+    // .pipe(notify({
     //  message: 'less task completed'
     //}))
     .on('error', function(error) {
@@ -68,13 +68,7 @@ gulp.task('less', ['jshint'], function() {
 gulp.task('jade', function() {
   return gulp.src(['!app/shared/**', 'app/**/*.jade'])
     .pipe(jade())
-   // .pipe(rename({
-    //  suffix: '.min'
-   // }))
-    .pipe(gulp.dest('./public/'))
-   // .pipe(notify({
-    //  message: 'jade task completed'
-   // }));
+    .pipe(gulp.dest('./public/'));
 });
 
 // define task for imagemin
@@ -95,9 +89,6 @@ gulp.task('imagemin', function() {
 gulp.task('bower', function() {
   return bower()
     .pipe(gulp.dest('public/lib/'))
-    //.pipe(notify({
-     // message: 'bower task completed'
-    //}));
 });
 
 // browserify function
@@ -128,10 +119,8 @@ gulp.task('jshint', function() {
   return gulp.src(['./app/js/**/*.js', './server/**/*.js', './index.js', './spec/**/*.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-   // .pipe(notify({
-    //  message: 'jshint task completed'
-   // }));
 });
+
 // staatic files task
 gulp.task('static-files', function() {
   return gulp.src(['!app/**/*.+(less|css|js|jade)',
@@ -204,8 +193,8 @@ gulp.task('nodemon', function() {
     script: 'index.js',
     ignore: ['node_modules/', 'public/', 'coverage/']
   })
-   // .on('watch', ['watch'])
-    .on('change', ['watch'])
+  // .on('watch', ['watch'])
+  .on('change', ['watch'])
     .on('restart', function() {
       console.log('Appliction restarted..>>');
     });
@@ -229,6 +218,6 @@ gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
 // register default tasks
-gulp.task('default', function(){
- gulp.start(['nodemon', 'watch', 'build']);
+gulp.task('default', function() {
+  gulp.start(['nodemon', 'watch', 'build']);
 });
