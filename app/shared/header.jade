@@ -1,14 +1,17 @@
-md-content
-  md-toolbar.header-spacing(ng-controller="loginCtrl")
-    .md-toolbar-tools
-      md-button.md-icon-button(ui-sref="home" aria-label='Settings')
-        img(src="images/logo.png" height="24" hide-sm)
-      h2
-        span Dockip
-      span(flex)
-      md-button.md-icon-button(aria-label='logout')
+md-toolbar.header-spacing(flex layout="row")
+  .md-toolbar-tools
+    md-button.md-icon-button.md-raised(ui-sref="home" aria-label='logo')
+      img(src="images/logo.png" height="24" hide-gt-sm)
+    h2
+      span Dockip
+    span(flex='')
+    a(ng-if="loggedIn()")
+      md-button.md-icon-button(aria-label='logout' layout-wrap)
+        span logout
         i.md-accent.fa.fa-sign-out
         md-tooltip logout
+    a(ng-if="!loggedIn()")
       md-button.md-icon-button(aria-label='login')
         i.md-accent.fa.fa-sign-in
+        span login
         md-tooltip login
