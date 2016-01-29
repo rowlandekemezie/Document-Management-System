@@ -1,17 +1,17 @@
-angular.module('controllers.users', [])
-  .controller('userCtrl', ['User',
-    '$scope', '$routeParams', '$state',
-    function(User, $scope, $stateParams, $window, $state) {
+angular.module('docKip.controllers', [])
+  .controller('UserCtrl', ['Users',
+    '$scope', '$stateParams', '$state',
+    function(Users, $scope, $stateParams, $state) {
       // delete a user
       $scope.deleteUser = function(user) {
         $scope.processing = true;
         user.$delete(function() {
-          $window.location.href = '/users/'; // return to home route
+          $state.go('dashboard'); // return to dashboard
         });
       };
       // get a specific user
       $scope.getAUser = function() {
-        User.get({
+        Users.get({
           id: $stateParams.id
         })
           .success(function(data) {
@@ -19,13 +19,13 @@ angular.module('controllers.users', [])
           });
       };
       // get all users
-      User.query()
-        .success(function(data) {
-          $scope.users = data;
+      Users.query()
+        .success(function(users) {
+          $scope.users = users;
         });
       // create user
       // instantiate the user class for any user
-      $scope.newUser = new User();
+      $scope.newUser = new Users();
       $scope.addUser = function() {
         $scope.processing = true;
         $scope.newUser.$save()
@@ -43,11 +43,11 @@ angular.module('controllers.users', [])
             $scope.processing = false;
             $scope.userData = {};
             $scope.message = response.message;
-            $state.go('home');
+            $state.go('dashboard');
           });
       };
-      // load users parameters
-      User.get({
+      // load user's parameters
+      Users.get({
         id: $stateParams
       })
         .success(function(data) {

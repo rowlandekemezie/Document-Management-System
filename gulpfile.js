@@ -101,17 +101,17 @@ gulp.task('browserify', function() {
       'Error: in browserify gulp task'))
     // vinyl-source-stream makes the bundle compatible with gulp
     .pipe(source('application.js')) // Desired filename
-    .pipe(ngAnnotate())
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(stripeDebug())
+    //.pipe(ngAnnotate())
+    //.pipe(buffer())
+   // .pipe(uglify())
+    //.pipe(stripeDebug())
     // Output the file
     .pipe(gulp.dest('./public/js/'))
-    .pipe(sourcemaps.init({
-      loadMaps: true
-    }))
-    .pipe(sourcemaps.write('./maps'))
-    .pipe(gulp.dest('./public/js/'));
+    //.pipe(sourcemaps.init({
+    //  loadMaps: true
+   // }))
+    //.pipe(sourcemaps.write('./maps'))
+    //.pipe(gulp.dest('./public/js/'));
 });
 
 // define jshint lint
@@ -218,6 +218,4 @@ gulp.task('heroku:production', ['build']);
 gulp.task('heroku:staging', ['build']);
 gulp.task('production', ['nodemon', 'build']);
 // register default tasks
-gulp.task('default', function() {
-  gulp.start(['nodemon', 'watch', 'build']);
-});
+gulp.task('default', ['nodemon', 'watch', 'build']);

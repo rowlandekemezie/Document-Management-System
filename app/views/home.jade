@@ -1,18 +1,20 @@
-md-content(flex padding layout="column" ng-controller="loginCtrl")
-  .jumbobox.md-padding.md-margin(flex layout="row" layout-sm="column" layout-align="center center" layout-wrap)
+md-content(flex padding layout="column")
+  .jumbobox.md-padding.md-margin(layout="column" layout-sm="row" layout-align="center center")
     div.box.md-margin
       span DocKip is the free, flexible, and easy &nbsp;
       | way to organize and keep your documents.
-    div.md-margin
+    div.md-padding(layout-wrap layout-align="center center")
       span Create, Read, Edit, and Delete your documents
 
-      div.login(ui-sref="login" ng-if="!loggedIn")
+      div.login(ng-if="!loggedIn")
+        br
         h4 Login to manage your documents
+        h1.md-button.md-raised.md-primary(ng-click="test()" md-no-ink) Login
         div
-          h1.md-button.md-raised.md-primary(md-no-ink) Login
+          {{docs}}
+        h4 Have no account, &nbsp;
+         a(ui-sref="sign-up" md-no-ink) Sign Up - It's free
 
-      div.logout(ui-sref="dashboard" ng-if="loggedIn")
-        h4 Sign Up to see and manage your documents
-
+      div(ng-if="loggedIn")
         div
-          h1.md-button.md-raised.md-primary(md-no.ink) view users
+          h1.md-button.md-raised.md-primary(ui-sref="dashboard" md-no.ink) view users

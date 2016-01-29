@@ -1,3 +1,31 @@
-md-content(layout="row" layout-fill layout-wrap)
+md-content.sign-up-wrap.md-inline-form(layout="column")
   div
     span Sign up page
+
+    div.input.md-padding.md-margin(flex layout="column" layout-wrap layout-align="center center")
+      form(name="sign-up" method="post" layout-wrap layout="row" ng-required)
+        md-input-container.md-block(flex-gt-sm)
+          label firstname
+          input(ng-model="user.firstname" type="text" placeholder="firstname" ng-required)
+        md-input-container.md-block(flex-gt-sm)
+          label lastname
+          input(ng-model="user.lastname" type="text" placeholder="lastname" ng-required)
+        md-input-container.md-block(flex-gt-sm)
+          label username
+          input(ng-model="user.username" type="text" placeholder="username" ng-required)
+        md-input-container.md-block(flex-gt-sm)
+          label email
+          input(ng-model="user.email" type="email" placeholder="example@email.com" ng-pattern="")
+          div(ng-message="email") not a valid email format
+        md-input-container.md-block(flex-gt-sm)
+          label roles
+          md-select(ng-model="user.role" type="text" placeholder="select role")
+            md-option(ng-repeat="role in roles" value="role")
+        md-input-container.md-block(flex-gt-sm)
+          label password
+          input(ng-model="user.password" type="password" password="password" ng-required md-pattern="/^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i")
+          div.my-message you input doesn't match
+        md-input-container.md-block(flex-gt-sm)
+          label confirm password
+          input(ng-model="user.confrimPassword" type="password" placeholder="confirm password" name="confrimPassword" match="user.password" ng-required)
+          div(ng-show="sign-up.confrimPassword.$error.match") The password doesn't match

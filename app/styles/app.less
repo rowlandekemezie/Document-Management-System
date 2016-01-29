@@ -6,13 +6,16 @@
   background-color: white;
 }
 
+
+/*
 .md-icon-button {
   color: whitesmoke;
-}
+} */
 
 body {
   padding: auto;
   margin: auto;
+  background-image: url('./../images/backgroundImage.jpg');
 }
 
 .footer {
@@ -26,12 +29,13 @@ body {
 .jumbobox {
   text-align: center;
   color: #585252;
-  flex: display;
 }
 
 md-content {
-  padding-top: 50px;
-  height: 450px;
+  padding-top: 60px;
+  height: 560px;
+  background-image: url('./../images/backgroundImage.jpg');
+
 }
 
 h1,
@@ -45,10 +49,21 @@ h5 {
   }
 }
 
+[ui-view].ng-enter,
+[ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+}
+
 .box {
-  height: 100px;
+  height: 60%;
   width: 40%;
-  font-size: 1.6em;
+  font-size: 1.8em;
   margin: auto;
   padding-top: 10px;
   line-height: 1.5em;
@@ -58,4 +73,38 @@ h1.md-button.md-raised.md-primary {
   margin-top: 16px;
   margin-bottom: 16px;
   background-color: #f00;
+}
+
+
+/*div {
+  login > {
+    height: 56px;
+  }
+} */
+
+#popupContainer {
+  position: relative;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  margin-left: 20px;
+}
+
+.footer,
+.footer > code {
+  font-size: 0.8em;
+  margin-top: 50px;
+}
+.sign-up-wrap{
+  height: 200px;
+  width: 150px;
+  background-color: white;
+}
+.sign-up-wrap > div{
+  height: 50px;
+}
+.sign-up-wrap.input{
+  height: 340px;
 }

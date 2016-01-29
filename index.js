@@ -15,7 +15,7 @@
     console.log('Connection established successfully');
   });
   // view engine setup
-  app.set('views', path.join(__dirname, './../../../app/views'));
+  app.set('views', path.join(__dirname, 'server/views'));
   app.set('view engine', 'jade');
 
   // error handlers
