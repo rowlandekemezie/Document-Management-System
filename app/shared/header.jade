@@ -1,9 +1,7 @@
-md-toolbar.header-spacing(flex layout="row")
+md-toolbar.header-spacing(flex layout="row" ng-cloak='')
   .md-toolbar-tools
-    md-button.md-icon-button.md-raised(ui-sref="home" aria-label='logo')
-      img(src="./images/logo.png" height="24")
     h2
-      span(ui-sref="home") Dockip
+      a(ui-sref="home") DocKip
     span(flex='')
     a(ng-if="!logout()")
       md-button.md-icon-button(aria-label='logout' layout-wrap)

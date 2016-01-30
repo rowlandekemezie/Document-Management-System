@@ -1,3 +1,6 @@
+(function() {
+  'use strict';
+
   var env = process.env.NODE_ENV || 'development';
   if (env === 'development') {
     require('dotenv').load();
@@ -28,6 +31,9 @@
     });
   }
   app.use(express.static(path.join(__dirname, './public')));
+  // app.route('/*').get(function(req, res) {
+  //   return res.sendFile(path.join(__dirname, './public/index.html'));
+  // });
 
   var server = app.listen(port, function() {
     console.log('Express server listening on %d, in %s' +
@@ -36,3 +42,4 @@
 
   // expose the  server to app
   module.exports = app;
+})();
