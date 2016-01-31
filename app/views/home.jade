@@ -1,4 +1,4 @@
-md-content(flex padding layout="column")
+md-content(flex padding layout="column" ng-cloak)
   .jumbobox.md-padding.md-margin(layout="column" layout-sm="row" layout-align="center center")
     div.box.md-margin
       span DocKip is the free, flexible, and easy &nbsp;
@@ -9,7 +9,7 @@ md-content(flex padding layout="column")
       div.login(ng-if="!loggedIn")
         br
         h4 Login to manage your documents
-        h1.md-button.md-raised.md-primary.md-accent(ng-click="test()" md-no-ink) Login
+        h1.md-button.md-raised.md-primary.md-accent(ui-sref="login" md-no-ink) Login
         div
         | {{docs}}
         h4 Have no account, &nbsp;
@@ -17,4 +17,4 @@ md-content(flex padding layout="column")
 
       div(ng-if="loggedIn")
         div
-          h1.md-button.md-raised.md-primary.md-accent(.ui-sref="dashboard" md-no.ink) view users
+          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard" md-no.ink) view users
