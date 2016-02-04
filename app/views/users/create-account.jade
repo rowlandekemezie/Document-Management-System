@@ -1,26 +1,28 @@
-.sign-up-wrap(layout="column" layout-padding flex="55" layout-align="center center" ng-cloak)
+.sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak)
   div.md-margin(layout-padding)
-    div(layout-gt-sm="row")
-      h4 Sign Up
-    form(name="signup" method="post" novalidate ng-submit="signUp()")
+    div(layout-gt-sm="row" flex)
+      h4.header-display Sign Up
+      span(class='fa fa-times' ng-click='cancel()' aria-label='Close dialog' style='cursor: pointer;')
+      span
+    form(Name="signup" method="post" novalidate ng-submit="signUp()")
       div(layout-gt-sm="row" flex)
         md-input-container.md-block
           md-icon.fa.fa-users
-          input(ng-model="user.firstname" name="firstname" placeholder="firstname" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
-          span.error(flex ng-show="signup.firstname.$touched && signup.firstname.$invalid") Please provide a valid firstname
+          input(ng-model="user.firstName" name="firstName" placeholder="firstName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
+          span.error(flex ng-show="signup.firstName.$touched && signup.firstName.$invalid") Please provide a valid firstName
         md-input-container.md-block
-          input(ng-model="user.lastname" name="lastname" placeholder="lastname" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
-          span.error(flex ng-show="signup.lastname.$touched && signup.lastname.$invalid") Please provide a valid lastname
+          input(ng-model="user.lastName" name="lastName" placeholder="lastName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
+          span.error(flex ng-show="signup.lastName.$touched && signup.lastName.$invalid") Please provide a valid lastName
       div(layout-gt-sm="row")
         md-input-container(flex)
           md-icon.fa.fa-users
-          input(ng-model="user.username" name="username" placeholder="username" ng-required="true" ng-pattern="/^([a-zA-Z])[a-zA-Z0-9._]+$/")
+          input(ng-model="user.userName" name="userName" placeholder="userName" ng-required="true" ng-pattern="/^([a-zA-Z])[a-zA-Z0-9._]+$/")
         div.md-block(flex layout="column")
-          span.error(flex ng-show="signup.username.$touched && signup.username.$error.required") Please provide your username
-          span.error(flex ng-show="signup.username.$touched && signup.username.$invalid") Please provide a valid username
+          span.error(flex ng-show="signup.userName.$touched && signup.userName.$error.required") Please provide your userName
+          span.error(flex ng-show="signup.userName.$touched && signup.userName.$invalid") Please provide a valid userName
         md-input-container(flex)
           md-select(ng-model="user.role"  name="role" placeholder="select role" ng-required="true")
-            md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title === user.role") {{role.title}}
+            md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
         div.md-block(flex layout="column")
           span.error(flex ng-show="signup.role.$touched && signup.role.$error.required") Please select a role
       md-input-container(flex)
@@ -31,7 +33,7 @@
         span.error(flex ng-show="signup.email.$touched && signup.email.$error.required") Please provide an email address
       md-input-container(flex)
         md-icon.fa.fa-key
-        input(ng-model="user.password" name="password" type="password" ng-required="true" ng-minlength="8")
+        input(ng-model="user.password" name="password" type="password" aria-label="password" ng-required="true" ng-minlength="8")
       div(flex layout="column")
         span.error(flex ng-show="signup.password.$touched && signup.password.$error.minlength") Password must be not be less than 8 characters
         span.error(flex ng-show="signup.password.$touched && signup.password.$error.required") Please provide your password
@@ -42,8 +44,7 @@
       //- div.md-padding(layout="row" layout-sm="column" layout-align="space-around")
       //-   md-progress-circular(md-mode="determinate" value="{{progress}}")
       div(layout="row" flex layout-align="center center")
-        p.md-padding.link {{status}}
-      div.md-margin(layout-padding flex)
+        p.link {{status}}
         md-button.md-raised.md-accent.md-hue-2(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
         h4
           span Already registered? &nbsp;

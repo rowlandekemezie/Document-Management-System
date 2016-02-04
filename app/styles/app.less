@@ -1,22 +1,8 @@
-.header-spacing {
+.header {
   height: 24px;
-  padding: 5px 5px;
   font-size: 10px;
-  opacity: 100%;
+  opacity: 70%;
   background-color: white;
-}
-
-body {
-  padding: auto;
-  margin: auto;
-}
-
-.footer {
-  background-color: #ccc;
-  width: 100%;
-  height: 60px;
-  padding-bottom: 5px;
-  margin-top: -2px;
 }
 
 img {
@@ -25,18 +11,23 @@ img {
 
 .jumbobox {
   text-align: center;
+  min-width: 200px;
   color: white;
+  height: 350px;
+  margin-top: 100px;
   animation: jux 5s infinite;
-}
-
-md-content {
-  padding-top: 60px;
-  height: 550px;
+  @media (max-width: 599px) {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 1440px) {
+    width: 60%;
+  }
 }
 
 a {
   color: grey;
-  font-size: 12px;
+  font-size: 18px;
   font-family: Roboto;
 }
 
@@ -44,10 +35,8 @@ a:hover {
   color: teal;
 }
 
-body,
-md-content {
+body {
   background-image: url('./../images/background1.png');
-  background-position: 0px 0px;
   background-repeat: repeat-x;
   animation: animatedBackground 40s linear infinite;
 }
@@ -56,11 +45,11 @@ md-content {
   from {
     background-position: 0 0;
   }
-
   to {
     background-position: 100% 0;
   }
 }
+
 h1,
 h2,
 h3,
@@ -71,88 +60,107 @@ h5 {
     margin: 0;
   }
 }
-[ui-view].ng-enter,
-[ui-view].ng-leave {
-  position: absolute;
-  left: 0;
-  right: 0;
-  -webkit-transition: all .5s ease-in-out;
-  -moz-transition: all .5s ease-in-out;
-  -o-transition: all .5s ease-in-out;
-  transition: all .5s ease-in-out;
-}
+
 @keyframes jux {
   from {
     color: grey;
   }
-
   to {
     color: white;
   }
 }
+
 .box {
-  height: 60%;
-  width: 40%;
-  font-size: 35px;
-  margin: 0 auto;
+  height: 50%;
+  width: 50%;
+  font-size: 40px;
   padding-top: 10px;
   line-height: 1.5em;
   color: white;
   animation: jux 5s infinite;
   font-family: Playball;
 }
+
 h1.md-button.md-raised.md-primary {
   margin-top: 16px;
   margin-bottom: 16px;
   background-color: #ccc;
   color: teal;
+  font-size: 20px;
+  width: 150px;
+  height: 15px;
+  border-radius: 5px;
 }
+
 h2 > a,
 div > h4 {
   font-family: Courgette;
   font-size: 20px;
   text-align: center;
 }
+
+div > span {
+  font-size: 1.5em;
+  padding: 0px;
+}
+
 div > h4,
 div > md-button {
   margin: 0 auto;
   padding-bottom: 10px;
 }
+
 .footer {
   width: 100%;
   text-align: center;
   font-size: 0.8em;
-  margin-top: 60px;
+  margin-top: 200px;
+  background-color: #ccc;
+  width: 100%;
+  height: 60px;
+  padding-bottom: 5px;
+  overflow: hidden;
 }
+
 input {
   border: 0;
 }
+
 .sign-up-wrap {
   margin: 8px auto;
   width: 450px;
   background-color: white;
-  padding-top: 40px;
+  padding-top: 30px;
   padding-bottom: 10px;
   color: black;
   opacity: 100%;
   position: relative;
 }
-.error{
+
+.error {
   color: red;
   font-size: 9px;
   display: inline-flex;
 }
+
 .sign-in-wrap {
   background-color: white;
   width: 400px;
   margin: 50px auto;
-  padding-top: 40px;
-  padding-bottom: 35px;
   font-size: 1.2em;
   position: relative;
-  z-index: 2;
 }
+
 p.link {
   color: red;
   font-size: 9px;
+}
+
+div > md-button {
+  text-align: center;
+}
+.header-display {
+  text-align: center;
+  color: grey;
+  font-family: Rightous;
 }
