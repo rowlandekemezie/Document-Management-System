@@ -1,7 +1,166 @@
-.header-spacing {
-  height: 50px;
-  padding: 5 5px;
-  font-size: 5px;
-  opacity: 100%;
+.header {
+  height: 24px;
+  font-size: 10px;
+  opacity: 70%;
   background-color: white;
+}
+
+img {
+  opacity: 0.4;
+}
+
+.jumbobox {
+  text-align: center;
+  min-width: 200px;
+  color: white;
+  height: 350px;
+  margin-top: 100px;
+  animation: jux 5s infinite;
+  @media (max-width: 599px) {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 1440px) {
+    width: 60%;
+  }
+}
+
+a {
+  color: grey;
+  font-size: 18px;
+  font-family: Roboto;
+}
+
+a:hover {
+  color: teal;
+}
+
+body {
+  background-image: url('./../images/background1.png');
+  background-repeat: repeat-x;
+  animation: animatedBackground 40s linear infinite;
+}
+
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0 0 5px 0;
+  &.md-padding {
+    margin: 0;
+  }
+}
+
+@keyframes jux {
+  from {
+    color: grey;
+  }
+  to {
+    color: white;
+  }
+}
+
+.box {
+  height: 50%;
+  width: 50%;
+  font-size: 40px;
+  padding-top: 10px;
+  line-height: 1.5em;
+  color: white;
+  animation: jux 5s infinite;
+  font-family: Playball;
+}
+
+h1.md-button.md-raised.md-primary {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  background-color: #ccc;
+  color: teal;
+  font-size: 20px;
+  width: 150px;
+  height: 15px;
+  border-radius: 5px;
+}
+
+h2 > a,
+div > h4 {
+  font-family: Courgette;
+  font-size: 20px;
+  text-align: center;
+}
+
+div > span {
+  font-size: 1.5em;
+  padding: 0px;
+}
+
+div > h4,
+div > md-button {
+  margin: 0 auto;
+  padding-bottom: 10px;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  margin-top: 200px;
+  background-color: #ccc;
+  width: 100%;
+  height: 60px;
+  padding-bottom: 5px;
+  overflow: hidden;
+}
+
+input {
+  border: 0;
+}
+
+.sign-up-wrap {
+  margin: 8px auto;
+  width: 450px;
+  background-color: white;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  color: black;
+  opacity: 100%;
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 9px;
+  display: inline-flex;
+}
+
+.sign-in-wrap {
+  background-color: white;
+  width: 400px;
+  margin: 50px auto;
+  font-size: 1.2em;
+  position: relative;
+}
+
+p.link {
+  color: red;
+  font-size: 9px;
+}
+
+div > md-button {
+  text-align: center;
+}
+.header-display {
+  text-align: center;
+  color: grey;
+  font-family: Rightous;
 }

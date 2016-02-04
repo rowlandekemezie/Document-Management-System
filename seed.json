@@ -1,5 +1,5 @@
 {
-	"development": "localhost/docman-dev",
-	"test": "localhost/docman-test",
-	"production": "localhost/docman-prod"
+	"test": "localhost/docKip_test",
+	"development": "localhost/do",
+	"prod": "localhost/PROD_DB_NAME"
 }

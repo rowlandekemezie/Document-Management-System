@@ -1,13 +1,10 @@
 doctype html
 html(lang="en" ng-app="docKip")
-		head
-			title Document Management System
-			include shared/head
-		body
-			base(href="/")
-			main
+	head
+		include shared/head
+	body
+		main
 			include shared/header
-			md-content(ui-view)
-				h1 Welcome here Man
-		footer
-			include shared/footer
+			div(ui-view)
+	footer
+		include shared/footer
