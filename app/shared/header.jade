@@ -1,15 +1,14 @@
-md-toolbar.header-spacing(flex layout="row")
+md-toolbar.header-spacing.md-whiteframe-z2(flex layout="row" ng-cloak='' ng-controller="HeadCtrl")
   .md-toolbar-tools
-    md-button.md-icon-button.md-raised(ui-sref="home" aria-label='logo')
-      img(src="./images/logo.png" height="24")
     h2
-      span(ui-sref="home") Dockip
+      a(ui-sref="home" layout-padding) DocKip
     span(flex='')
-    a(ng-if="!logout()")
-      md-button.md-icon-button(aria-label='logout' layout-wrap)
+    | You are logged in as {{loggedInUser.username}}
+    a(ng-if="loggedIn")
+      md-button.md-icon-button(aria-label='logout' ng-click="logout()" layout-wrap)
         i.md-accent.fa.fa-sign-out
         md-tooltip logout
-    a(ng-if="logout()")
+    a(ng-if="!loggedIn" ui-sref="login")
       md-button.md-icon-button(aria-label='login' layout-wrap)
         i.md-accent.fa.fa-sign-in
         md-tooltip login

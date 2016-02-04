@@ -1,3 +1,24 @@
-md-content(layout="column" flex)
-  h1
-    span This is the Login page
+.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="LoginCtrl" layout-padding flex="100" layout-align="center center" ng-cloak)
+  div(layout-padding)
+    div(layout-gt-sm="column" flex)
+      span(class='fa fatimes' ngclick='cancel()' arialabel='Close dialog' style='cursor: pointer;')
+      h4.header-display Sign In
+    form(name="login" method="post" novalidate ng-submit="loginUser()")
+      div(layout-gt-sm="column" flex)
+        md-input-container(flex)
+          md-icon.fa.fa-users
+          input(ng-model="user.userName" name="username" type="text" placeholder="username" ng-required="true")
+          div(ng-show="login.email.$error.required") not a valid email format
+        md-input-container(flex)
+          md-icon.fa.fa-key
+          input(ng-model="user.password" name="password" type="password" placeholder="password" ng-required="true" ng-minlength="8")
+          div(flex layout="column")
+            span.error(flex ng-show="login.password.$touched && login.password.$error.minlength") Password must be not be less than 8 characters
+            span.error(flex ng-show="login.password.$touched && login.password.$error.required") Please provide your password
+        div(layout="column" flex layout-align="center center")
+          p.link {{status}}
+          div(layout="column")
+            md-button.md-raised.md-accent.md-hue-2(type="submit" ng-disabled="login.$invalid") Login
+            h4
+              span Create new account? &nbsp;
+              a(ng-click="createAccount($event)") Sign-Up - It's free
