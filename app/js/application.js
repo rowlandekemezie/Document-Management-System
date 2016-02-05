@@ -36,25 +36,18 @@
       //'ngMessages'
 
     ])
-      .run(['$rootScope'/*, '$scope', 'Auth'*/,
-        function($rootScope /*,$scope, Auth*/ ) {
+      .run(['$rootScope' /*, '$scope', 'Auth'*/ ,
+        function($rootScope, $scope, Auth) {
           // check that a user is logged in for each request on a route
-          // $rootScope.$on(['$stateChangeStart',
-          //   function() {
-          //     $scope.loggedIn = Auth.isLoggedIn();
-          //     // get the user details
-          //     Auth.getUser().then(function(response) {
-          //       $rootScope.loggedInUser = response.data;
-          //     });
-          //   }
-          // load roles as the on the rootscope
-          // $rootScope.roles = [{
-          //   title: 'Trainer'
-          // }, {
-          //   title: 'Documentarian'
-          // }, {
-          //   title: 'Librarian'
-          // }];
+          $rootScope.$on(['$stateChangeStart',
+            function() {
+              $scope.loggedIn = Auth.isLoggedIn();
+              // get the user details
+              Auth.getUser().then(function(response) {
+                $rootScope.loggedInUser = response.data;
+              });
+            }
+          ]);
         }
       ])
       .config(['$locationProvider',
@@ -77,46 +70,39 @@
               templateUrl: 'views/home.html',
               //controller: 'HeadCtrl'
             })
-            // .state('users', {
-            //   url: '/users',
-            //   templateUrl: 'views/users/users-all.html',
-            //   controller: 'UserCtrl'
-            // })
-            // .state('addUser', {
-            //   url: '/users/create',
-            //   templateUrl: 'views/users/users-all.html',
-            //   controller: 'UserCtrl'
-            // })
-            // .state('editUser', {
-            //   url: '/users/{id}/edit',
-            //   templateUrl: 'views/users/users-all.html',
-            //   controller: 'UserCtrl'
-            // })
-            .state('account-login', {
-              url: '/users/login',
-              templateUrl: 'views/login.html',
-              controller: 'UserDialogCtrl'
-            })
-            .state('account-signup', {
-              url: '/users/account',
-              templateUrl: 'views/users/create-account.html',
-              controller: 'UserDialogCtrl'
-            })
             .state('dashboard', {
               url: '/users/dashboard',
               templateUrl: 'views/users/dashboard.html',
               controller: 'DashboadCtrl'
+            })
+            .state('editProfile.dashboard', {
+              url: '/{id}/edit',
+              views: {
+                'inner-view@dashboard': {
+                  controller: 'EditProfileCtrl',
+                  templateUrl: 'views/edit-profile'
+                }
+              }
+            })
+            .state('all.dashboard', {
+              url: '/{id}/documents',
+              views: {
+                'inner-view@dashboard': {
+                  templateUrl: 'views/users/all-dashboard.html',
+                  controller: 'DashboardCtrl'
+                }
+              }
             });
 
           // when the routes are not found
-          //$urlRouterProvider.otherwise('/404');
+          $urlRouterProvider.otherwise('/404');
 
           // Token injector
           $httpProvider.interceptors.push('AuthInterceptor');
 
           // Theme colors
           $mdThemingProvider.theme('default')
-            .primaryPalette('teal')
+            .primaryPalette('blue-grey')
             .accentPalette('brown');
 
           $locationProvider.html5Mode(true);

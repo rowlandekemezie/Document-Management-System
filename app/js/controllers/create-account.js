@@ -18,6 +18,7 @@
               Users.login($scope.user).then(function(res) {
                   Auth.setToken(res.token);
                   $rootScope.loggedInUser = res;
+                  $log.info('I got here', res);
                   $state.go('dashboard', {
                     id: $stateParams.id
                   });

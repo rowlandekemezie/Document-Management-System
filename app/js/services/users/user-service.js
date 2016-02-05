@@ -28,7 +28,7 @@
         // logout
         user.logout = function() {
           var deferred = $q.defer();
-          $http.post('/api/users/logout')
+          $http.get('/api/users/logout')
             .success(deferred.resolve)
             .error(deferred.reject);
           return deferred.promise;

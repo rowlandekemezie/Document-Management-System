@@ -2,10 +2,7 @@
   'use strict';
 
   angular.module('docKip.services')
-    .factory('Auth', [
-      '$http',
-      '$q',
-      'AuthToken',
+    .factory('Auth', ['$http', '$q', 'AuthToken',
       function($http, $q, AuthToken) {
         var authFactory = {};
 
@@ -17,6 +14,12 @@
             return false;
           }
         };
+
+        // set the user's token in the local storage
+        authFactory.setToken = function(token) {
+          AuthToken.setToken(token);
+        };
+
         // Get the logged in user
         authFactory.getUser = function() {
           if (AuthToken.getToken()) {
@@ -29,9 +32,16 @@
             });
           }
         };
+
+        // log a user out by clearing the token
+        authFactory.logout = function() {
+          AuthToken.setToken();
+        };
+
         return authFactory;
       }
     ])
+
   //  Inject $window to store token on client-side
   .factory('AuthToken', ['$window',
     function($window) {
@@ -71,7 +81,7 @@
         // Check forbidden error
         if (response.status == 403) {
           AuthToken.setToken();
-          $location.path('/login');
+          $location.path('/');
         }
         // Return error from the server as a promise
         return $q.reject(response);

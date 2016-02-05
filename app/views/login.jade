@@ -19,7 +19,7 @@
         div(layout="column" flex layout-align="center center")
           p.link {{status}}
           div(layout="column")
-            md-button.md-raised.md-accent.md-primary(type="submit" ng-disabled="login.$invalid") Login
+            md-button.md-raised.md-accent.md-primary(type="submit" layout-padding style="background-color:teal" ng-disabled="login.$invalid") Login
             h4
               span Create new account? &nbsp;
-              a(ng-click="createAccount($event)") Sign-Up - It's free
+              span(ng-click="cancel()") Sign-Up - It's free

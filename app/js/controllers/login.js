@@ -8,25 +8,26 @@
       '$rootScope',
       'Auth',
       'Users',
-      '$timeout',
-      '$log',
+      // '$timeout',
+      // '$log',
       '$stateParams',
-      function($scope, $state, $rootScope, Auth, Users, $stateParams, $timeout, $log) {
+      '$mdDialog',
+      function($scope, $state, $rootScope, Auth, Users, $stateParams, $mdDialog) {
+
         // login
+        $scope.user = {};
         $scope.loginUser = function() {
           $scope.status = '';
           Users.login($scope.user).then(function(res) {
-            $log.info('I got here');
             Auth.setToken(res.token);
             $rootScope.loggedInUser = res;
-            $log.warn($rootScope.loggedInUser.username);
-            $log.info(res);
             $state.go('dashboard', {
               id: $stateParams.id
            });
             $scope.status = res.message;
+            $mdDialog.cancel();
           }, function(err) {
-            $log.warn(err, 'not successful');
+            $scope.status = err.message || err.error || 'not successful';
           });
         };
       }

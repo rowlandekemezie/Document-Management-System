@@ -13,7 +13,7 @@
 
     // route for logout. This requires that a user is signIn
     router.route('/users/logout')
-      .post(userController.logout);
+      .get(userController.logout);
 
     // route to create new user requires no authentication
     // but viewing users does.
