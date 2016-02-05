@@ -50,7 +50,7 @@
           .set('x-access-token', adminToken)
           .send(roleData[1])
           .end(function(err, res) {
-            console.log(res.status);
+            console.log(res.body);
             expect(res.status).to.equal(200);
             expect(err).to.be.a('null');
             expect(err).not.to.be.a('undefined');
