@@ -21,17 +21,17 @@
         };
 
         // Get the logged in user
-        authFactory.getUser = function() {
-          if (AuthToken.getToken()) {
-            return $http.get('/api/users', {
-              cache: true
-            });
-          } else {
-            return $q.reject({
-              message: 'User has no token'
-            });
-          }
-        };
+        // authFactory.getUser = function() {
+        //   if (AuthToken.getToken()) {
+        //     return $http.get('/api/users', {
+        //       cache: true
+        //     });
+        //   } else {
+        //     return $q.reject({
+        //       message: 'User has no token'
+        //     });
+        //   }
+        // };
 
         // log a user out by clearing the token
         authFactory.logout = function() {

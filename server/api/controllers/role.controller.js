@@ -23,7 +23,7 @@
           var newRole = new Role(adminRole);
           newRole.save(function(err) {
             if (err) {
-              res.send(err);
+              res.json(err);
             } else {
               res.status(200).json({
                 success: true,
@@ -49,7 +49,7 @@
   exports.getAllRoles = function(req, res) {
     Role.find({}).exec(function(err, roles) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
       } else if (!roles) {
         res.status(404).json({
           message: 'No role exist',
@@ -71,7 +71,7 @@
       _id: req.params.id
     }, function(err, role) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
       } else if (!role) {
         res.status(404).json({
           success: false,
@@ -91,7 +91,7 @@
   exports.updateRole = function(req, res) {
     Role.findByIdAndUpdate(req.params.id, req.body, function(err, role) {
       if (err) {
-        req.status(500).send(err);
+        req.status(500).json(err);
       } else if (!role) {
         res.status(404).json({
           success: false,
@@ -113,7 +113,7 @@
   exports.deleteRole = function(req, res) {
     Role.findByIdAndRemove(req.params.id, function(err, role) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
       } else if (!role) {
         res.status(404).json({
           success: false,

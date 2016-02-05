@@ -14,7 +14,7 @@
   module.exports = function(req, res, next) {
     Document.findById(req.params.id, function(err, doc) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
       } else {
         if (!doc) {
           res.status(404).json({
@@ -22,7 +22,6 @@
             message: 'Document not available'
           });
         } else {
-          console.log(req.decoded);
           if (req.decoded._id !== doc.ownerId &&
             req.decoded.role !== config.role &&
             req.decoded.role !== 'Documentarian') {

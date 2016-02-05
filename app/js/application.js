@@ -32,66 +32,95 @@
       'ngResource',
       'ngMaterial',
       'ui.router',
-      'ngAnimate'
+      'ngAnimate',
+      'ui.gravatar'
       //'ngMessages'
 
     ])
-      .run(['$rootScope' /*, '$scope', 'Auth'*/ ,
-        function($rootScope, $scope, Auth) {
-          // check that a user is logged in for each request on a route
-          $rootScope.$on(['$stateChangeStart',
-            function() {
-              $scope.loggedIn = Auth.isLoggedIn();
-              // get the user details
-              Auth.getUser().then(function(response) {
-                $rootScope.loggedInUser = response.data;
-              });
+      .run(['$rootScope', 'Auth', '$state', '$location', 'Users', '$log',
+        function($rootScope, Auth, $state, $location, Users, $log) {
+
+          // solution #1: on change ogf state, ensure the user is logged
+          // Else redirect to login
+          $rootScope.$on('$stateChangeSuccess', fireAuth);
+
+          function fireAuth(ev, toState) {
+            ev.preventDefault();
+            if (toState.authenticate && $rootScope.loggedInUser) {
+              $state.go(toState);
+            } else if (!toState.authenticate || 'home') {
+              $state.go(toState);
+            } else {
+              $state.go('home');
             }
-          ]);
+          }
+
+          // check the use in session and make global the user's details
+          Users.getUser().then(function(res) {
+            $rootScope.loggedInUser = res;
+            $log.info($rootScope.loggedInUser, 'res');
+          }, function(err) {
+            $rootScope.loggedInUser = err;
+            $log.info($rootScope.loggedInUser, 'err');
+          });
         }
       ])
       .config(['$locationProvider',
         '$stateProvider',
-        '$mdThemingProvider', '$urlRouterProvider', '$httpProvider',
+        '$mdThemingProvider', '$urlRouterProvider', '$httpProvider', 'gravatarServiceProvider',
 
         function($locationProvider,
           $stateProvider,
           $mdThemingProvider,
-          $urlRouterProvider, $httpProvider) {
+          $urlRouterProvider, $httpProvider, gravatarServiceProvider) {
 
-          // Now set up the states
+          // gravatar images
+          gravatarServiceProvider.defaults = {
+            size: 30,
+            'default': 'mm'
+
+            // Mystery man as default for missing avatars
+          };
+
+          // Use https endpoint
+          gravatarServiceProvider.secure = true;
+
+          // Set up the states
           $stateProvider
-            .state('404', {
-              url: '/404',
-              templateUrl: 'views/404.html'
-            })
             .state('home', {
               url: '/',
               templateUrl: 'views/home.html',
               //controller: 'HeadCtrl'
             })
             .state('dashboard', {
-              url: '/users/dashboard',
+              url: '/users/dashboard/{id}',
+              authenticate: true,
               templateUrl: 'views/users/dashboard.html',
-              controller: 'DashboadCtrl'
+              controller: 'DashboardCtrl'
             })
             .state('editProfile.dashboard', {
               url: '/{id}/edit',
+              authenticate: true,
               views: {
                 'inner-view@dashboard': {
                   controller: 'EditProfileCtrl',
-                  templateUrl: 'views/edit-profile'
+                  templateUrl: 'views/edit-profile.html'
                 }
               }
             })
             .state('all.dashboard', {
               url: '/{id}/documents',
+              authenticate: true,
               views: {
                 'inner-view@dashboard': {
                   templateUrl: 'views/users/all-dashboard.html',
                   controller: 'DashboardCtrl'
                 }
               }
+            })
+            .state('404', {
+              url: '/404',
+              templateUrl: 'views/404.html'
             });
 
           // when the routes are not found
