@@ -8,21 +8,7 @@
       'AuthToken',
       function($http, $q, AuthToken) {
         var authFactory = {};
-        authFactory.login = function(userName, password) {
-          // Return promise object and it's data
-          return $http.post('/api/users', {
-              userName: userName,
-              password: password
-            })
-            .success(function(data) {
-              AuthToken.setToken(data.token);
-              return data;
-            });
-        };
-        // Log a user out by clearing the token
-        authFactory.logout = function() {
-          AuthToken.setToken();
-        };
+
         // Check that the user is loggedIn
         authFactory.isLoggedIn = function() {
           if (AuthToken.getToken()) {
@@ -64,6 +50,7 @@
       return authTokenFactory;
     }
   ])
+
   // Configuration to integrate token into  every requests
   .factory('AuthInterceptor', ['$q',
     '$location',

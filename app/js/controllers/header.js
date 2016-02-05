@@ -5,7 +5,7 @@
     .controller('HeadCtrl', ['$rootScope', '$scope', 'Auth', 'Users', '$state',
       function($rootScope, $scope, Auth, Users, $state) {
         $scope.logout = function() {
-          Users.logout(function(err, res) {
+          Users.logout(function(err) {
             if (err) {
               return err;
             } else {
@@ -17,15 +17,11 @@
             }
           });
         };
-        $scope.test = function(){
-          Users.getUserDocs({id: '56ab4c4ac82a87191caad0f2'}, function  (err, docs) {
-            $scope.docs = docs || err;
-          })
-        }
-        // check that the user is logged in
+       // $scope.username = $rootScope.loggedInUser.username;
+        //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
+        console.log($scope.loggedIn);
         // ToDO: Details of logged in user
-
       }
     ]);
 })();

@@ -64,6 +64,7 @@
             res.status(200).json({
               token: token,
               success: true,
+              username: user.userName,
               message: 'Login successful'
             });
           }

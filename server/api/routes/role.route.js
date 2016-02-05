@@ -11,7 +11,7 @@
     // allow admin to create and read roles
     router.route('/roles')
       .post(userAuth, verifyAdmin, roleController.createRole)
-      .get(userAuth, verifyAdmin, roleController.getAllRoles);
+      .get(roleController.getAllRoles);
 
     // allow authorized role to update or delete a particular role
     router.route('/roles/:id')

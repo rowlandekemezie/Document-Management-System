@@ -1,7 +1,7 @@
 {
-  "name": "document-manager-rest-api",
+  "name": "document-manager-system",
   "version": "1.0.1",
-  "description": "A RESTful API to implement CRUD for a document management system",
+  "description": "A document management system that manages user's documents",
   "preferGlobal": true,
   "bin": {
     "mocha": "./bin/mocha",
