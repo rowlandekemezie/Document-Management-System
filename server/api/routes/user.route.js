@@ -11,9 +11,13 @@
     router.route('/users/login')
       .post(userController.login);
 
+    // getting the user information
+    router.route('/users/UserInSession')
+     .get(userController.session);
+
     // route for logout. This requires that a user is signIn
     router.route('/users/logout')
-      .post(userController.logout);
+      .get(userController.logout);
 
     // route to create new user requires no authentication
     // but viewing users does.

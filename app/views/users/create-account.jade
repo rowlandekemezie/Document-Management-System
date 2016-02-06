@@ -1,9 +1,9 @@
 .sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak)
-  div.md-margin(layout-padding)
-    div(layout-gt-sm="row" flex)
+  div(layout-padding layout-align="center center")
+    div(layout-gt-sm="column")
       h4.header-display Sign Up
+      span(flex="")
       span(class='fa fa-times' ng-click='cancel()' aria-label='Close dialog' style='cursor: pointer;')
-      span
     form(Name="signup" method="post" novalidate ng-submit="signUp()")
       div(layout-gt-sm="row" flex)
         md-input-container.md-block
@@ -43,9 +43,9 @@
       span.error(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue") Password doesn't match
       //- div.md-padding(layout="row" layout-sm="column" layout-align="space-around")
       //-   md-progress-circular(md-mode="determinate" value="{{progress}}")
-      div(layout="row" flex layout-align="center center")
+      div(layout="column" flex layout-align="center center")
         p.link {{status}}
-        md-button.md-raised.md-accent.md-hue-2(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
+        md-button.md-raised.md-accent(type="submit" style="background-color:teal" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
         h4
           span Already registered? &nbsp;
-          a(ui-sref="login") Login
+          a(ng-click="cancel()") Login

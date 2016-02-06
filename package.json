@@ -1,7 +1,7 @@
 {
-  "name": "document-manager-rest-api",
+  "name": "document-manager-system",
   "version": "1.0.1",
-  "description": "A RESTful API to implement CRUD for a document management system",
+  "description": "A document management system that manages user's documents",
   "preferGlobal": true,
   "bin": {
     "mocha": "./bin/mocha",
@@ -12,7 +12,7 @@
     "start": "nodemon index.js",
     "test": "istanbul cover -x *.spec.js _mocha -- -R spec spec/server/",
     "test:single": "mocha spec",
-    "check-coverage": "istanbul check-coverage --statements 80 --branches 65 --statements 80 --lines 80",
+    "check-coverage": "istanbul check-coverage --statements 80 --branches 60 --statements 80 --lines 80",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",

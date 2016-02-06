@@ -3,12 +3,16 @@ md-toolbar.header-spacing.md-whiteframe-z2(flex layout="row" ng-cloak='' ng-cont
     h2
       a(ui-sref="home" layout-padding) DocKip
     span(flex='')
-    | You are logged in as {{loggedInUser.username}}
+    |  {{loggedInUser.userName}}
+    a(ng-if="loggedIn" ui-sref="dashboard")
+      md-button.md-icon-button.icon-button(aria-label="gravatar" layout-wrap)
+      img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
+      md-tooltip {{loggedInUser.userName}}
     a(ng-if="loggedIn")
-      md-button.md-icon-button(aria-label='logout' ng-click="logout()" layout-wrap)
+      md-button.md-icon-button(aria-label='logout' ng-click="logoutUser()" layout-wrap)
         i.md-accent.fa.fa-sign-out
         md-tooltip logout
-    a(ng-if="!loggedIn" ui-sref="login")
-      md-button.md-icon-button(aria-label='login' layout-wrap)
+    a(ng-if="!loggedIn" ui-sref="home")
+      md-button.md-icon-button(aria-label='login' ng-click="loginUser()" layout-wrap)
         i.md-accent.fa.fa-sign-in
         md-tooltip login

@@ -18,7 +18,7 @@
         title: doc.role
       }, function(err, role) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else {
           if (!role) {
             res.status(406).json({
@@ -40,7 +40,7 @@
                 var newDoc = new Document(doc);
                 newDoc.save(function(err) {
                   if (err) {
-                    res.status(500).send(err);
+                    res.status(500).json(err);
                   } else {
                     res.status(200).json({
                       success: true,
@@ -65,7 +65,7 @@
       .limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({
             success: false,
@@ -87,7 +87,7 @@
         _id: req.params.id
       }, function(err, doc) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else if (!doc) {
           res.status(404).json({
             success: false,
@@ -111,7 +111,7 @@
       .limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({
             success: false,
@@ -135,7 +135,7 @@
       .limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({
             success: false,
@@ -158,7 +158,7 @@
       }).limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({
             success: false,
@@ -178,7 +178,7 @@
     updateDocument: function(req, res) {
       Document.findByIdAndUpdate(req.params.id, req.body, function(err) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else {
           res.status(200).json({
             success: true,
@@ -196,7 +196,7 @@
     deleteDocument: function(req, res) {
       Document.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
-          res.status(500).send(err);
+          res.status(500).json(err);
         } else {
           res.status(200).json({
             success: true,

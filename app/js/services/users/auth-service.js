@@ -2,27 +2,10 @@
   'use strict';
 
   angular.module('docKip.services')
-    .factory('Auth', [
-      '$http',
-      '$q',
-      'AuthToken',
+    .factory('Auth', ['$http', '$q', 'AuthToken',
       function($http, $q, AuthToken) {
         var authFactory = {};
-        authFactory.login = function(userName, password) {
-          // Return promise object and it's data
-          return $http.post('/api/users', {
-              userName: userName,
-              password: password
-            })
-            .success(function(data) {
-              AuthToken.setToken(data.token);
-              return data;
-            });
-        };
-        // Log a user out by clearing the token
-        authFactory.logout = function() {
-          AuthToken.setToken();
-        };
+
         // Check that the user is loggedIn
         authFactory.isLoggedIn = function() {
           if (AuthToken.getToken()) {
@@ -31,21 +14,34 @@
             return false;
           }
         };
-        // Get the logged in user
-        authFactory.getUser = function() {
-          if (AuthToken.getToken()) {
-            return $http.get('/api/users', {
-              cache: true
-            });
-          } else {
-            return $q.reject({
-              message: 'User has no token'
-            });
-          }
+
+        // set the user's token in the local storage
+        authFactory.setToken = function(token) {
+          AuthToken.setToken(token);
         };
+
+        // Get the logged in user
+        // authFactory.getUser = function() {
+        //   if (AuthToken.getToken()) {
+        //     return $http.get('/api/users', {
+        //       cache: true
+        //     });
+        //   } else {
+        //     return $q.reject({
+        //       message: 'User has no token'
+        //     });
+        //   }
+        // };
+
+        // log a user out by clearing the token
+        authFactory.logout = function() {
+          AuthToken.setToken();
+        };
+
         return authFactory;
       }
     ])
+
   //  Inject $window to store token on client-side
   .factory('AuthToken', ['$window',
     function($window) {
@@ -64,6 +60,7 @@
       return authTokenFactory;
     }
   ])
+
   // Configuration to integrate token into  every requests
   .factory('AuthInterceptor', ['$q',
     '$location',
@@ -84,7 +81,7 @@
         // Check forbidden error
         if (response.status == 403) {
           AuthToken.setToken();
-          $location.path('/login');
+          $location.path('/');
         }
         // Return error from the server as a promise
         return $q.reject(response);

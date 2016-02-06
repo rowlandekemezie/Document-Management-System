@@ -4,28 +4,19 @@
   angular.module('docKip.controllers')
     .controller('HeadCtrl', ['$rootScope', '$scope', 'Auth', 'Users', '$state',
       function($rootScope, $scope, Auth, Users, $state) {
-        $scope.logout = function() {
-          Users.logout(function(err, res) {
-            if (err) {
-              return err;
-            } else {
-              delete $rootScope.loggedInUser;
-              Auth.logout()
-                .success(function() {
-                  $state.go('login');
-                });
-            }
-          });
+        console.log('got in here');
+        $scope.logoutUser = function() {
+          Auth.logout();
+          console.log($rootScope.currentUser);
+          $rootScope.loggedInUser = '';
+          $state.go('home', {reload: true});
         };
-        $scope.test = function(){
-          Users.getUserDocs({id: '56ab4c4ac82a87191caad0f2'}, function  (err, docs) {
-            $scope.docs = docs || err;
-          })
-        }
-        // check that the user is logged in
+        // $scope.username = $rootScope.loggedInUser.username;
+        //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
-        // ToDO: Details of logged in user
 
+        // console.log($scope.loggedIn);
+        // ToDO: Details of logged in user
       }
     ]);
 })();
