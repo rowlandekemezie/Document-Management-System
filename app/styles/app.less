@@ -5,6 +5,7 @@
   background-color: white;
   padding-top: 3px;
 }
+
 .menu {
   background-color: white;
   border: none;
@@ -15,7 +16,7 @@
 }
 
 img {
-  opacity: 0.4;
+  opacity: 100%;
 }
 
 .jumbobox {
@@ -32,7 +33,8 @@ img {
     width: 60%;
   }
 }
-.home-page{
+
+.home-page {
   width: 100%;
   height: 700px;
   padding-top: 3px;
@@ -106,7 +108,7 @@ h1.md-button.md-raised.md-primary {
   background-color: #ccc;
   color: teal;
   font-size: 20px;
-  width: 150px;
+  width: auto;
   height: 15px;
   border-radius: 5px;
 }
@@ -129,16 +131,15 @@ div > md-button {
   padding-bottom: 10px;
 }
 
-.footer{
+.footer {
   width: 100%;
   text-align: center;
   font-size: 0.8em;
   background-color: grey;
-  color:white;
+  color: white;
   width: 100%;
   height: 60px;
   position: absolute;
-  overflow: hidden;
 }
 
 input {
@@ -185,9 +186,9 @@ div > md-button {
   font-family: Rightous;
 }
 
-.dashboard-wrapper{
+.dashboard-wrapper {
   width: 99.5%;
-  height: 700px;
+  height: 660px;
   padding-top: 3px;
   position: relative;
   margin: auto;
@@ -196,6 +197,7 @@ div > md-button {
   background-color: silver;
   color: teal;
 }
+
 .dashboard-header {
   width: 99%;
   height: 50px;
@@ -205,6 +207,7 @@ div > md-button {
   position: absolute;
   background-color: whitesmoke;
 }
+
 .side-bar {
   width: 200px;
   height: 640px;
@@ -214,6 +217,7 @@ div > md-button {
   border: dashed 3px green;
   color: red;
 }
+
 .inner-view {
   width: 1210px;
   height: 640px;
@@ -224,11 +228,40 @@ div > md-button {
   float: right;
   border: solid 2px red;
 }
+
 .search-bar {
   height: 40px;
   width: 150px;
   text-align: center;
 }
+
 .text-center {
   text-align: center;
+}
+
+md-sidenav,
+md-sidenav.md-locked-open,
+md-sidenav.md-closed.md-locked-open-add-active {
+  width: 150px !important;
+  min-width: 150px !important;
+  max-width: 150px !important;
+}
+
+
+md-sidenav .ripple-container {
+  position: relative;
+  background-color: #3359df;
+  color: #fff;
+}
+.create-document-btn {
+  position: fixed;
+  right: 0;
+  margin-bottom: 40%;
+}
+.fit, .fit-margin {
+ margin: 0
+}
+
+.fit, .fit-padding {
+  padding: 0;
 }

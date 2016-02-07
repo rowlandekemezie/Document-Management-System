@@ -90,14 +90,14 @@
             })
 
             .state('dashboard', {
-              url: '/users/dashboard/{id}',
+              url: '/users/{id}/dashboard',
               authenticate: true,
               templateUrl: 'views/users/dashboard.html',
               controller: 'DashboardCtrl'
             })
 
             .state('editProfile.dashboard', {
-              url: '/{id}/edit',
+              url: 'dashboard/{id}/edit',
               authenticate: true,
               views: {
                 'inner-view@dashboard': {

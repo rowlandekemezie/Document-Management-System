@@ -1,8 +1,8 @@
 (function() {
   'use strict';
   angular.module('docKip.controllers')
-    .controller('UserAccountCtrl', ['$state', '$scope', 'Auth', 'Users', '$log', '$rootScope', '$mdDialog', '$stateParams', 'Roles',
-      function($state, $scope, Auth, Users, $log, $rootScope, $mdDialog, $stateParams, Roles) {
+    .controller('UserAccountCtrl', ['$state', '$scope', 'Auth', 'Users', '$log', '$rootScope', '$mdDialog', '$stateParams', 'Roles', 'Utils',
+      function($state, $scope, Auth, Users, $log, $rootScope, $mdDialog, $stateParams, Roles, Utils) {
         $log.warn('I got into the create user controller');
 
         // get all roles from the Db
@@ -19,6 +19,7 @@
             $state.go('dashboard', {
               id: $scope.id
             });
+            Utils.toast('Welcome to DocKip '+ res.user.userName);
             $scope.status = res.message;
             $mdDialog.cancel();
           }, function(err) {

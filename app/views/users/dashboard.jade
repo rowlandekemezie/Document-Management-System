@@ -6,15 +6,23 @@
         span
         img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
         .text-center {{loggedInUser.userName}}
-    md-list
-      a(ng-repeat="menu in sidebarMenu")
-        md-list-item(md-ink-ripple )
-          md-item-content(layout="column" layout-align="start center")
-            .inset
-              i(class="fa fa-anchor")
-              | {{menu.name}}
-      md-divider
+    div.fit(layout="column" flex)
+      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
+        i(class="fa fa-user-secret fa-3x")
+        | View Roles
+      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
+        i(class="fa fa-user-plus fa-3x")
+        | View Users
+      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
+        i(class="fa fa-file fa-3x")
+        | View Documents
+      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
+        i(class="fa fa-pencil-square-o fa-3x")
+        | Edit Profile
   .md-padding(flex ui-view='inner-view')
+  md-button.md-fab.create-document-btn(ng-click="addDocument($event)")
+    span.fa.fa-plus
+    md-tooltip(md-direction='left') Create document
 
 
 
