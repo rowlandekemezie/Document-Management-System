@@ -7,6 +7,7 @@
 
         // get all roles from the Db
         $scope.roles = Roles.query();
+        $log.info($scope.roles);
 
         // $scope.user = {};
         $scope.loginUser = function() {

@@ -1,13 +1,15 @@
-md-toolbar.header-spacing.md-whiteframe-z2(flex layout="row" ng-cloak='' ng-controller="HeadCtrl")
+md-toolbar.header-tab.md-whiteframe-z2(flex layout="row" ng-cloak='' padding-layout ng-controller="HeadCtrl")
   .md-toolbar-tools
+    md-button.show-sm.hide-gt-sm(class="menu" ng-click="toggleList()", aria-label="toggleList")
+      md-icon(md-svg-icon="menu")
     h2
       a(ui-sref="home" layout-padding) DocKip
     span(flex='')
     |  {{loggedInUser.userName}}
-    a(ng-if="loggedIn" ui-sref="dashboard")
-      md-button.md-icon-button.icon-button(aria-label="gravatar" layout-wrap)
-      img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
-      md-tooltip {{loggedInUser.userName}}
+    a(ng-if="loggedIn" ui-sref="dashboard{id: loggedInUser.userName}")
+      md-button.md-icon-button(aria-label="gravatar" layout-wrap)
+        img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35")
+        md-tooltip {{loggedInUser.userName}}
     a(ng-if="loggedIn")
       md-button.md-icon-button(aria-label='logout' ng-click="logoutUser()" layout-wrap)
         i.md-accent.fa.fa-sign-out

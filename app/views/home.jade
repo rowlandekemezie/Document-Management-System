@@ -1,19 +1,20 @@
-.jumbobox(layout="column" flex-sm="33" layout-sm="row" layout-md="row" ng-controller="UserDialogCtrl" layout-align="center center" ng-cloak)
-  div.box(flex="70")
-    span DocKip is the free, flexible, and easy way to organize and manage your documents.
-  div(layout-wrap layout-padding layout-align="center center")
-    span Create, Read, Edit, and Delete your documents
+.home-page
+  .jumbobox(layout="column" flex-sm="33" layout-sm="row" flex-md="66" layout-md="row" ng-controller="UserDialogCtrl" layout-align="center center" ng-cloak)
+    div.box(flex="70")
+      span DocKip is the free, flexible, and easy way to organize and manage your documents.
+    div.md-margin(layout-wrap layout-padding layout-align="center center")
+      span Create, Read, Edit, and Delete documents
 
-    div(ng-if="!loggedIn")
-      br
-      h4 Login to manage your documents
-      h1.md-button.md-raised.md-primary.md-accent(ng-click="signInUser($event)" md-no-ink) Login
-      div
-      | {{docs}} {{loggedIn}}
-      h4 Have no account, &nbsp;
-       a(ng-click="createAccount($event)" md-no-ink) Sign Up - It's free
+      div(ng-if="!loggedInUser")
+        br
+        h4 Login to manage your documents
+        h1.md-button.md-raised.md-primary.md-accent(ng-click="signInUser($event)" md-no-ink) Login
+        div
+        | {{docs}} {{loggedIn}}
+        h4 Have no account, &nbsp;
+         a(ng-click="createAccount($event)" md-no-ink) Sign Up - It's free
 
 
-    div(ng-if="loggedIn")
-      div
-        h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard" md-no.ink) manage documents
+      div(ng-if="loggedInUser")
+        div
+          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard" md-no.ink) View documents

@@ -1,8 +1,17 @@
-.header {
+.header-tab {
   height: 24px;
   font-size: 10px;
-  opacity: 70%;
+  opacity: 100%;
   background-color: white;
+  padding-top: 3px;
+}
+.menu {
+  background-color: white;
+  border: none;
+  height: 25px;
+  margin: 16px;
+  width: 25px;
+  outline: 1px;
 }
 
 img {
@@ -14,7 +23,6 @@ img {
   min-width: 200px;
   color: white;
   height: 350px;
-  margin-top: 100px;
   animation: jux 5s infinite;
   @media (max-width: 599px) {
     width: 100%;
@@ -24,9 +32,17 @@ img {
     width: 60%;
   }
 }
+.home-page{
+  width: 100%;
+  height: 700px;
+  padding-top: 3px;
+  position: relative;
+  margin: auto;
+  margin-top: 100px;
+}
 
 a {
-  color: grey;
+  color: red;
   font-size: 18px;
   font-family: Roboto;
 }
@@ -36,9 +52,12 @@ a:hover {
 }
 
 body {
-  background-image: url('./../images/background1.png');
-  background-repeat: repeat-x;
+  /*background-image: url('./../images/background1.png');
+  background-repeat: repeat-x;*/
   animation: animatedBackground 40s linear infinite;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 @keyframes animatedBackground {
@@ -71,10 +90,10 @@ h5 {
 }
 
 .box {
-  height: 50%;
   width: 50%;
   font-size: 40px;
   padding-top: 10px;
+  margin: 10px auto;
   line-height: 1.5em;
   color: white;
   animation: jux 5s infinite;
@@ -110,16 +129,15 @@ div > md-button {
   padding-bottom: 10px;
 }
 
-.footer {
+.footer{
   width: 100%;
   text-align: center;
   font-size: 0.8em;
-  margin-top: 200px;
-  background-color: #ccc;
+  background-color: grey;
+  color:white;
   width: 100%;
   height: 60px;
-  padding-bottom: 5px;
-  position: relative;
+  position: absolute;
   overflow: hidden;
 }
 
@@ -160,8 +178,57 @@ p.link {
 div > md-button {
   text-align: center;
 }
+
 .header-display {
   text-align: center;
   color: grey;
   font-family: Rightous;
+}
+
+.dashboard-wrapper{
+  width: 99.5%;
+  height: 700px;
+  padding-top: 3px;
+  position: relative;
+  margin: auto;
+  border: yellow 3px dotted;
+  text-align: center;
+  background-color: silver;
+  color: teal;
+}
+.dashboard-header {
+  width: 99%;
+  height: 50px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: red solid;
+  position: absolute;
+  background-color: whitesmoke;
+}
+.side-bar {
+  width: 200px;
+  height: 640px;
+  margin-top: 25px;
+  position: absolute;
+  float: left;
+  border: dashed 3px green;
+  color: red;
+}
+.inner-view {
+  width: 1210px;
+  height: 640px;
+  margin-top: 25px;
+  margin-left: 200px;
+  position: absolute;
+  overflow: hidden;
+  float: right;
+  border: solid 2px red;
+}
+.search-bar {
+  height: 40px;
+  width: 150px;
+  text-align: center;
+}
+.text-center {
+  text-align: center;
 }

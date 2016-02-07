@@ -37,20 +37,19 @@
       //'ngMessages'
 
     ])
-      .run(['$rootScope', 'Auth', '$state', '$location', 'Users', '$log',
-        function($rootScope, Auth, $state, $location, Users, $log) {
+      .run(['$rootScope', 'Auth', '$state', '$location', 'Users', '$mdSidenav', '$log',
+        function($rootScope, Auth, $state, $location, Users, $mdSidenav, $log) {
 
-          // solution #1: on change ogf state, ensure the user is logged
+          // solution #1: on change of state, ensure the user is logged
           // Else redirect to login
           $rootScope.$on('$stateChangeSuccess', fireAuth);
 
           function fireAuth(ev, toState) {
-            ev.preventDefault();
             if (toState.authenticate && $rootScope.loggedInUser) {
-              $state.go(toState);
-            } else if (!toState.authenticate || 'home') {
+              ev.preventDefault();
               $state.go(toState);
             } else {
+              ev.preventDefault();
               $state.go('home');
             }
           }
@@ -60,9 +59,9 @@
             $rootScope.loggedInUser = res;
             $log.info($rootScope.loggedInUser, 'res');
           }, function(err) {
-            $rootScope.loggedInUser = err;
-            $log.info($rootScope.loggedInUser, 'err');
+            $log.debug(err);
           });
+
         }
       ])
       .config(['$locationProvider',
@@ -78,8 +77,6 @@
           gravatarServiceProvider.defaults = {
             size: 30,
             'default': 'mm'
-
-            // Mystery man as default for missing avatars
           };
 
           // Use https endpoint
@@ -90,14 +87,15 @@
             .state('home', {
               url: '/',
               templateUrl: 'views/home.html',
-              //controller: 'HeadCtrl'
             })
+
             .state('dashboard', {
               url: '/users/dashboard/{id}',
               authenticate: true,
               templateUrl: 'views/users/dashboard.html',
               controller: 'DashboardCtrl'
             })
+
             .state('editProfile.dashboard', {
               url: '/{id}/edit',
               authenticate: true,
@@ -108,6 +106,7 @@
                 }
               }
             })
+
             .state('all.dashboard', {
               url: '/{id}/documents',
               authenticate: true,
@@ -118,6 +117,7 @@
                 }
               }
             })
+
             .state('404', {
               url: '/404',
               templateUrl: 'views/404.html'

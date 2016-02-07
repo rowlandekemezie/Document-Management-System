@@ -1,3 +1,20 @@
-div
-  h2
-    span Welcome to the dashboard
+.dashboard-wrapper(ng-if="loggedInUser" layout="row" flex ng-init="init()")
+  md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" layout="column" md-is-locked-open="$mdMedia('gt-md')")
+    md-toolbar.md-hue-2.toolbar-header
+      span(flex)
+      .md-toolbar-tools-bottom.inset(layout="column")
+        span
+        img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
+        .text-center {{loggedInUser.userName}}
+    md-list
+      a(ng-repeat="menu in sidebarMenu")
+        md-list-item(md-ink-ripple )
+          md-item-content(layout="column" layout-align="start center")
+            .inset
+              i(class="fa fa-anchor")
+              | {{menu.name}}
+      md-divider
+  .md-padding(flex ui-view='inner-view')
+
+
+
