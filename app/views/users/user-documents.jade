@@ -1,0 +1,20 @@
+md-content(layout-padding ng-if="loggedInUser" ng-init="init()")
+  md-list(ng-repeat="document in documents")
+    table
+      tr
+        th Last modified
+        th Owner
+        th title
+        th content
+      tr
+        td {{document.lastModified}}
+        td {{document.ownerId}}
+        td {{document.title}}
+        td {{document.content}}
+        td {{document.ownerTitle}}
+        td {{document.docCount}}
+  md-divider
+  md-button.md-fab.add-event-btn(ng-click="createDoc($event)")
+    span.fa.fa-plus
+    md-tooltip(md-direction='left') create document
+

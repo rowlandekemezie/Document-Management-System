@@ -1,10 +1,10 @@
-.dashboard-wrapper(ng-if="loggedInUser" layout="row" flex ng-init="init()")
+.dashboard-wrapper(ng-if="loggedInUser" layout="row" flex)
   md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" layout="column" md-is-locked-open="$mdMedia('gt-md')")
     md-toolbar.md-hue-2.toolbar-header
       span(flex)
       .md-toolbar-tools-bottom.inset(layout="column")
         span
-        img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
+        //- img(gravatar-src="{{loggedInUser.email}}" gravatar-size="35" hide-sm)
         .text-center {{loggedInUser.userName}}
     div.fit(layout="column" flex)
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
@@ -16,13 +16,8 @@
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
         i(class="fa fa-file fa-3x")
         | View Documents
-      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
-        i(class="fa fa-pencil-square-o fa-3x")
-        | Edit Profile
-  .md-padding(flex ui-view='inner-view')
-  md-button.md-fab.create-document-btn(ng-click="addDocument($event)")
-    span.fa.fa-plus
-    md-tooltip(md-direction='left') Create document
-
-
-
+      a(ui-sref="dashboard.editProfile({id: loggedInUser._id})")
+        md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
+          i(class="fa fa-pencil-square-o fa-3x")
+          | Edit Profile
+  .md-padding(flex ui-view="inner-view")

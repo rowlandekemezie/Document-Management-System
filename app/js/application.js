@@ -89,39 +89,47 @@
               templateUrl: 'views/home.html',
             })
 
-            .state('dashboard', {
-              url: '/users/{id}/dashboard',
-              authenticate: true,
-              templateUrl: 'views/users/dashboard.html',
-              controller: 'DashboardCtrl'
-            })
-
-            .state('editProfile.dashboard', {
-              url: 'dashboard/{id}/edit',
-              authenticate: true,
-              views: {
-                'inner-view@dashboard': {
-                  controller: 'EditProfileCtrl',
-                  templateUrl: 'views/edit-profile.html'
-                }
+          .state('dashboard', {
+            url: '/users/dashboard',
+            authenticate: true,
+            views: {
+              '': {
+                templateUrl: 'views/users/dashboard.html',
+                controller: 'DashboardCtrl'
+              },
+              'inner-view@dashboard': {
+                controller: 'DashboardCtrl',
+                templateUrl: 'views/users/user-documents.html'
               }
-            })
+            }
+          })
 
-            .state('all.dashboard', {
-              url: '/{id}/documents',
-              authenticate: true,
-              views: {
-                'inner-view@dashboard': {
-                  templateUrl: 'views/users/all-dashboard.html',
-                  controller: 'DashboardCtrl'
-                }
+          .state('dashboard.editProfile', {
+            url: '/{id}/edit',
+            authenticate: true,
+            views: {
+              'inner-view@dashboard': {
+                controller: 'EditProfileCtrl',
+                templateUrl: 'views/edit-profile.html'
               }
-            })
+            }
+          })
 
-            .state('404', {
-              url: '/404',
-              templateUrl: 'views/404.html'
-            });
+          .state('dashboard.all', {
+            url: '/documents',
+            authenticate: true,
+            views: {
+              'inner-view@dashboard': {
+                templateUrl: 'views/users/all-documents.html',
+                controller: 'DashboardCtrl'
+              }
+            }
+          })
+
+          .state('404', {
+            url: '/404',
+            templateUrl: 'views/404.html'
+          });
 
           // when the routes are not found
           $urlRouterProvider.otherwise('/404');
