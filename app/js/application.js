@@ -19,6 +19,7 @@
     require('./controllers/login');
     require('./controllers/dashboard');
     require('./controllers/user-dialog');
+    require('./controllers/document');
 
 
     // require angular messages
@@ -37,32 +38,31 @@
       //'ngMessages'
 
     ])
-      .run(['$rootScope', 'Auth', '$state', '$location', 'Users', '$log',
-        function($rootScope, Auth, $state, $location, Users, $log) {
+      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
+        function($rootScope, Auth, $state, Users, $log) {
 
-          // solution #1: on change ogf state, ensure the user is logged
+          // solution #1: on change of state, ensure the user is logged
           // Else redirect to login
           $rootScope.$on('$stateChangeSuccess', fireAuth);
 
           function fireAuth(ev, toState) {
-            ev.preventDefault();
             if (toState.authenticate && $rootScope.loggedInUser) {
-              $state.go(toState);
-            } else if (!toState.authenticate || 'home') {
+              ev.preventDefault();
               $state.go(toState);
             } else {
+              ev.preventDefault();
               $state.go('home');
             }
           }
 
-          // check the use in session and make global the user's details
+          // check that the user is in session and make global the user's details
           Users.getUser().then(function(res) {
             $rootScope.loggedInUser = res;
-            $log.info($rootScope.loggedInUser, 'res');
+            //$log.info($rootScope.loggedInUser, 'res');
           }, function(err) {
-            $rootScope.loggedInUser = err;
-            $log.info($rootScope.loggedInUser, 'err');
+            $log.debug(err);
           });
+
         }
       ])
       .config(['$locationProvider',
@@ -78,8 +78,6 @@
           gravatarServiceProvider.defaults = {
             size: 30,
             'default': 'mm'
-
-            // Mystery man as default for missing avatars
           };
 
           // Use https endpoint
@@ -90,38 +88,59 @@
             .state('home', {
               url: '/',
               templateUrl: 'views/home.html',
-              //controller: 'HeadCtrl'
             })
-            .state('dashboard', {
-              url: '/users/dashboard/{id}',
-              authenticate: true,
-              templateUrl: 'views/users/dashboard.html',
-              controller: 'DashboardCtrl'
-            })
-            .state('editProfile.dashboard', {
-              url: '/{id}/edit',
+
+          .state('dashboard', {
+            url: '/users/{id}/dashboard',
+            authenticate: true,
+            views: {
+              '@': {
+                templateUrl: 'views/users/dashboard.html',
+                controller: 'DashboardCtrl'
+              },
+              'inner-view@dashboard': {
+                controller: 'DashboardCtrl',
+                templateUrl: 'views/users/user-documents.html'
+              }
+            }
+          })
+          // TODO: Better use modal to edit profile
+          .state('dashboard.editProfile', {
+            url: '/edit',
+            authenticate: true,
+            views: {
+              'inner-view@dashboard': {
+                controller: 'EditProfileCtrl',
+                templateUrl: 'views/edit-profile.html'
+              }
+            }
+          })
+            .state('dashboard.document', {
+              url: '/documents/create',
               authenticate: true,
               views: {
                 'inner-view@dashboard': {
-                  controller: 'EditProfileCtrl',
-                  templateUrl: 'views/edit-profile.html'
+                  controller: 'DocumentCtrl',
+                  templateUrl: 'views/create-document.html'
                 }
               }
             })
-            .state('all.dashboard', {
-              url: '/{id}/documents',
-              authenticate: true,
-              views: {
-                'inner-view@dashboard': {
-                  templateUrl: 'views/users/all-dashboard.html',
-                  controller: 'DashboardCtrl'
-                }
+
+          .state('dashboard.all', {
+            url: '/documents',
+            authenticate: true,
+            views: {
+              'inner-view@dashboard': {
+                templateUrl: 'views/users/all-documents.html',
+                controller: 'DashboardCtrl'
               }
-            })
-            .state('404', {
-              url: '/404',
-              templateUrl: 'views/404.html'
-            });
+            }
+          })
+
+          .state('404', {
+            url: '/404',
+            templateUrl: 'views/404.html'
+          });
 
           // when the routes are not found
           $urlRouterProvider.otherwise('/404');
@@ -131,8 +150,8 @@
 
           // Theme colors
           $mdThemingProvider.theme('default')
-            .primaryPalette('blue-grey')
-            .accentPalette('brown');
+            .primaryPalette('deep-purple')
+            .accentPalette('indigo');
 
           $locationProvider.html5Mode(true);
         }
