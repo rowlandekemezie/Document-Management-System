@@ -1,20 +1,18 @@
 md-content(layout-padding ng-if="loggedInUser" ng-init="init()")
-  md-list(ng-repeat="document in documents")
-    table
-      tr
-        th Last modified
-        th Owner
-        th title
-        th content
-      tr
-        td {{document.lastModified}}
-        td {{document.ownerId}}
-        td {{document.title}}
-        td {{document.content}}
-        td {{document.ownerTitle}}
-        td {{document.docCount}}
-  md-divider
-  md-button.md-fab.add-event-btn(ng-click="createDoc($event)")
-    span.fa.fa-plus
+  div
+    h2.md-padding(ng-if="!userDocs") There are currently no documents. Start today
+    md-divider(md-inset)
+
+    div.md-padding(ng-if="userDocs")
+      md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
+        md-grid-tile(ng-repeat="doc in userDocs | orderBy: '-lastModified")
+          md-grid-tile-header(layout-align="center center")
+            h3(ui-sref="viewEvent({id:event.id})") {{doc.title}}
+          md-grid-tile-footer
+            div(flex layout="column" layout-padding)
+              h3.md-subheadline createdBy {{loggedInUser.userNamee}}
+              span LastModified {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
+  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+    span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create document
 

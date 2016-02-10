@@ -19,6 +19,7 @@
     require('./controllers/login');
     require('./controllers/dashboard');
     require('./controllers/user-dialog');
+    require('./controllers/document');
 
 
     // require angular messages
@@ -37,8 +38,8 @@
       //'ngMessages'
 
     ])
-      .run(['$rootScope', 'Auth', '$state', '$location', 'Users', '$mdSidenav', '$log',
-        function($rootScope, Auth, $state, $location, Users, $mdSidenav, $log) {
+      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
+        function($rootScope, Auth, $state, Users, $log) {
 
           // solution #1: on change of state, ensure the user is logged
           // Else redirect to login
@@ -54,10 +55,10 @@
             }
           }
 
-          // check the use in session and make global the user's details
+          // check that the user is in session and make global the user's details
           Users.getUser().then(function(res) {
             $rootScope.loggedInUser = res;
-            $log.info($rootScope.loggedInUser, 'res');
+            //$log.info($rootScope.loggedInUser, 'res');
           }, function(err) {
             $log.debug(err);
           });
@@ -90,10 +91,10 @@
             })
 
           .state('dashboard', {
-            url: '/users/dashboard',
+            url: '/users/{id}/dashboard',
             authenticate: true,
             views: {
-              '': {
+              '@': {
                 templateUrl: 'views/users/dashboard.html',
                 controller: 'DashboardCtrl'
               },
@@ -103,9 +104,9 @@
               }
             }
           })
-
+          // TODO: Better use modal to edit profile
           .state('dashboard.editProfile', {
-            url: '/{id}/edit',
+            url: '/edit',
             authenticate: true,
             views: {
               'inner-view@dashboard': {
@@ -114,6 +115,16 @@
               }
             }
           })
+            .state('dashboard.document', {
+              url: '/documents/create',
+              authenticate: true,
+              views: {
+                'inner-view@dashboard': {
+                  controller: 'DocumentCtrl',
+                  templateUrl: 'views/create-document.html'
+                }
+              }
+            })
 
           .state('dashboard.all', {
             url: '/documents',
@@ -139,8 +150,8 @@
 
           // Theme colors
           $mdThemingProvider.theme('default')
-            .primaryPalette('blue-grey')
-            .accentPalette('brown');
+            .primaryPalette('deep-purple')
+            .accentPalette('indigo');
 
           $locationProvider.html5Mode(true);
         }

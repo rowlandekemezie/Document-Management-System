@@ -3,8 +3,8 @@
   'use strict';
 
   angular.module('docKip.services')
-    .factory('Users', ['$resource', '$http', '$q', 'Auth',
-      function($resource, $http, $q, Auth) {
+    .factory('Users', ['$resource', '$http', '$q',
+      function($resource, $http, $q) {
 
         var user = $resource('/api/users/:id', {
           id: '@_id'
@@ -47,9 +47,9 @@
 
 
         // get all user's documents
-        user.getUserDocs = function(user) {
+        user.getUserDocs = function(userId) {
           var deferred = $q.defer();
-          $http.get('/api/users/' + user.id + '/documents')
+          $http.get('/api/users/' + userId+ '/documents')
             .success(deferred.resolve)
             .error(deferred.reject);
           return deferred.promise;
