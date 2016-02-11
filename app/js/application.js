@@ -149,8 +149,8 @@
           $httpProvider.interceptors.push('AuthInterceptor');
 
           // Theme colors
-          $mdThemingProvider.theme('default')
-            .primaryPalette('deep-purple')
+          $mdThemingProvider.theme('blue')
+            .primaryPalette('grey')
             .accentPalette('indigo');
 
           $locationProvider.html5Mode(true);

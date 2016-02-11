@@ -17,4 +17,4 @@
 
       div(ng-if="loggedInUser" flex)
         div
-          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard" md-no.ink) View documents
+          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents

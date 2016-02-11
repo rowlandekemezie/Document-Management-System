@@ -37,6 +37,9 @@
               } else if (!docs) {
                 var userId = req.decoded._id;
                 req.body.ownerId = userId;
+                // TODO: To add users name to the document
+                // for easy search.
+               // req.body.userName = req.decoded.userName;
                 var newDoc = new Document(doc);
                 newDoc.save(function(err) {
                   if (err) {

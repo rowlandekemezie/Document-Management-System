@@ -1,21 +1,25 @@
-md-content(ng-controller="DocumentCtrl" layout='row', layout-md='column', layout-sm='column', flex='100')
-  form(method='post', enctype='multipart/data', ng-submit='addDocument()')
-    md-input-container(layout-padding)
-      label
-        i.fa.fa-list &nbsp;&nbsp;&nbsp;Title
-      input(type='text', ng-model='document.title', ng-required='true', aria-label='document.title')
-    md-input-container
-      label
-        i.fa.fa-list &nbsp;&nbsp;&nbsp;Content
-      textarea(type='text', rows="50" cols="20" ng-model='document.content', ng-required='true', aria-label='document.content')
-
-    div(layout="row" layout-align="center center")
-
-      md-button.md-raised.md-accent(type='submit' ng-if="document.type === 'create'")
-        i.fa.fa-plus-circle
-        | Add
-      md-button.md-raised.md-accent(type="submit" ng-if="document.type === 'edit'")
-        i.material-icons create
-      md-button.md-raised.md-accent(type="submit")
-        i.matrial-icons cancel
+div.docForm
+  md-content(ng-controller="DocumentCtrl" layout-sm='column' flex='100' layout-align="center center")
+    div(layout-align="center center" layout="row")
+      h4(ng-if="document.type === 'create'") Create Document
+      h4(ng-if="document.type === 'edit'") Update Document
+    div(layout-align="center center")
+      form(method='post' enctype='multipart/data' ng-submit='createDoc()')
+        md-input-container(flex)
+          label Title
+          input(type='text' ng-model='document.title' ng-required='true' placeholder="Your title goes here" aria-label='document.title')
+        md-input-container(flex)
+          label Content
+          textarea(type='text' rows="20" column="1440" ng-model='document.content' placeholder="Your content goes in here" ng-required='true' aria-label='document.content')
+        div.success-status
+          | {{status}}
+        div(layout="row" layout-align="center center")
+          md-button.md-raised.md-accent(type='submit' /*ng-if="document.type === 'create'"*/)
+            i.material-icons update
+            | Update
+          md-button.md-raised.md-accent(type="submit")
+            i.material-icons create
+            | Create
+          md-button.md-raised.primary(ng-click="cancel()")
+            i.matrial-icons Cancel
 

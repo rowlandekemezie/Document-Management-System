@@ -40,18 +40,18 @@
         // update user
         $scope.update = function() {
           $scope.processing = true;
-          $scope.message = '';
+          $scope.status = '';
           $scope.userData.$update()
             .success(function(response) {
               $scope.processing = false;
               $scope.userData = {};
-              $scope.message = response.message;
-              $state.go('dashboard');
+              $scope.status = response.message;
+              $state.go('dashboard.view-users');
             });
         };
         // load user's parameters
         Users.get({
-            id: $stateParams
+            id: $stateParams.id
           })
           .success(function(data) {
             $scope.userData = data;

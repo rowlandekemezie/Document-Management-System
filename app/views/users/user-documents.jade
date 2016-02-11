@@ -1,13 +1,13 @@
-md-content(layout-padding ng-if="loggedInUser" ng-init="init()")
+md-content(layout-padding ng-if="loggedInUser")
   div
     h2.md-padding(ng-if="!userDocs") There are currently no documents. Start today
     md-divider(md-inset)
 
     div.md-padding(ng-if="userDocs")
       md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-        md-grid-tile(ng-repeat="doc in userDocs | orderBy: '-lastModified")
+        md-grid-tile(ng-repeat="doc in userDocs | orderBy: 'lastModified':true")
           md-grid-tile-header(layout-align="center center")
-            h3(ui-sref="viewEvent({id:event.id})") {{doc.title}}
+            h3(ui-sref="document.all({id:doc.id})") {{doc.title}}
           md-grid-tile-footer
             div(flex layout="column" layout-padding)
               h3.md-subheadline createdBy {{loggedInUser.userNamee}}
