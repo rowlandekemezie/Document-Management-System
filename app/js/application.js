@@ -131,11 +131,21 @@
             authenticate: true,
             views: {
               'inner-view@dashboard': {
-                templateUrl: 'views/users/all-documents.html',
+                templateUrl: 'views/all-documents.html',
                 controller: 'DashboardCtrl'
               }
             }
           })
+            .state('dashboard.editDocument', {
+              url: '/{id}/edit',
+              authenticate: true,
+              views: {
+                'inner-view@dashboard': {
+                  templateUrl: 'views/edit-document.html',
+                  controller: 'DocumentCtrl'
+                }
+              }
+            })
 
           .state('404', {
             url: '/404',

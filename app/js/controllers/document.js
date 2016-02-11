@@ -41,10 +41,13 @@
           });
         };
 
-        // cancel function
-        $scope.cancel = function(){
+        $scope.cancel = function() {
           $mdDialog.cancel();
         };
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+
       }
     ]);
 })();

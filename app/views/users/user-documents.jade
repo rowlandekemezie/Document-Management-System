@@ -1,18 +1,23 @@
-md-content(layout-padding ng-if="loggedInUser")
-  div
+md-content(layout-padding ng-if="loggedInUser" flex layout-align="center center")
+  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+    span.fa.fa-plus.fa-lg
+    md-tooltip(md-direction='left') create new document
+  div(flex)
     h2.md-padding(ng-if="!userDocs") There are currently no documents. Start today
     md-divider(md-inset)
 
-    div.md-padding(ng-if="userDocs")
-      md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='12px' md-gutter-gt-sm='8px')
-        md-grid-tile(ng-repeat="doc in userDocs | orderBy: 'lastModified':true")
-          md-grid-tile-header(layout-align="center center")
-            h3(ui-sref="document.all({id:doc.id})") {{doc.title}}
+    div(ng-if="userDocs" flex)
+      div
+        h2 My Documents
+      md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='8px' md-gutter-gt-sm='8px')
+        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in userDocs | orderBy: 'lastModified':true" ng-click="viewDoc($, {id:doc._id})")
+          md-grid-tile-header.grid-header(layout-align="center center")
+            h5 {{doc.title}}
+          h3 {{doc.content}}
           md-grid-tile-footer
-            div(flex layout="column" layout-padding)
-              h3.md-subheadline createdBy {{loggedInUser.userNamee}}
-              span LastModified {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
-  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
-    span.fa.fa-plus.fa-lg
-    md-tooltip(md-direction='left') create document
+            div(flex layout="column" layout-padding )
+              h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
+              |by {{getName(doc.ownerId)}}
+
+
 
