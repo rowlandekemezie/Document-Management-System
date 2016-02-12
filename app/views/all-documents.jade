@@ -1,4 +1,4 @@
-md-content(layout-padding ng-if="loggedInUser" flex layout-align="center center")
+md-content(layout-padding ng-if="loggedInUser" flex)
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
@@ -10,7 +10,7 @@ md-content(layout-padding ng-if="loggedInUser" flex layout-align="center center"
       div
         h2 Document View
       md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='8px' md-gutter-gt-sm='8px')
-        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in documents | orderBy: 'lastModified':true" ng-click="viewDocs($event, {id:doc._id})")
+        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in documents | orderBy: 'lastModified':true" ng-click="viewDoc($event)")
           md-grid-tile-header.grid-header(layout-align="center center")
             h5 {{doc.title}}
           h3 {{doc.content}}

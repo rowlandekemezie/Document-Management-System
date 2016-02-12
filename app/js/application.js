@@ -20,6 +20,7 @@
     require('./controllers/dashboard');
     require('./controllers/user-dialog');
     require('./controllers/document');
+    require('./controllers/profile');
 
 
     // require angular messages
@@ -58,7 +59,7 @@
           // check that the user is in session and make global the user's details
           Users.getUser().then(function(res) {
             $rootScope.loggedInUser = res;
-            //$log.info($rootScope.loggedInUser, 'res');
+            $log.info($rootScope.loggedInUser, 'res');
           }, function(err) {
             $log.debug(err);
           });
@@ -143,6 +144,26 @@
                 'inner-view@dashboard': {
                   templateUrl: 'views/edit-document.html',
                   controller: 'DocumentCtrl'
+                }
+              }
+            })
+            .state('dashboard.view-document', {
+              url: '/view',
+              authenticate: true,
+              views: {
+                'inner-view@dashboard': {
+                  templateUrl: 'views/edit-document.html',
+                  controller: 'DocumentCtrl'
+                }
+              }
+            })
+            .state('dashboard.view-users', {
+             url: '/{id}/view',
+              authenticate: true,
+              views: {
+                'user-view@dashboard': {
+                  templateUrl: 'views/users.html',
+                  controller: 'userCtrl'
                 }
               }
             })

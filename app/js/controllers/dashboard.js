@@ -22,19 +22,10 @@
         };
         $scope.init();
 
-        // function to delete document
-        $scope.addDoc = function(doc) {
-          doc.$delete(function() {
-            $state.go('dashboard'); // return to dashboard
-          });
-        };
-
         //TODO: sync with ui-sref
         $scope.editButton = function(user) {
           $scope.type = 'Edit';
         };
-
-        //TODO: get user name for the id
 
         // Get userName of document creator by id
         $scope.getName = function(id) {
@@ -46,17 +37,41 @@
         };
 
         //TODO: view-document
+        $scope.docDetil = '';
         $scope.viewDoc = function(ev, data) {
-          var docDetail;
-          Documents.get({
-            id: data
-          }, function(res) {
-            docDetail = res;
-            Utils.modal(ev, 'view/view-document.html', 'DocumentCtrl', docDetail);
+          Documents.get({_id:data}, function(res){
+            $scope.docDetail = res;
           });
+          Utils.modal(ev, 'view/view-document.html', viewDocument);
         };
 
+        function viewDocument($scope, $mdDialog) {
+          $scope.cancel = function() {
+            $mdDialog.cancel();
+          };
+          $scope.hide = function() {
+            $mdDialog.hide();
+          };
+        }
+        $log.info($scope.docDetial);
+
+        // .modal = function(ev, tmpl, ctrl) {
+        //   $mdDialog.show({
+        //     controller: ctrl,
+        //     templateUrl: tmpl,
+        //     parent: angular.element(document.body),
+        //     targetEvent: ev,
+        //     clickOutsideToClose: true,
+        //     fullscreen: true
+        //   });
+        // };
+
         // delete documents
+        $scope.deleteDoc = function(doc) {
+          doc.$delete(function() {
+            $state.go($state.current);
+          });
+        };
 
         // document count
         for (var i = 0, n = $scope.documents.length; i < n; i++) {
@@ -69,24 +84,31 @@
             $log.info($scope.users[j]);
 
           }
-
-          // $scope.viewRoles = function(ev) {
-
-          // };
-
-
-          // Update user modal
-          $scope.editUser = function(ev) {
-            $mdDialog.show({
-              controller: 'UserCtrl',
-              templateUrl: 'views/edit-profile.html',
-              parent: angular.element(document.body),
-              targetEvent: ev,
-              clickOutsideToClose: true
-            })
-              .then(function() {}, function() {});
-          };
         }
+
+        // $scope.viewRoles = function(ev) {
+
+        // };
+
+
+        // Update user modal
+        $scope.editUser = function(ev) {
+          $mdDialog.show({
+            controller: 'UserCtrl',
+            templateUrl: 'views/edit-profile.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+          })
+            .then(function() {}, function() {});
+        };
+
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
       }
     ]);
 })();
