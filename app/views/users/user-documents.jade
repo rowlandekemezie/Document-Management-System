@@ -10,12 +10,13 @@ md-content(layout-padding ng-if="loggedInUser" flex layout-align="center center"
       div
         h2 My Documents
       md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='8px' md-gutter-gt-sm='8px')
-        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in userDocs | orderBy: 'lastModified':true" ng-click="viewDoc($, {id:doc._id})")
+        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in userDocs | orderBy: 'lastModified':true")
           md-grid-tile-header.grid-header(layout-align="center center")
             h5 {{doc.title}}
           h3 {{doc.content}}
+          md-button.md-primary.md-raised(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") View more
           md-grid-tile-footer
-            div(flex layout="column" layout-padding )
+            div(flex layout="column" layout-padding)
               h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
               |by {{getName(doc.ownerId)}}
 

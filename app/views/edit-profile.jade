@@ -8,7 +8,7 @@ div.md-margin(layout-align="center center")
         input(ng-model='loggedInUser.userName' type='text' placeholder='Username' ng-required='true')
       div(layout='row' layout-sm='column')
         md-input-container(flex)
-          i(class='fa fa-users')
+          md-icon(class='fa fa-users')
           input(ng-model='loggedInUser.firstName' type='text' placeholder='firstName' ng-required='true')
         md-input-container(flex)
           i(class='fa fa-users')
@@ -21,8 +21,7 @@ div.md-margin(layout-align="center center")
           md-icon(class="material-icons") email
           md-select.md-padding.md-margin(placeholder='role' ng-model='loggedInUser.role' aria-label='role' flex)
             md-option(ng-repeat='role in roles' ng-value='role.title') {{role.title}}
-        md-input-container(layout='row' layout-align='center center' flex)
-      md-input-container(flex)
+      md-input-container
         i(class='fa fa-user-secret')
         input(ng-model='loggedInUser.password' type='password' placeholder='password' ng-required='true')
 

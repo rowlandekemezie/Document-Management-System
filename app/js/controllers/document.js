@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('DocumentCtrl', ['Documents', '$rootScope', 'Utils', '$scope', '$stateParams', '$log', '$mdDialog',
-      function(Documents, $rootScope, Utils, $scope, $stateParams, $log, $mdDialog) {
+    .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams', '$log', '$mdDialog',
+      function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams, $log, $mdDialog) {
 
         $scope.init = function() {
           Documents.get({
@@ -40,6 +40,29 @@
             }
           });
         };
+
+        // load document to view
+        $scope.getDoc  =  function(){
+          Documents.get({id: $stateParams.docid}, function(res){
+            $scope.docDetail = res;
+          });
+          $scope.roles = Roles.query();
+        };
+        $scope.getDoc();
+
+        // delete function
+
+
+        // delete documents
+        $scope.deleteDoc = function(doc) {
+          $log.info(doc, 'deleted document');
+          doc.$delete(function() {
+            $state.go('dashboard');
+          });
+        };
+
+        // edit button
+        $scope.editButton = function(){};
 
         $scope.cancel = function() {
           $mdDialog.cancel();

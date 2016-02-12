@@ -102,6 +102,10 @@
               'inner-view@dashboard': {
                 controller: 'DashboardCtrl',
                 templateUrl: 'views/users/user-documents.html'
+              },
+              'user-view': {
+                controller: 'UserCtrl',
+                templateUrl: 'views/users/user-documents.html'
               }
             }
           })
@@ -148,17 +152,17 @@
               }
             })
             .state('dashboard.view-document', {
-              url: '/view',
+              url: '/{docid}/view',
               authenticate: true,
               views: {
                 'inner-view@dashboard': {
-                  templateUrl: 'views/edit-document.html',
+                  templateUrl: 'views/view-document.html',
                   controller: 'DocumentCtrl'
                 }
               }
             })
             .state('dashboard.view-users', {
-             url: '/{id}/view',
+              url: '/{id}/view',
               authenticate: true,
               views: {
                 'user-view@dashboard': {
