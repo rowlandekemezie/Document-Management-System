@@ -1,4 +1,4 @@
-  (function() {
+ (function() {
     'use strict';
 
     // angular modules
@@ -141,16 +141,16 @@
               }
             }
           })
-            .state('dashboard.editDocument', {
-              url: '/{id}/edit',
-              authenticate: true,
-              views: {
-                'inner-view@dashboard': {
-                  templateUrl: 'views/edit-document.html',
-                  controller: 'DocumentCtrl'
-                }
-              }
-            })
+            // .state('dashboard.editDocument', {
+            //   url: '/{id}/edit',
+            //   authenticate: true,
+            //   views: {
+            //     'inner-view@dashboard': {
+            //       templateUrl: 'views/edit-document.html',
+            //       controller: 'DocumentCtrl'
+            //     }
+            //   }
+            // })
             .state('dashboard.view-document', {
               url: '/{docid}/view',
               authenticate: true,

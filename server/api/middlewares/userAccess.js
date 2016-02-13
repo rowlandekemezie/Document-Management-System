@@ -22,7 +22,7 @@
             message: 'Document not available'
           });
         } else {
-          if (req.decoded._id !== doc.ownerId &&
+          if (JSON.stringify(req.decoded._id) !== JSON.stringify(doc.ownerId) &&
             req.decoded.role !== config.role &&
             req.decoded.role !== 'Documentarian') {
             res.status(403).json({

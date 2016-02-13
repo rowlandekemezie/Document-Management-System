@@ -13,56 +13,77 @@
 
         // Create document
         $scope.createDoc = function() {
-          $scope.type = 'create';
           $scope.document.ownerId = $stateParams.id;
           $scope.document.role = $rootScope.loggedInUser.role;
-          // $scope.document.ownerTitle = $rootScope.loggedInUser.userName
           Documents.save($scope.document, function(err, res) {
             if (!err && res) {
               $log.info(res, "message from create document");
               Utils.toast(res.message);
-              $scope.status = res.message + "\n Click cansel to return to your documents";
+              $scope.status = res.message + "\n Click cancel to return to your documents";
             } else {
               $scope.status = err.message || err || 'Could not create';
             }
           });
         };
 
-        // Update Documents
-        $scope.updateDoc = function() {
-          Documents.update($scope.document, function(err, res) {
-            $scope.type = 'edit';
+        // Update Document function
+         function updateFn () {
+          Documents.update($scope.docDetail, function(err, res) {
             if (!err && res) {
-              Utils.toast(res.message);
               $scope.status = res.message + ". You can proceed to your page";
             } else {
               $scope.status = err.message || err || 'Could not Update';
             }
           });
-        };
+        }
 
         // load document to view
-        $scope.getDoc  =  function(){
-          Documents.get({id: $stateParams.docid}, function(res){
+        $scope.getDoc = function() {
+          Documents.get({
+            id: $stateParams.docid
+          }, function(res) {
             $scope.docDetail = res;
           });
           $scope.roles = Roles.query();
         };
         $scope.getDoc();
 
-        // delete function
 
-
-        // delete documents
-        $scope.deleteDoc = function(doc) {
-          $log.info(doc, 'deleted document');
-          doc.$delete(function() {
-            $state.go('dashboard');
+        // delete document function
+        function deleteDocFn() {
+          Documents.remove({
+            id: $scope.docDetail._id
+          }, function() {
+            Utils.toast('Your document has been successfully deleted');
+            delete $scope.docDetail;
+          }, function() {
+            $scope.status = 'There was problem deleting document';
           });
+        }
+
+
+        // A confirmation message before deleting
+        $scope.deleteDoc = function(event) {
+          Utils.dialog('Warning: Delete Document, ' +
+            $scope.docDetail.title + '?',
+            'Are you sure you want to delete, ' +
+            $scope.docDetail.title + '?',
+            event, deleteDocFn
+          );
+        };
+
+        // A confirmation message before deleting
+         $scope.updateDoc = function(event) {
+          Utils.dialog('Warning: Update Document, ' +
+            $scope.docDetail.title + '?',
+            'Are you sure you want to update, ' +
+            $scope.docDetail.title + '?',
+            event, updateFn
+          );
         };
 
         // edit button
-        $scope.editButton = function(){};
+        $scope.editButton = function() {};
 
         $scope.cancel = function() {
           $mdDialog.cancel();

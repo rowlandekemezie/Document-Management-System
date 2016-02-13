@@ -11,11 +11,11 @@ md-toolbar.header-tab.md-whiteframe-z2(flex layout="row" ng-cloak='' padding-lay
         md-tooltip {{loggedInUser.userName}}
     a(ng-if="loggedIn")
       md-button.md-icon-button(aria-label='logout' ng-click="logoutUser()" layout-wrap)
-        i.md-accent.fa.fa-sign-out
+        i.md-accent.fa.fa-sign-out.fa-lg
         md-tooltip logout
     a(ng-if="!loggedIn" ui-sref="home")
       md-button.md-icon-button(aria-label='login' ng-click="loginUser()" layout-wrap)
-        i.md-accent.fa.fa-sign-in
+        i.md-accent.fa.fa-sign-in.fa-lg
         md-tooltip login
     md-button.md-icon-button(aria-label="More")
       i.material-icons more_vert

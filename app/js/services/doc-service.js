@@ -19,7 +19,7 @@
         document.getDocsByLimit = function(limit) {
           var deferred = $q.defer();
           $http.get('/api/documents/limit/' + limit)
-          .success(deferred.resolve)
+            .success(deferred.resolve)
             .error(deferred.reject);
           return deferred.promise;
         };
@@ -36,7 +36,7 @@
 
         // Get documents by date created
         document.getDocsByDate = function(date, limit) {
-          var deferred  = $q.defer();
+          var deferred = $q.defer();
           $http.get('/api/documents/' + date + '/' + limit)
             .success(deferred.resolve)
             .error(deferred.reject);
