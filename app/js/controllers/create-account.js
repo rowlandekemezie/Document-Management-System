@@ -10,7 +10,6 @@
         $scope.roles = Roles.query();
         $log.info($scope.roles);
 
-        // $scope.user = {};
         $scope.loginUser = function() {
           $scope.status = '';
           Users.login($scope.user).then(function(res) {

@@ -20,6 +20,7 @@ img {
 }
 
 .jumbobox {
+    margin-top: 100px;
     text-align: center;
     min-width: 200px;
     color: white;
@@ -36,30 +37,38 @@ img {
 
 .home-page {
     width: 100%;
-    height: 700px;
+    min-height: 660px;
     padding-top: 3px;
     position: relative;
     margin: auto;
-    margin-top: 100px;
+    opacity: 0.7;
+    background: lightblue;
+    background-image: url('./../images/background1.png');
+    background-repeat: repeat-x;
+    animation: animatedBackground 40s linear infinite;
+    position: relative;
+    overflow: hidden;
 }
 
 a {
-    color: red;
+    color: blue;
     font-size: 18px;
     font-family: Roboto;
     text-decoration: none;
 }
 
 a:hover {
-    color: teal;
+    color: whitesmoke;
 }
 
 body {
     /*background-image: url('./../images/background1.png');
   background-repeat: repeat-x;*/
-    animation: animatedBackground 40s linear infinite;
+    /*  animation: animatedBackground 40s linear infinite;
     position: absolute;
-    overflow: hidden;
+    overflow: hidden;*/
+    width: 100%;
+    height: 100%;
 }
 
 @keyframes animatedBackground {
@@ -187,15 +196,14 @@ div > md-button {
 }
 
 .dashboard-wrapper {
-    width: 1440px;
-    height: 660px;
+    width: 100%;
+    height: 670px;
     padding-top: 3px;
     position: relative;
-    margin: auto;
+    margin: 0 auto;
     border: yellow 3px dotted;
-    text-align: center;
     background-color: white;
-    color: teal;
+    color: lightgray;
 }
 
 .dashboard-header {
@@ -249,8 +257,8 @@ md-sidenav.md-closed.md-locked-open-add-active {
 
 md-sidenav .ripple-container {
     position: relative;
-    background-color: #9b6e4b;
-    color: #fff;
+    background-color: lightgray;
+    color: black;
 }
 
 .create-document-btn {
@@ -278,8 +286,17 @@ md-sidenav .ripple-container {
     border-radius: 5px;
 }
 
+.editForm > form {
+    border: 3px solid ghostwhite;
+    background-color: whitesmoke;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    z-index: 20px;
+}
+
 textarea {
-    border: blue 5px dashed;
+    border: white 5px dashed;
     line-height: 24px;
 }
 
@@ -305,7 +322,24 @@ textarea {
 .docForm-view {
     border: 1px solid white;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     margin: 0 auto;
-    background-color: silver;
+    background-color: whitesmoke;
+}
+.admin-page {
+    width: 100%;
+    border: 4px solid green;
+    width: 100%;
+    height: 670px;
+    padding-top: 3px;
+    position: relative;
+    margin: 0 auto;
+    border: yellow 3px dotted;
+    background-color: white;
+    color: lightgray;
+
+}
+.admin-header{
+    background: whitesmoke;
+
 }

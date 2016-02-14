@@ -11,7 +11,7 @@
           });
         };
 
-        // Create document
+        // Create document function
         $scope.createDoc = function() {
           $scope.document.ownerId = $stateParams.id;
           $scope.document.role = $rootScope.loggedInUser.role;
