@@ -103,16 +103,16 @@
         'Error: in browserify gulp task'))
       // vinyl-source-stream makes the bundle compatible with gulp
       .pipe(source('application.js')) // Desired filename
-      .pipe(ngAnnotate())
-      .pipe(buffer())
-      .pipe(uglify())
-      .pipe(stripeDebug())
+      //.pipe(ngAnnotate())
+     // .pipe(buffer())
+     // .pipe(uglify())
+      // .pipe(stripeDebug())
       // Output the file
-      .pipe(gulp.dest('./public/js/'))
-      .pipe(sourcemaps.init({
-       loadMaps: true
-      }))
-      .pipe(sourcemaps.write('./maps'))
+      // .pipe(gulp.dest('./public/js/'))
+      // .pipe(sourcemaps.init({
+      //  loadMaps: true
+      // }))
+      // .pipe(sourcemaps.write('./maps'))
       .pipe(gulp.dest('./public/js/'));
   });
 

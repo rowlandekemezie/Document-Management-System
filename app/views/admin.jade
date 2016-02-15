@@ -4,66 +4,123 @@
       md-tabs(md-dynamic-height='', md-border-bottom='')
         md-tab(label='ROLES')
           md-content.md-padding(layout-align="start center")
-            h1.md-display-2 ROLES
-              div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
-                md-card
-                  md-card-content
-                    md-list
-                      md-subheader.md-no-sticky.md-margin List of roles
-                      md-list-item.md-3-line(md-ink-ripple ng-model="role" ng-repeat='role in roles')
-                        div(layout="row" flex)
-                          .md-list-item-text(layout='column')
-                            h3(ng-model="role._id") {{ role._id }}
-                            h3(ng-model="role.title") {{ role.title }}
-                        i.fa.fa-trash.md-margin(md-padding ng-click="deleteRoleBtn($event, role)")
-                        i.fa.fa-pencil.md-margin(md-padding ng-click="updateRoleBtn($event)")
-                        md-divider
-                md-card
-                  md-card-content
-                    h5 Create New Role
-                    p {{status}}
-                    form(method="post" enctype="multipart/form-data")
-                      md-input-container(md-block)
-                        label Title
-                        input(type="text" md-no-float placecholder="Enter your role here" ng-model="title" ng-required)
-                      md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
+            h3.md-display-2.text-center.admin-header ROLES DASHBOARD
+            md-divider
+            div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+              md-card
+                md-table-container
+                  table(md-table='' md-progress="promise" style="border:2px")
+                    thead(md-head='')
+                      tr(md-row='')
+                        th(md-column='', md-text='') Role Id
+                        th(md-column='', md-text='') Role Title
+                        th(md-column='', md-text='') Authorized Operations
+                    tbody(md-body='')
+                      tr(md-row='' ng-repeat="role in roles")
+                        td(md-cell='') {{role._id}}
+                        td(md-cell='') {{role.title}}
+                        td(md-cell='')
+                          i.material-icons(ng-click="deleteRoleBtn($event, role)") delete
+                          i.material-icons(ng-click="updateRoleBtn($event, role)") update
+              md-card
+                md-card-content
+                  h5 Create New Role
+                  p.sucess-text {{status}}
+                  form(method="post" enctype="multipart/form-data")
+                    md-input-container(md-block)
+                      label Title
+                      input(type="text" md-no-float placecholder="Enter your role here" ng-model="role.title" ng-required)
+                    md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
+                    md-button.md-raised.md-primary(ng-click="updateRoleBtn(role)") Update
 
         md-tab(label='USERS')
           md-content.md-padding
-            h1.md-display-2.md-margin USERS
-              div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
-                md-card
-                  md-card-content
-                    md-list
-                      md-subheader.md-no-sticky.md-margin List of Users
-                      md-list-item.md-3-line(md-ink-ripple ng-repeat='user in users')
-                        div(layout="row" flex)
-                          .md-list-item-text(layout='column')
-                            h4(ng-model="user._id") {{ user._id }}
-                            h4(ng-model="user.userName") {{ user.userName }}
-                            h4(ng-model="user.firtName") {{ user.name.firstName}}
-                            h4(ng-model="user.lastName") {{ user.name.lastName}}
-                            h4(ng-model="user.email") {{ user.email}}
-                            h4(ng-model="user.role") {{ user.role }}
-                        i.fa.fa-trash.md-margin(md-padding ng-click="deleteUserBtn($event, role)")
-                        i.fa.fa-pencil.md-margin(md-padding ng-click="updateUserBtn(user)")
-                        md-divider
-                md-card
-                  md-card-content
-                    h5 Manage Users
-                    p {{status}}
-                    form(method="post" enctype="multipart/form-data")
-                      md-input-container(md-block)
-                        label Title
-                        input(type="text" md-no-float placecholder="Enter your role here" ng-model="title" ng-required)
-                      md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
-            md-fab-button.md-accent()
-              i.fa.fa-plus-fa-3x
-              md-tooltip Create User
-
+            h3.md-display-2.md-margin.text-center.admin-header USERS DASHBOARD
+            md-divider
+            div.md-margin(layout="column" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+              md-card
+               md-table-container
+                table(md-table='' md-progress="promise" style="border:2px")
+                  thead(md-head='')
+                    tr(md-row='')
+                      th(md-column='', md-text='') User Id
+                      th(md-column='', md-text='') UserName
+                      th(md-column='', md-text='') FirstName
+                      th(md-column='', md-text='') LastName
+                      th(md-column='', md-text='') Email
+                      th(md-column='', md-text='') Role
+                      th(md-column='', md-text='') User Documents
+                      th(md-column='', md-text='') Authorized Operations
+                  tbody(md-body='')
+                    tr(md-row='' ng-repeat="user in users")
+                      td(md-cell='') {{user._id}}
+                      td(md-cell='') {{user.userName}}
+                      td(md-cell='') {{user.name.firstName}}
+                      td(md-cell='') {{user.name.lastName}}
+                      td(md-cell='') {{user.email}}
+                      td(md-cell='') {{user.role}}
+                      td(md-cell='') {{user.docSum}}
+                      td(md-cell='')
+                        i.material-icons(ng-click="deleteUserBtn($event, user)") delete
+                        i.material-icons(ng-click="updateUserBtn($event, user)") update
+                      md-divider
+              md-card
+                md-card-content
+                  h5 Manage Users
+                  p.success-text {{status}}
+                  form(method="post" enctype="multipart/form-data")
+                    md-input-container(md-block)
+                      label userName
+                      input(type="text" md-no-float placecholder="Enter role" ng-model="user.userName" required)
+                    md-input-container(md-block)
+                      label firstName
+                      input(type="text" md-no-float placecholder="Enter firstName" ng-model="user.firstName" ng-required)
+                    md-input-container(md-block)
+                      label lastName
+                      input(type="text" md-no-float placecholder="Enter lastName" ng-model="user.lastName" ng-required)
+                    md-input-container(md-block)
+                      label email
+                      input(type="email" md-no-float placecholder="Enter email" ng-model="user.email" ng-required)
+                    md-input-container(md-block)
+                      label password
+                      input(type="password" md-no-float placecholder="Enter password" ng-model="user.password" ng-required)
+                    md-input-container(md-block)
+                      label role
+                      md-select(ng-model="user.role" name="role.title" placeholder="select a role" required)
+                        md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
+                    md-button.md-raised.md-accent(type="submit" ng-click="createUser()") Create
+                    md-button.md-raised.md-promary(ng-click="updateUserBtn()") Update
+                    md-button.md-raised.md-primary(ui-sref="dashboard") Cancel
         md-tab(label='DOCUMENTS')
           md-content.md-padding
-            h1.md-display-2 DOCUMENTS
-            p
-              | Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.
-            p {{documents}}
+            md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+              span.fa.fa-plus.fa-lg
+              md-tooltip(md-direction='left') create new document
+            h3.md-display-2.text-center.admin-header DOCUMENTS DASHBOARD
+            md-divider
+            md-card
+              md-table-container
+                table(md-table='' style="border:2px")
+                  thead(md-head='')
+                    tr(md-row='')
+                      th(md-column='', md-text='') DocNo Id
+                      th(md-column='', md-text='') Role Assigned
+                      th(md-column='', md-text='') Document Ownner
+                      th(md-column='', md-text='') Date Created
+                      th(md-column='', md-text='') Date Modified
+                      th(md-column='', md-text='') Document Title
+                      th(md-column='', md-text='') Document Content
+                      th(md-column='', md-text='') Authorized Operations
+                  tbody(md-body='')
+                    tr(md-row='' ng-repeat="doc in documents")
+                      td(md-cell='') {{doc._id}}
+                      td(md-cell='') {{doc.role}}
+                      td(md-cell='') {{getName(doc.ownerId)}}
+                      td(md-cell='') {{doc.createdAt | date:'dd/mm/yyyy'}}
+                      td(md-cell='') {{doc.lastModified | date:'dd/mm/yyyy'}}
+                      td(md-cell='') {{doc.title}}
+                      td(md-cell='') {{doc.content | limitTo:50}}
+                      td(md-cell='')
+                        i.material-icons(ui-sref="dashboard.view-document({docid:doc._id})") update
+                        i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
+

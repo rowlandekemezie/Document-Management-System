@@ -51,6 +51,7 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
+      console.log(req.body);
       User.findOne({
         $or: [{
           userName: req.body.userName

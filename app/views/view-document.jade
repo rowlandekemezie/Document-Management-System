@@ -1,15 +1,16 @@
 .docForm-view.md-padding(layout-align="center center" flex="75")
   md-content(flex="100")
-    form(name="view-form" method="post")
+    form(name="view-form" method="post" ng-disabled="loggedInUser._id !== 'doc.ownerId' || loggedInUser.role !== 'SuperAdmin'")
       div(flex layout="row" layout-align="end end")
         span.md-margin.success-status {{status}}
-        md-button.md-raised.md-warn(ng-click="updateDoc($event)" ng-disabled="view-form.$invalid")
-          i.material-icons save
-          | Save
+        div(layout="row" ng-if="loggedInUser._id === 'doc.ownerId' || loggedInUser.role === 'SuperAdmin'")
+          md-button.md-raised.md-warn(ng-click="updateDoc($event)" ng-disabled="view-form.$invalid")
+            i.material-icons save
+            | Save
+          md-button.md-raised(ng-click="deleteDoc($event)") Delete
         md-button.md-raised.md-primary(ui-sref="dashboard.all")
           i.material-icons cancel
           | Cancel
-        md-button.md-raised(ng-click="deleteDoc($event)") Delete
       md-divider(md-inset)
       div.grid-header(layout-align="center center")
         h3 Document update

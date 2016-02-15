@@ -5,53 +5,80 @@
     .controller('AdminCtrl', ['$log', '$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope', '$stateParams',
       function($log, $state, Utils, Roles, Documents, Users, $scope, $stateParams) {
 
-        $scope.admin = 'SuperAdmin';
-        $log.warn('I got into the Admin panel controller');
-
         $scope.init = function() {
           $scope.users = Users.query();
           $scope.roles = Roles.query();
           $scope.documents = Documents.query();
+          for (var i = 0, l = $scope.users.length; i < l; i++) {
+            for (var j = 0, n = $scope.documents.length; j < n; j++) {
+              if ($scope.documents[j].ownerId === $scope.users[i]._id) {
+                $scope.users[i].docSum = $scope.documents[j].count;
+                $log.info($scope.users[i], 'Got in here in the map');
+              }
+            }
+          }
         };
+
         $scope.init();
 
         //Delete button
-        function deleteUser(userId) {
-          Users.remove(userId, function() {
+        function deleteUser() {
+          Users.remove({
+            id: $scope.user._id
+          }, function() {
             Utils.toast('User deleted successfully');
-            $state.reload();
+            $state.reload($state.current);
           }, function() {
             $scope.status = 'There was error deleting the user';
           });
         }
         // Loading confirmation dialog box
         // A confirmation message before deleting
-        $scope.deleteUserBtn = function(event) {
-          Utils.dialog('Warning: Delete User, ' +
-            $scope.userDetail.userName + '?',
+        $scope.deleteUserBtn = function(event, user) {
+          $scope.user = user;
+          Utils.dialog('Warning: Delete User ' +
+            $scope.user.userName + '?',
             'Are you sure you want to delete, ' +
-            $scope.userdDetail.userName + '?',
+            $scope.user.userName + '?',
             event, deleteUser
           );
         };
+
+        // Create user function
+        $scope.createUser = function() {
+          Users.save($scope.user, function(res) {
+            if (res.status !== 500) {
+              Utils.toast('A new user has been created');
+              $state.reload();
+            } else {
+              $scope.status = res.err || 'An error occured';
+            }
+          });
+        };
+
         /**
          * CRUD for Roles
          *
          */
         $scope.createRoleBtn = function() {
-          Roles.save($scope.title, function(err, res) {
+          Roles.save({
+            title: $scope.title
+          }, function(err, res) {
             if (!err && res) {
-              $scope.status = res.message;
+              //$scope.status = res.message;
               $state.reload();
             } else {
               $scope.status = err || err.message || 'There was  error creating role';
             }
           });
         };
-
-        function updateRole(role) {
+        /**
+         * [updateRole method]
+         * @return {[type]} [description]
+         */
+        function updateRole() {
           Roles.update({
-            id: role._id
+            id: $scope.role._id
           }, function() {
             Utils.toast('Role successfully updated');
             $state.reload();
@@ -61,16 +88,17 @@
         }
 
         // A confirmation message before updating role
-        $scope.updateRoleBtn = function(event) {
+        $scope.updateRoleBtn = function(event, role) {
+          $scope.role = role;
           Utils.dialog('Warning: Update Document, ' +
-            $scope.role + '?',
+            $scope.role.title + '?',
             'Are you sure you want to update, ' +
-            $scope.role + '?',
+            $scope.role.title + '?',
             event, updateRole
           );
         };
 
-        // deleting a role
+        // delete role function
         function deleteRole() {
           Roles.remove({
             id: $scope.role._id
@@ -94,52 +122,36 @@
           );
         };
 
-        /**
-         * USERS count
-         */
-        $scope.userDocCount = function() {
-          // document count
-          for (var i = 0, n = $scope.documents.length; i < n; i++) {
-            $scope.docCount = 0;
-            for (var j = 0, m = $scope.users.length; j < m; j++) {
-              if ($scope.documents[i].ownerId === $scope.users[j]._id) {
-                $scope.docCount++;
-              }
-              $scope.users[j].docCount = $scope.docCount;
-              $log.warn($scope.users[j]);
 
+        //delete buttoon for document
+        $scope.deleteDocBtn = function(event, doc) {
+          $scope.doc = doc;
+          Utils.dialog('Warning: Delete Document, ' +
+            $scope.doc.title + '?',
+            'Are you sure you want to delete, ' +
+            $scope.doc.title + '?',
+            event, deleteDoc
+          );
+        };
+        // delete document function
+        function deleteDoc() {
+          Documents.remove({
+            id: $scope.doc._id
+          }, function() {
+            Utils.toast('Your document has been successfully deleted');
+            delete $scope.doc;
+          }, function() {
+            $scope.status = 'There was problem deleting document';
+          });
+        }
+        // Get userName of document creator by id
+        $scope.getName = function(id) {
+          for (var i = 0, n = $scope.users; i < n.length; i++) {
+            if (id === n[i]._id) {
+              return n[i].userName;
             }
           }
         };
-        // TODO: USER and the documents they created
-          // Get the user details and the number of documents they created
-      var initUsers = function() {
-        Users.getDocCount(function(err, res) {
-          if (!err) {
-            var docsNo = res;
-            Users.query(function(users) {
-              $scope.users = users;
-              for (var i = 0, l = $scope.users.length; i < l; i++) {
-                for (var j = 0, n = docsNo.length; j < n; j++) {
-                  if (docsNo[j]._id === $scope.users[i]._id) {
-                    $scope.users[i].docs = docsNo[j].count;
-                  }
-                }
-              }
-              $scope.users = $scope.users.map(function(value) {
-                if (!value.docs) {
-                  value.docs = 0;
-                }
-                return value;
-              });
-            });
-          }
-        });
-      }; /// end of count function
-
-
-
-        $log.warn($scope.userDocCount(), 'doc count');
       }
 
     ]);
