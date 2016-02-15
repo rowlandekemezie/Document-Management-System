@@ -36,7 +36,8 @@
      'ngMaterial',
      'ui.router',
      'ngAnimate',
-     'ui.gravatar'
+     'ui.gravatar',
+     'md.data.table'
      //'ngMessages'
 
    ])
@@ -60,7 +61,7 @@
          // check that the user is in session and make global the user's details
          Users.getUser().then(function(res) {
            $rootScope.loggedInUser = res;
-           $log.info($rootScope.loggedInUser, 'respomd with user details');
+           $log.info($rootScope.loggedInUser, 'respond with user details');
          }, function(err) {
            $log.debug(err);
          });

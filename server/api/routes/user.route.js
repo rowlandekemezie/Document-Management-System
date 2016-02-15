@@ -19,6 +19,10 @@
     router.route('/users/logout')
       .get(userController.logout);
 
+    // fetch user's document count
+    router.route('/users/documents')
+      .get(userController.countUserDocs);
+
     // route to create new user requires no authentication
     // but viewing users does.
     router.route('/users')

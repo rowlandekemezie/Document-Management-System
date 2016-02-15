@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams', '$log', '$mdDialog',
-      function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams, $log, $mdDialog) {
+    .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams',
+      function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams) {
 
         $scope.init = function() {
           Documents.get({
@@ -17,7 +17,6 @@
           $scope.document.role = $rootScope.loggedInUser.role;
           Documents.save($scope.document, function(err, res) {
             if (!err && res) {
-              $log.info(res, "message from create document");
               Utils.toast(res.message);
               $scope.status = res.message + "\n Click cancel to return to your documents";
             } else {
@@ -25,17 +24,6 @@
             }
           });
         };
-
-        // Update Document function
-         function updateFn () {
-          Documents.update($scope.docDetail, function(err, res) {
-            if (!err && res) {
-              $scope.status = res.message + ". You can proceed to your page";
-            } else {
-              $scope.status = err.message || err || 'Could not Update';
-            }
-          });
-        }
 
         // load document to view
         $scope.getDoc = function() {
@@ -61,7 +49,6 @@
           });
         }
 
-
         // A confirmation message before deleting
         $scope.deleteDoc = function(event) {
           Utils.dialog('Warning: Delete Document, ' +
@@ -72,8 +59,19 @@
           );
         };
 
+        // Update Document function
+        function updateFn() {
+          Documents.update($scope.docDetail, function(err, res) {
+            if (!err && res) {
+              $scope.status = res.message + ". You can proceed to your page";
+            } else {
+              $scope.status = err.message || err || 'Could not Update';
+            }
+          });
+        }
+
         // A confirmation message before deleting
-         $scope.updateDoc = function(event) {
+        $scope.updateDoc = function(event) {
           Utils.dialog('Warning: Update Document, ' +
             $scope.docDetail.title + '?',
             'Are you sure you want to update, ' +
@@ -82,16 +80,15 @@
           );
         };
 
-        // edit button
-        $scope.editButton = function() {};
-
-        $scope.cancel = function() {
-          $mdDialog.cancel();
+        // Authenticate view privilieges
+        $scope.authView = function(){
+          if($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
+            $rootScope.loggedInUser.userName === 'SuperAdmin'){
+            return true;
+          } else {
+            return false;
+          }
         };
-        $scope.hide = function() {
-          $mdDialog.hide();
-        };
-
       }
     ]);
 })();
