@@ -17,7 +17,6 @@
           $scope.document.role = $rootScope.loggedInUser.role;
           Documents.save($scope.document, function(err, res) {
             if (!err && res) {
-              $log.info(res, "message from create document");
               Utils.toast(res.message);
               $scope.status = res.message + "\n Click cancel to return to your documents";
             } else {

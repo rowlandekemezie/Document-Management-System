@@ -31,7 +31,7 @@
     type: 'application/vnd.api+json'
   }));
   app.use(bodyParser.urlencoded({
-    extended: false
+    extended: true
   }));
 
   // mount the router on api root directory

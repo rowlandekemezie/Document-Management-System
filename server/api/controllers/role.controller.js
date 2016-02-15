@@ -22,6 +22,7 @@
         } else {
           var newRole = new Role(adminRole);
           newRole.save(function(err) {
+            console.log(err);
             if (err) {
               res.json(err);
             } else {

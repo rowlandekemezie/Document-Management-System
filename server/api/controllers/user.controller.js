@@ -51,11 +51,13 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
-    console.log(req.body);
-      User.findOne({$or: [{
-        userName: req.body.userName},{
-        email: req.body.email}
-      ]}, function(err, user) {
+      User.findOne({
+        $or: [{
+          userName: req.body.userName
+        }, {
+          email: req.body.email
+        }]
+      }, function(err, user) {
         if (err) {
           res.status(500).json(err);
         }
@@ -318,6 +320,33 @@
           });
         }
       });
+    },
+    /**
+     * [countUserDocs function]
+     * @param  {[type]} req [description]
+     * @param  {[type]} res [description]
+     * @return {[type]}     [description]
+     */
+    countUserDocs: function(req, res) {
+      Document
+        .aggregate()
+        .group({
+          _id: '$ownerId',
+          count: {
+            $sum: 1
+          }
+        })
+        .exec(function(err, docs) {
+          if (err) {
+            res.status(500).send({
+              success: false,
+              message: 'There was a problem fetching the documents'
+            });
+          } else {
+            res.send(docs);
+          }
+        });
     }
+
   };
 })();

@@ -38,8 +38,8 @@
         user.getUser = function() {
           var deferred = $q.defer();
           $http.get('/api/users/userInSession', {
-            cache: true
-          })
+              cache: true
+            })
             .success(deferred.resolve)
             .error(deferred.reject);
           return deferred.promise;
@@ -49,7 +49,15 @@
         // get all user's documents
         user.getUserDocs = function(userId) {
           var deferred = $q.defer();
-          $http.get('/api/users/' + userId+ '/documents')
+          $http.get('/api/users/' + userId + '/documents')
+            .success(deferred.resolve)
+            .error(deferred.reject);
+          return deferred.promise;
+        };
+
+        user.getDocCount = function() {
+          var deferred = $q.defer();
+          $http.get('/api/user/documents')
             .success(deferred.resolve)
             .error(deferred.reject);
           return deferred.promise;

@@ -1,25 +1,69 @@
 .admin-page
   div(ng-cloak='')
     md-content
-      md-tabs(md-dynamic-height='', md-border-bottom='' ng-init="init()")
+      md-tabs(md-dynamic-height='', md-border-bottom='')
         md-tab(label='ROLES')
-          md-content.md-padding
+          md-content.md-padding(layout-align="start center")
             h1.md-display-2 ROLES
-            p
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.
-              p
-                |{{documents.title}}
+              div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+                md-card
+                  md-card-content
+                    md-list
+                      md-subheader.md-no-sticky.md-margin List of roles
+                      md-list-item.md-3-line(md-ink-ripple ng-model="role" ng-repeat='role in roles')
+                        div(layout="row" flex)
+                          .md-list-item-text(layout='column')
+                            h3(ng-model="role._id") {{ role._id }}
+                            h3(ng-model="role.title") {{ role.title }}
+                        i.fa.fa-trash.md-margin(md-padding ng-click="deleteRoleBtn($event, role)")
+                        i.fa.fa-pencil.md-margin(md-padding ng-click="updateRoleBtn($event)")
+                        md-divider
+                md-card
+                  md-card-content
+                    h5 Create New Role
+                    p {{status}}
+                    form(method="post" enctype="multipart/form-data")
+                      md-input-container(md-block)
+                        label Title
+                        input(type="text" md-no-float placecholder="Enter your role here" ng-model="title" ng-required)
+                      md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
+
         md-tab(label='USERS')
           md-content.md-padding
-            h1.md-display-2 USERS
-            p
-              | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.
-            p
-              | Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.
-            p
-              | Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.
+            h1.md-display-2.md-margin USERS
+              div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+                md-card
+                  md-card-content
+                    md-list
+                      md-subheader.md-no-sticky.md-margin List of Users
+                      md-list-item.md-3-line(md-ink-ripple ng-repeat='user in users')
+                        div(layout="row" flex)
+                          .md-list-item-text(layout='column')
+                            h4(ng-model="user._id") {{ user._id }}
+                            h4(ng-model="user.userName") {{ user.userName }}
+                            h4(ng-model="user.firtName") {{ user.name.firstName}}
+                            h4(ng-model="user.lastName") {{ user.name.lastName}}
+                            h4(ng-model="user.email") {{ user.email}}
+                            h4(ng-model="user.role") {{ user.role }}
+                        i.fa.fa-trash.md-margin(md-padding ng-click="deleteUserBtn($event, role)")
+                        i.fa.fa-pencil.md-margin(md-padding ng-click="updateUserBtn(user)")
+                        md-divider
+                md-card
+                  md-card-content
+                    h5 Manage Users
+                    p {{status}}
+                    form(method="post" enctype="multipart/form-data")
+                      md-input-container(md-block)
+                        label Title
+                        input(type="text" md-no-float placecholder="Enter your role here" ng-model="title" ng-required)
+                      md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
+            md-fab-button.md-accent()
+              i.fa.fa-plus-fa-3x
+              md-tooltip Create User
+
         md-tab(label='DOCUMENTS')
           md-content.md-padding
             h1.md-display-2 DOCUMENTS
             p
               | Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.
+            p {{documents}}
