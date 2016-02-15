@@ -3,18 +3,17 @@
     div.box(flex="70")
       span DocKip is the free, flexible, and easy way to organize and manage your documents.
     div.md-margin(layout-wrap layout-padding layout-align="center center")
-      span Create, Read, Edit, and Delete documents
+      span Create, Read, Edit, and Manage documents
 
       div(ng-if="!loggedInUser")
         br
-        h4 Login to manage your documents
-        h1.md-button.md-raised.md-primary.md-accent(ng-click="signInUser($event)" md-no-ink) Login
         div
-        | {{docs}} {{loggedIn}}
+        h1.md-button.md-raised.md-primary.md-accent(ng-click="signInUser($event)" md-no-ink) GET STARTED TODAY
+        div
         h4 Have no account, &nbsp;
          a(ng-click="createAccount($event)" md-no-ink) Sign Up - It's free
 
 
       div(ng-if="loggedInUser" flex)
         div
-          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard" md-no.ink) View documents
+          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents

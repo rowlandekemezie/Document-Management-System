@@ -1,21 +1,23 @@
-md-content(ng-controller="DocumentCtrl" layout='row', layout-md='column', layout-sm='column', flex='100')
-  form(method='post', enctype='multipart/data', ng-submit='addDocument()')
-    md-input-container(layout-padding)
-      label
-        i.fa.fa-list &nbsp;&nbsp;&nbsp;Title
-      input(type='text', ng-model='document.title', ng-required='true', aria-label='document.title')
-    md-input-container
-      label
-        i.fa.fa-list &nbsp;&nbsp;&nbsp;Content
-      textarea(type='text', rows="50" cols="20" ng-model='document.content', ng-required='true', aria-label='document.content')
+.docForm(flex="80" layout-padding layout-align="center center" ng-cloak="")
+  md-content(ng-controller="DocumentCtrl" layout-sm='column' flex='100' layout-align="center center")
+    div(layout-align="center center" layout="row")
+      h4 Create Document
+    div(layout="column")
 
-    div(layout="row" layout-align="center center")
+      form(method='post' enctype='multipart/data' ng-submit='createDoc()')
+        md-input-container(flex)
+          input(type='text' ng-model='document.title' ng-required='true' placeholder="Enter yout title here" aria-label='document.title')
+        md-input-container(flex)
+          textarea(type='text' rows="15" cols="15" ng-model='document.content' placeholder="Enter your content here" ng-required='true' aria-label='document.content')
 
-      md-button.md-raised.md-accent(type='submit' ng-if="document.type === 'create'")
-        i.fa.fa-plus-circle
-        | Add
-      md-button.md-raised.md-accent(type="submit" ng-if="document.type === 'edit'")
-        i.material-icons create
-      md-button.md-raised.md-accent(type="submit")
-        i.matrial-icons cancel
+        div.success-status
+          | {{status}}
+
+        div(layout="row" layout-align="center center")
+          md-button.md-raised.md-accent(type="submit")
+            i.material-icons create
+            | Create
+          md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})")
+            i.material-icons cancel
+            | Cancel
 

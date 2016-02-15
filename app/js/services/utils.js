@@ -40,27 +40,15 @@
         };
 
         // modal service
-        this.modal = function(ev) {
+        this.modal = function(ev, tmpl, ctrl) {
           $mdDialog.show({
-            controller: DialogController,
-            templateUrl: 'views/users/sign-up.html',
+            controller: ctrl,
+            templateUrl: tmpl,
             parent: angular.element(document.body),
             targetEvent: ev,
             clickOutsideToClose: true,
             fullscreen: true
           });
-
-          // dialog controller service
-          function DialogController($scope, $mdDialog) {
-
-            $scope.hide = function() {
-              $mdDialog.hide();
-            };
-
-            $scope.cancel = function() {
-              $mdDialog.cancel();
-            };
-          }
         };
       }
     ]);

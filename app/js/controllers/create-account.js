@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   angular.module('docKip.controllers')
     .controller('UserAccountCtrl', ['$state', '$scope', 'Auth', 'Users', '$log', '$rootScope', '$mdDialog', '$stateParams', 'Roles', 'Utils',
       function($state, $scope, Auth, Users, $log, $rootScope, $mdDialog, $stateParams, Roles, Utils) {
@@ -9,7 +10,6 @@
         $scope.roles = Roles.query();
         $log.info($scope.roles);
 
-        // $scope.user = {};
         $scope.loginUser = function() {
           $scope.status = '';
           Users.login($scope.user).then(function(res) {

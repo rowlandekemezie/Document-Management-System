@@ -4,6 +4,7 @@
   var models = require('./../models'),
     config = require('./../../config/pass'),
     jwt = require('jsonwebtoken'),
+    bcrypt = require('bcrypt-nodejs'),
 
     /**
      * Models instancies
@@ -50,9 +51,11 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
-      User.findOne({
-        userName: req.body.userName
-      }, function(err, user) {
+    console.log(req.body);
+      User.findOne({$or: [{
+        userName: req.body.userName},{
+        email: req.body.email}
+      ]}, function(err, user) {
         if (err) {
           res.status(500).json(err);
         }
@@ -72,6 +75,7 @@
             var token = jwt.sign(user, config.secret, {
               expiresIn: 1440 // expires in 24 hrs
             });
+            delete user.password;
             res.status(200).json({
               token: token,
               success: true,
@@ -234,26 +238,23 @@
      */
     updateUser: function(req, res) {
       var userData = req.body;
-      var userDetail = {
-        name: {
-          firstName: userData.firstName,
-          lastName: userData.lastName
-        },
-        userName: userData.userName,
-        email: userData.email,
-        password: userData.password,
-        role: userData.role
-      };
-      Role.findOne({
-        title: userDetail.role
-      }, function(err, role) {
-        // check that role is provide and role is not role admin
-        if (!role || role.title === config.admin) {
-          res.status(406).json({
-            success: false,
-            message: 'Please provide your role'
-          });
-        } else {
+
+      User.findById(req.params.id, function(err, user) {
+        if (err) {
+          res.status(500).json(err);
+        }
+        var updateFn = function() {
+          // set the new user information if it exists in the request
+          var userDetail = {
+            name: {
+              firstName: userData.name.firstName || user.name.firstName,
+              lastName: userData.name.lastName || user.name.lastName
+            },
+            userName: userData.userName || user.userName,
+            password: userData.password || user.password,
+            email: userData.email || user.email,
+            role: userData.role || user.role
+          };
           User.findByIdAndUpdate(req.params.id, userDetail,
             function(err, user) {
               if (err) {
@@ -264,12 +265,34 @@
                   message: 'User not available'
                 });
               } else {
+                delete user.password;
+                var token = jwt.sign(user, config.secret, {
+                  expiresIn: 1440 // expires in 24 hrs
+                });
                 res.status(200).json({
                   success: true,
-                  message: 'User details updated'
+                  message: 'User details updated',
+                  token: token,
+                  user: user
                 });
               }
             });
+        };
+        // check if password is provided and hash it before saving
+        if (userData.password) {
+          bcrypt.hash(userData.password, null, null, function(err, hash) {
+            if (err) {
+              res.status(500).send({
+                success: false,
+                message: 'Error saving password.'
+              });
+            } else {
+              req.body.password = hash;
+              updateFn();
+            }
+          });
+        } else {
+          updateFn();
         }
       });
     },

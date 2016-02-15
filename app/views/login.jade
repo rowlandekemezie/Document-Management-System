@@ -3,12 +3,12 @@
     div(layout-gt-sm="column" flex)
       h4.header-display Sign In
       span(flex="")
-      span(class="fa fatimes" ngclick="cancel()" arialabel="Close dialog" style="cursor: pointer;")
+      span(class="fa fa-times" ngclick="cancel()" arialabel="Close dialog" style="cursor: pointer;")
     form(name="login" method="post" novalidate ng-submit="loginUser()")
       div(layout-gt-sm="column" flex)
         md-input-container(flex)
           md-icon.fa.fa-users
-          input(ng-model="user.userName" name="username" type="text" placeholder="username" ng-required="true")
+          input(ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
           div(ng-show="login.email.$error.required") not a valid email format
         md-input-container(flex)
           md-icon.fa.fa-key

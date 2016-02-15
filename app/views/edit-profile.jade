@@ -1,2 +1,37 @@
-md-content(layout="row")
-  md-card()
+.editForm.md-padding
+  form.md-margin(method="post" ng-submit="editProfile()" flex-sm="33" flex="60" layout="column")
+    md-card.md-margin.md-padding(flex="75")
+      div(layout="row" layout-align="center center")
+        h3.md-margin Your Profile Details
+      md-input-container.md-block(layout="row" md-no-float flex)
+        i(class="fa fa-user-secret")
+        input(ng-model="loggedInUser.userName" type="text" placeholder="Username" ng-required="true")
+      div(layout="row" layout-sm="column")
+        md-input-container.md-block(md-no-float flex layout="row")
+          i.fa.fa-users
+          input(ng-model="loggedInUser.name.firstName" type="text" placeholder="firstName" ng-required="true")
+        md-input-container.md-block(layout="row" flex md-no-float)
+          i.fa.fa-users
+          input(ng-model="loggedInUser.name.lastName" type="text" placeholder="lastName" ng-required="true")
+      div(layout="row" style="margin-left: 10px" layout-sm="column")
+        md-input-container.md-block(layout="row" flex md-no-float)
+          i(class="fa fa-users")
+          input(ng-model="loggedInUser.email" type="email" placeholder="email" ng-required="true")
+        md-input-container.md-block(layout="row" md-no-float layout-align="center center" flex)
+          md-icon(class="material-icons") email
+          md-select.md-padding.md-margin(placeholder="role" ng-model="loggedInUser.role" aria-label="role" flex)
+            md-option(ng-repeat="role in roles" ng-value="role.title") {{role.title}}
+      md-input-container.md-block(md-no-float layout="row" flex)
+        i(class="fa fa-user-secret")
+        input(ng-model="loggedInUser.password" type="password" placeholder="password" ng-required="true")
+
+
+      p {{status}}
+
+      div(layout="row" flex layout-align="center end")
+        md-button.md-raised.md-warn.md-margin.button
+          md-icon(class="material-icons") update
+          | Update Profile
+        md-button.md-raised.md-primary(ui-sref="dashboard")
+          md-icon(class="material-icons") cancel
+          | Cancel
