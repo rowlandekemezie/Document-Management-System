@@ -1,11 +1,10 @@
-window.console.log('getting here');
 (function() {
   'use strict';
 
   angular.module('docKip.controllers')
     .controller('DashboardCtrl', ['Utils', 'Users', 'Roles', 'Documents',
-      '$scope', '$rootScope', '$mdSidenav', '$mdDialog', '$log', '$stateParams', '$state',
-      function(Utils, Users, Roles, Documents, $scope, $rootScope, $mdSidenav, $mdDialog, $log, $stateParams, $state) {
+      '$scope', '$rootScope', '$stateParams', '$state', '$mdSidenav',
+      function(Utils, Users, Roles, Documents, $scope, $rootScope, $stateParams, $state, $mdSidenav) {
 
         $scope.init = function() {
           Users.getUserDocs($stateParams.id).then(function(docs) {
@@ -28,19 +27,23 @@ window.console.log('getting here');
             }
           }
         };
+        // user inner view goes here
 
-        // document count
-        for (var i = 0, n = $scope.documents.length; i < n; i++) {
-          $scope.docCount = 0;
-          for (var j = 0, m = $scope.users.length; j < m; j++) {
-            if ($scope.documents[i].ownerId === $scope.users[j]._id) {
-              $scope.docCount++;
-            }
-            $scope.users[j].docCount = $scope.docCount;
-            $log.info($scope.users[j]);
+        // // document count
+        // for (var i = 0, n = $scope.documents.length; i < n; i++) {
+        //   $scope.docCount = 0;
+        //   for (var j = 0, m = $scope.users.length; j < m; j++) {
+        //     if ($scope.documents[i].ownerId === $scope.users[j]._id) {
+        //       $scope.docCount++;
+        //     }
+        //     $scope.users[j].docCount = $scope.docCount;
+        //     $log.info($scope.users[j]);
+        //   }
+        // }
 
-          }
-        }
+        $scope.toggleList = function() {
+          $mdSidenav('left').toggle();
+        };
       }
     ]);
 })();

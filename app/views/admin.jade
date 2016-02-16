@@ -22,6 +22,8 @@
                         td(md-cell='')
                           i.material-icons(ng-click="deleteRoleBtn($event, role)") delete
                           i.material-icons(ng-click="updateRoleBtn($event, role)") update
+                md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{roles.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
+
               md-card
                 md-card-content
                   h5 Create New Role
@@ -39,31 +41,32 @@
             md-divider
             div.md-margin(layout="column" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
               md-card
-               md-table-container
-                table(md-table='' md-progress="promise" style="border:2px")
-                  thead(md-head='')
-                    tr(md-row='')
-                      th(md-column='', md-text='') User Id
-                      th(md-column='', md-text='') UserName
-                      th(md-column='', md-text='') FirstName
-                      th(md-column='', md-text='') LastName
-                      th(md-column='', md-text='') Email
-                      th(md-column='', md-text='') Role
-                      th(md-column='', md-text='') User Documents
-                      th(md-column='', md-text='') Authorized Operations
-                  tbody(md-body='')
-                    tr(md-row='' ng-repeat="user in users")
-                      td(md-cell='') {{user._id}}
-                      td(md-cell='') {{user.userName}}
-                      td(md-cell='') {{user.name.firstName}}
-                      td(md-cell='') {{user.name.lastName}}
-                      td(md-cell='') {{user.email}}
-                      td(md-cell='') {{user.role}}
-                      td(md-cell='') {{user.docSum}}
-                      td(md-cell='')
-                        i.material-icons(ng-click="deleteUserBtn($event, user)") delete
-                        i.material-icons(ng-click="updateUserBtn($event, user)") update
-                      md-divider
+                md-table-container
+                  table(md-table='' md-progress="promise" style="border:2px")
+                    thead(md-head='')
+                      tr(md-row='')
+                        th(md-column='', md-text='') User Id
+                        th(md-column='', md-text='') UserName
+                        th(md-column='', md-text='') FirstName
+                        th(md-column='', md-text='') LastName
+                        th(md-column='', md-text='') Email
+                        th(md-column='', md-text='') Role
+                        th(md-column='', md-text='') User Documents
+                        th(md-column='', md-text='') Authorized Operations
+                    tbody(md-body='')
+                      tr(md-row='' ng-repeat="user in users")
+                        td(md-cell='') {{user._id}}
+                        td(md-cell='') {{user.userName}}
+                        td(md-cell='') {{user.name.firstName}}
+                        td(md-cell='') {{user.name.lastName}}
+                        td(md-cell='') {{user.email}}
+                        td(md-cell='') {{user.role}}
+                        td(md-cell='') {{user.docSum}}
+                        td(md-cell='')
+                          i.material-icons(ng-click="deleteUserBtn($event, user)") delete
+                          i.material-icons(ng-click="updateUserBtn($event, user)") update
+                md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{users.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
+
               md-card
                 md-card-content
                   h5 Manage Users
@@ -123,4 +126,5 @@
                       td(md-cell='')
                         i.material-icons(ui-sref="dashboard.view-document({docid:doc._id})") update
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
+               md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{documents.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
 

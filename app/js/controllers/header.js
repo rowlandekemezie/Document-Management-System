@@ -22,7 +22,7 @@
         //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
 
-        $scope.toggleList = function() {
+        $rootScope.toggleList = function() {
           $mdSidenav('left').toggle();
         };
       }

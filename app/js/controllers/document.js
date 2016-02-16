@@ -5,12 +5,6 @@
     .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams',
       function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams) {
 
-        $scope.init = function() {
-          Documents.get({
-            id: $stateParams.id
-          });
-        };
-
         // Create document function
         $scope.createDoc = function() {
           $scope.document.ownerId = $stateParams.id;

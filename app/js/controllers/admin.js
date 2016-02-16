@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('AdminCtrl', ['$log', '$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope', '$stateParams',
-      function($log, $state, Utils, Roles, Documents, Users, $scope, $stateParams) {
+    .controller('AdminCtrl', ['$log', '$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope',
+      function($log, $state, Utils, Roles, Documents, Users, $scope) {
 
         $scope.init = function() {
           $scope.users = Users.query();
@@ -13,13 +13,32 @@
             for (var j = 0, n = $scope.documents.length; j < n; j++) {
               if ($scope.documents[j].ownerId === $scope.users[i]._id) {
                 $scope.users[i].docSum = $scope.documents[j].count;
-                $log.info($scope.users[i], 'Got in here in the map');
               }
             }
           }
         };
 
         $scope.init();
+
+        // pagination
+        $scope.options = {
+          autoSelect: true,
+          boundaryLinks: false,
+          largeEditDialog: false,
+          pageSelector: false,
+          rowSelection: true
+        };
+
+        $scope.query = {
+          order: '_id',
+          limit: 5,
+          page: 1
+        };
+
+        $scope.logPagination = function(page, limit) {
+          console.log('page: ', page);
+          console.log('limit: ', limit);
+        };
 
         //Delete button
         function deleteUser() {
@@ -121,7 +140,6 @@
             event, deleteRole
           );
         };
-
 
         //delete buttoon for document
         $scope.deleteDocBtn = function(event, doc) {

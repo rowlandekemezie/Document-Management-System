@@ -104,10 +104,6 @@
              'inner-view@dashboard': {
                controller: 'DashboardCtrl',
                templateUrl: 'views/users/user-documents.html'
-             },
-             'user-view': {
-               controller: 'UserCtrl',
-               templateUrl: 'views/users/user-documents.html'
              }
            }
          })

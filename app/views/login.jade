@@ -1,25 +1,21 @@
 .sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" layout-padding flex="100" layout-align="center center" ng-cloak)
   div(layout-padding)
     div(layout-gt-sm="column" flex)
-      h4.header-display Sign In
-      span(flex="")
-      span(class="fa fa-times" ngclick="cancel()" arialabel="Close dialog" style="cursor: pointer;")
-    form(name="login" method="post" novalidate ng-submit="loginUser()")
+      h4.header-display.sign-up-header Sign In
+    form(name="login" method="post" ng-submit="loginUser()")
       div(layout-gt-sm="column" flex)
-        md-input-container(flex)
-          md-icon.fa.fa-users
-          input(ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
-          div(ng-show="login.email.$error.required") not a valid email format
-        md-input-container(flex)
-          md-icon.fa.fa-key
-          input(ng-model="user.password" name="password" type="password" placeholder="password" ng-required="true" ng-minlength="8")
-          div(flex layout="column")
-            span.error(flex ng-show="login.password.$touched && login.password.$error.minlength") Password must be not be less than 8 characters
-            span.error(flex ng-show="login.password.$touched && login.password.$error.required") Please provide your password
+        md-input-container.md-block(flex)
+          input(md-no-float ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
+          div(ng-messages="signp.userName.$error")
+            div(ng-message="required") This is required!
+        md-input-container.md-block(flex)
+          input(md-no-float ng-model="user.password" name="password" type="password" placeholder="password" ng-required="true" ng-minlength="8")
+          div(ng-messages="signp.password.$error")
+            div(ng-message="required") This is required!
+            div(mg-message="minlength") Your password must not be less than 8 characters
         div(layout="column" flex layout-align="center center")
           p.link {{status}}
           div(layout="column")
-            md-button.md-raised.md-accent.md-primary(type="submit" layout-padding style="background-color:teal" ng-disabled="login.$invalid") Login
-            h4
-              span Create new account? &nbsp;
-              span(ng-click="cancel()") Sign-Up - It's free
+            md-button.md-raised.md-primary(type="submit" layout-padding ng-disabled="login.$invalid") Login
+            h3 Create new account? &nbsp;
+              a(ng-click="cancel()") Sign Up
