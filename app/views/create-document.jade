@@ -1,13 +1,16 @@
-.editForm(flex="80" layout-padding ng-cloak="")
+.docForm(flex="80" layout-padding ng-cloak="")
+  i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
+    md-tooltip Go back
   md-content(ng-controller="DocumentCtrl" layout-sm='column' flex='100' layout-align="center center")
     div(layout-align="center center" layout="row")
       h4 Create Document
     div(layout="column" flex)
       form(method='post' enctype='multipart/data' ng-submit='createDoc()')
-        md-input-container(flex)
-          input(type='text' ng-model='document.title' ng-required='true' placeholder="Enter yout title here" aria-label='document.title')
-        md-input-container(flex)
-          textarea(type='text' rows="50" cols="50" ng-model='document.content' placeholder="Enter your content here" ng-required='true' aria-label='document.content')
+        div(layout="column" flex)
+          md-input-container(flex)
+            input(type='text' ng-model='document.title' ng-required='true' placeholder="Enter yout title here" aria-label='document.title')
+          md-input-container(flex)
+            textarea.text-area-content(type='text' rows="100" cols="50" ng-model='document.content' placeholder="Enter your content here" ng-required='true' aria-label='document.content')
 
         div.success-status
           | {{status}}
@@ -16,7 +19,4 @@
           md-button.md-raised.md-accent(type="submit")
             i.material-icons create
             | Create
-          md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})")
-            i.material-icons cancel
-            | Cancel
 

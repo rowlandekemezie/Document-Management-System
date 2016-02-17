@@ -12,6 +12,7 @@
           Documents.save($scope.document, function(err, res) {
             if (!err && res) {
               Utils.toast(res.message);
+              $state.go('dashboard({loggedInUser._id:$stateParams.id');
               $scope.status = res.message + "\n Click cancel to return to your documents";
             } else {
               $scope.status = err.message || err || 'Could not create';
@@ -75,8 +76,8 @@
         };
 
         // Authenticate view privilieges
-        $scope.authView = function(){
-          if($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
+        $scope.isAuthView = function(){
+          if($rootScope.loggedInUser._id === $stateParams.docid ||
             $rootScope.loggedInUser.userName === 'SuperAdmin'){
             return true;
           } else {

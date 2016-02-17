@@ -27,6 +27,14 @@
             }
           }
         };
+
+        $scope.isAdmin = function(){
+          if($rootScope.loggedInUser.role === 'SuperAdmin'){
+            return true;
+          } else {
+            return false;
+          }
+        };
         // user inner view goes here
 
         // // document count

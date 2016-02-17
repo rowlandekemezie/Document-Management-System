@@ -47,7 +47,6 @@ img {
     background-repeat: repeat-x;
     animation: animatedBackground 40s linear infinite;
     overflow: hidden;
-
 }
 
 a {
@@ -121,9 +120,14 @@ h1.md-button.md-raised.md-primary {
     height: 30px;
     border-radius: 10px;
 }
+
 .logo-text {
     font-family: Playball;
     font-size: 20px;
+}
+
+.logo-text:hover {
+    color: grey;
 }
 
 h2 > a,
@@ -159,13 +163,13 @@ input {
 }
 
 .sign-up-wrap {
-    margin: 8px auto;
+    margin: 0 auto;
     width: 450px;
-    background-color: ghostwhite;
+    background-color: rgb(63,81,181);
     padding-top: 25px;
     padding-bottom: 10px;
     color: black;
-    opacity: 100%;
+    opacity: 60%;
     position: relative;
 }
 
@@ -176,13 +180,13 @@ input {
 }
 
 .sign-in-wrap {
-    background-color: white;
+    background-color: rgb(63,81,181);
+    opacity: 0.5%;
+    margin: 0 auto;
     width: 400px;
-    margin: 50px auto;
     font-size: 1.2em;
     position: relative;
-    border-radius: 8px;
-    .sign-up-header{
+    > .sign-up-header {
         font-weight: bolder;
     }
 }
@@ -199,7 +203,7 @@ div > md-button {
 .header-display {
     text-align: center;
     color: grey;
-    font-family: Rightous;
+    font-weight: bold;
 }
 
 .dashboard-wrapper {
@@ -297,14 +301,27 @@ md-sidenav .ripple-container {
     border: 3px solid ghostwhite;
     background-color: whitesmoke;
     text-align: center;
-    margin: 0 auto;
     border-radius: 10px;
     z-index: 20px;
 }
 
-textarea {
-    border: white 5px dashed;
-    line-height: 24px;
+.editForm form {
+    margin: 0 auto;
+    text-align: center;
+    > md-card {
+    background-color: rgb(63,81,181);
+    border-radius: 10px;
+    opacity: 0.7%;
+   }
+}
+
+md-input-container textarea.md-input {
+    min-height: 250px;
+}
+
+.text-area-content {
+    height: 250px;
+    min-height: 250px;
 }
 
 .docForm > div > h4 {
@@ -318,7 +335,7 @@ textarea {
 }
 
 .grid-header {
-    font-size:24px;
+    font-size: 24px;
     text-align: center;
     background-color: lightblue;
     color: #444;
@@ -373,12 +390,14 @@ textarea {
     text-align: left;
     margin-right: 50px;
 }
+
 .doc-preview {
     width: 100%;
     min-height: 100%;
     height: auto;
     margin-top: -10px;
 }
+
 .preview-footer {
     margin-top: 120px;
     height: 10px;
@@ -386,8 +405,13 @@ textarea {
     text-align: center;
     background-color: lightslategrey;
 }
+
 .home-page-description {
     margin-top: -15px;
-
 }
 
+.back-icon {
+    font-size: 3em;
+    font-weight: bolder;
+    background-color: white;
+}

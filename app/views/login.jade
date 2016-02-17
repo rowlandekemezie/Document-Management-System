@@ -1,4 +1,4 @@
-.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" layout-padding flex="100" layout-align="center center" ng-cloak)
+.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" flex="100" layout-align="center center" ng-cloak)
   div(layout-padding)
     div(layout-gt-sm="column" flex)
       h4.header-display.sign-up-header Sign In
@@ -6,11 +6,11 @@
       div(layout-gt-sm="column" flex)
         md-input-container.md-block(flex)
           input(md-no-float ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
-          div(ng-messages="signp.userName.$error")
+          div(ng-messages="login.userName.$error")
             div(ng-message="required") This is required!
         md-input-container.md-block(flex)
           input(md-no-float ng-model="user.password" name="password" type="password" placeholder="password" ng-required="true" ng-minlength="8")
-          div(ng-messages="signp.password.$error")
+          div(ng-messages="login.password.$error")
             div(ng-message="required") This is required!
             div(mg-message="minlength") Your password must not be less than 8 characters
         div(layout="column" flex layout-align="center center")
