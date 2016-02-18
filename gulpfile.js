@@ -23,14 +23,15 @@
     // stylish = require('jshint-stylish'),
     ngAnnotate = require('gulp-ng-annotate'),
     jshint = require('gulp-jshint'),
+    karma = require('gulp-karma'),
     uglify = require('gulp-uglify'),
     buffer = require('vinyl-buffer'),
     minifyCss = require('gulp-minify-css'),
     sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
     cache = require('gulp-cache');
-    // coveralls = require('gulp-coveralls'),
-    // rev = require('rev');
+  // coveralls = require('gulp-coveralls'),
+  // rev = require('rev');
 
   // define clean task
   gulp.task('clean', function() {
@@ -54,11 +55,11 @@
         stream: true
       }))
       .pipe(notify({
-       message: 'less task completed'
+        message: 'less task completed'
       }))
       .on('error', function(error) {
         gutil.log(gutil.colors.red(error.message));
-          // Notify on error. Uses node-notifier
+        // Notify on error. Uses node-notifier
         notifier.notify({
           title: 'Less compilation error',
           message: error.message
@@ -104,8 +105,8 @@
       // vinyl-source-stream makes the bundle compatible with gulp
       .pipe(source('application.js')) // Desired filename
       //.pipe(ngAnnotate())
-     // .pipe(buffer())
-     // .pipe(uglify())
+      // .pipe(buffer())
+      // .pipe(uglify())
       // .pipe(stripeDebug())
       // Output the file
       // .pipe(gulp.dest('./public/js/'))
@@ -119,7 +120,8 @@
   // define jshint lint
   gulp.task('jshint', function() {
     return gulp.src(['./app/js/**/*.js', './server/**/*.js',
-      './index.js', './spec/**/*.js'])
+        './index.js', './spec/**/*.js'
+      ])
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
   });
@@ -152,7 +154,7 @@
   });
 
   //  task for back end test
-  gulp.task('test:bend', function() {
+  gulp.task('test:bend', ['test:fend'], function() {
     return gulp.src('spec/server/*.js', {
         read: false
       })
@@ -170,10 +172,18 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', function(done) {
-    new Server({
-      configFile: __dirname + '/karma.conf.js',
-    }, done).start();
+  gulp.task('test:fend', ['browserify'], function() {
+    return gulp.src([])
+      .pipe(karma({
+        configFile: __dirname + '/karma.conf.js',
+        // autoWatch: false,
+        // singleRun: true
+        action: 'run'
+      }))
+      .on('error', function(err) {
+        // Make sure failed tests cause gulp to exit non-zero
+        throw err;
+      });
   });
 
   // e2e test task
@@ -192,12 +202,12 @@
   // task for nodemon
   gulp.task('nodemon', function() {
     nodemon({
-        ext: 'js',
-        script: 'index.js',
-        ignore: ['node_modules/', 'public/', 'coverage/']
-      })
-      // .on('watch', ['watch'])
-      .on('change', ['watch'])
+      ext: 'js',
+      script: 'index.js',
+      ignore: ['node_modules/', 'public/', 'coverage/']
+    })
+    // .on('watch', ['watch'])
+    .on('change', ['watch'])
       .on('restart', function() {
         console.log('Appliction restarted..>>');
       });
@@ -213,10 +223,11 @@
 
   // build task
   gulp.task('build', ['jade', 'less', 'static-files',
-   'imagemin', 'browserify', 'bower']);
+    'imagemin', 'browserify', 'bower'
+  ]);
 
   // register test task
-  gulp.task('test', ['test:fend', 'test:bend', 'test-coverage']);
+  gulp.task('test', ['test:fend', 'test:bend']);
   // deployment tasks
   gulp.task('heroku:production', ['build']);
   gulp.task('heroku:staging', ['build']);

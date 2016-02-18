@@ -7,7 +7,7 @@
       function(Utils, Users, Roles, Documents, $scope, $rootScope, $stateParams, $state, $mdSidenav) {
 
         $scope.init = function() {
-          Users.getUserDocs($stateParams.id).then(function(docs) {
+        Users.getUserDocs({id:$stateParams.id}, function(docs) {
             $scope.userDocs = docs;
           }, function(err) {
             if (err.status === 404) {

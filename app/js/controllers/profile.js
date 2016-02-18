@@ -7,7 +7,9 @@
 
         // initialize
         $scope.init = function() {
-          $scope.roles = Roles.query();
+          Roles.query(function(res){
+            $scope.roles = res;
+          });
         };
         $scope.init();
 

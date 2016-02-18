@@ -1,6 +1,5 @@
  (function() {
    'use strict';
-
    // angular modules
    angular.module('docKip.services', []);
    angular.module('docKip.controllers', []);
@@ -23,11 +22,6 @@
    require('./controllers/profile');
    require('./controllers/admin.js');
 
-
-   // require angular messages
-   //require('angular-messages');
-
-
    angular.module('docKip', [
      'docKip.services',
      'docKip.controllers',
@@ -36,10 +30,7 @@
      'ngMaterial',
      'ui.router',
      'ngAnimate',
-     'ui.gravatar',
      'md.data.table'
-     //'ngMessages'
-
    ])
      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
        function($rootScope, Auth, $state, Users, $log) {
@@ -59,32 +50,24 @@
          }
 
          // check that the user is in session and make global the user's details
-         Users.getUser().then(function(res) {
-           $rootScope.loggedInUser = res;
-           $log.info($rootScope.loggedInUser, 'respond with user details');
-         }, function(err) {
-           $log.debug(err);
+         Users.getUser(function(err, res) {
+           if (!err && res) {
+             $rootScope.loggedInUser = res;
+             $log.info($rootScope.loggedInUser, 'respond with user details');
+           } else {
+             $log.debug(err);
+           }
          });
-
        }
      ])
      .config(['$locationProvider',
        '$stateProvider',
-       '$mdThemingProvider', '$urlRouterProvider', '$httpProvider', 'gravatarServiceProvider',
+       '$mdThemingProvider', '$urlRouterProvider', '$httpProvider',
 
        function($locationProvider,
          $stateProvider,
          $mdThemingProvider,
-         $urlRouterProvider, $httpProvider, gravatarServiceProvider) {
-
-         // gravatar images
-         gravatarServiceProvider.defaults = {
-           size: 30,
-           'default': 'mm'
-         };
-
-         // Use https endpoint
-         gravatarServiceProvider.secure = true;
+         $urlRouterProvider, $httpProvider) {
 
          // Set up the states
          $stateProvider

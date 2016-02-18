@@ -9,11 +9,11 @@ md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="
   div(ng-if="documents" layout="row" flex)
     div
       h2 Document View
-    div.md-padding(layout="row" layout-wrap)
+    div.md-padding.md-margin(layout="row" layout-wrap)
       .doc-preview.grid-border(flex-gt-sm="33" layout-align="row" ng-repeat="doc in documents | orderBy: 'lastModified':true")
-        .grid-header(layout-align="center center") {{doc.title}}
+        h3.grid-header(layout-align="center center") {{doc.title}}
         div(layout="column" layout-align="start start" flex)
-          h3 {{doc.content}}
+          | {{doc.content}}
           md-button.md-primary.md-raised(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") View more
         div(flex layout="column" layout-padding)
           h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}

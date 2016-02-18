@@ -182,12 +182,16 @@ input {
 .sign-in-wrap {
     background-color: rgb(63,81,181);
     opacity: 0.5%;
+    color: white;
     margin: 0 auto;
     width: 400px;
     font-size: 1.2em;
     position: relative;
     > .sign-up-header {
         font-weight: bolder;
+        > input {
+            color:white;
+        }
     }
 }
 
@@ -380,27 +384,18 @@ md-input-container textarea.md-input {
 .fa {
     cursor: pointer;
     font-size: 1.3em;
-}
-
-.user-view {
-    width: 30%;
-    height: auto;
-    background: green;
-    float: right;
-    text-align: left;
-    margin-right: 50px;
+    text-decoration: none;
 }
 
 .doc-preview {
     width: 100%;
     min-height: 100%;
-    height: auto;
-    margin-top: -10px;
+    height: 200px;
 }
 
 .preview-footer {
     margin-top: 120px;
-    height: 10px;
+    height: 50px;
     margin-bottom: 0;
     text-align: center;
     background-color: lightslategrey;

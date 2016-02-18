@@ -5,6 +5,14 @@
     .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams',
       function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams) {
 
+        // init function
+        $scope.init = function() {
+          Roles.query(function(res) {
+            $scope.roles = res;
+          });
+        };
+        $scope.init();
+
         // Create document function
         $scope.createDoc = function() {
           $scope.document.ownerId = $stateParams.id;
@@ -12,7 +20,7 @@
           Documents.save($scope.document, function(err, res) {
             if (!err && res) {
               Utils.toast(res.message);
-              $state.go('dashboard({loggedInUser._id:$stateParams.id');
+              $state.go('dashboard({id:loggedInUser._id})');
               $scope.status = res.message + "\n Click cancel to return to your documents";
             } else {
               $scope.status = err.message || err || 'Could not create';
@@ -27,13 +35,12 @@
           }, function(res) {
             $scope.docDetail = res;
           });
-          $scope.roles = Roles.query();
         };
         $scope.getDoc();
 
 
         // delete document function
-        function deleteDocFn() {
+        $scope.deleteDocFn = function () {
           Documents.remove({
             id: $scope.docDetail._id
           }, function() {
@@ -42,7 +49,7 @@
           }, function() {
             $scope.status = 'There was problem deleting document';
           });
-        }
+        };
 
         // A confirmation message before deleting
         $scope.deleteDoc = function(event) {
@@ -50,12 +57,12 @@
             $scope.docDetail.title + '?',
             'Are you sure you want to delete, ' +
             $scope.docDetail.title + '?',
-            event, deleteDocFn
+            event, $scope.deleteDocFn
           );
         };
 
         // Update Document function
-        function updateFn() {
+        $scope.updateDocFn = function () {
           Documents.update($scope.docDetail, function(err, res) {
             if (!err && res) {
               $scope.status = res.message + ". You can proceed to your page";
@@ -63,7 +70,7 @@
               $scope.status = err.message || err || 'Could not Update';
             }
           });
-        }
+        };
 
         // A confirmation message before deleting
         $scope.updateDoc = function(event) {
@@ -71,14 +78,14 @@
             $scope.docDetail.title + '?',
             'Are you sure you want to update, ' +
             $scope.docDetail.title + '?',
-            event, updateFn
+            event, $scope.updateDocFn
           );
         };
 
         // Authenticate view privilieges
-        $scope.isAuthView = function(){
-          if($rootScope.loggedInUser._id === $stateParams.docid ||
-            $rootScope.loggedInUser.userName === 'SuperAdmin'){
+        $scope.isAuthView = function() {
+          if ($rootScope.loggedInUser._id === $stateParams.docid ||
+            $rootScope.loggedInUser.userName === 'SuperAdmin') {
             return true;
           } else {
             return false;
