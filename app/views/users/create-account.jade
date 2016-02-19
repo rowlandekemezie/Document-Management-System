@@ -1,51 +1,41 @@
 .sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak)
-  div(layout-padding layout-align="center center")
+  div(layout-padding layout-align="center center" layout="column")
     div(layout-gt-sm="column")
-      h4.header-display Sign Up
-      span(flex="")
-      span(class='fa fa-times' ng-click='cancel()' aria-label='Close dialog' style='cursor: pointer;')
-    form(Name="signup" method="post" novalidate ng-submit="signUp()")
+      h4.header-display.sign-up-header Sign Up
+    form(Name="signup" method="post" ng-submit="signUp()")
       div(layout-gt-sm="row" flex)
-        md-input-container.md-block
-          md-icon.fa.fa-users
-          input(ng-model="user.firstName" name="firstName" placeholder="firstName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
-          span.error(flex ng-show="signup.firstName.$touched && signup.firstName.$invalid") Please provide a valid firstName
-        md-input-container.md-block
-          input(ng-model="user.lastName" name="lastName" placeholder="lastName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" ng-required="true")
-          span.error(flex ng-show="signup.lastName.$touched && signup.lastName.$invalid") Please provide a valid lastName
+        md-input-container.md-block(flex)
+          input(md-no-float ng-model="user.firstName" name="firstName" placeholder="firstName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" required)
+          div(ng-messages="signp.firstName.$error")
+            div(ng-message="required") This is required!
+        md-input-container.md-block(flex)
+          input(md-no-float ng-model="user.lastName" name="lastName" placeholder="lastName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" required)
+          div(ng-messages="signp.lastName.$error")
+            div(ng-message="required") This is required!
       div(layout-gt-sm="row")
-        md-input-container(flex)
-          md-icon.fa.fa-users
-          input(ng-model="user.userName" name="userName" placeholder="userName" ng-required="true" ng-pattern="/^([a-zA-Z])[a-zA-Z0-9._]+$/")
-        div.md-block(flex layout="column")
-          span.error(flex ng-show="signup.userName.$touched && signup.userName.$error.required") Please provide your userName
-          span.error(flex ng-show="signup.userName.$touched && signup.userName.$invalid") Please provide a valid userName
-        md-input-container(flex)
-          md-select(ng-model="user.role"  name="role" placeholder="select role" ng-required="true")
-            md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
-        div.md-block(flex layout="column")
-          span.error(flex ng-show="signup.role.$touched && signup.role.$error.required") Please select a role
-      md-input-container(flex)
-        md-icon.fa.fa-envelope
-        input(ng-model="user.email" name="email" type="email" placeholder="youremail@email.com" ng-required ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
-      div.md-block(flex layout="column")
-        span.error(flex ng-show="signup.email.$touched && signup.email.$invalid") Please provide a valid email address
-        span.error(flex ng-show="signup.email.$touched && signup.email.$error.required") Please provide an email address
-      md-input-container(flex)
-        md-icon.fa.fa-key
-        input(ng-model="user.password" name="password" type="password" aria-label="password" ng-required="true" ng-minlength="8")
-      div(flex layout="column")
-        span.error(flex ng-show="signup.password.$touched && signup.password.$error.minlength") Password must be not be less than 8 characters
-        span.error(flex ng-show="signup.password.$touched && signup.password.$error.required") Please provide your password
-      md-input-container(flex)
-        md-icon.fa.fa-key
-        input(ng-model="user.confirmPassword" type="password" placeholder="confirm password" name="confirmPassword" match="user.password" ng-required="true")
-      span.error(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue") Password doesn't match
-      //- div.md-padding(layout="row" layout-sm="column" layout-align="space-around")
-      //-   md-progress-circular(md-mode="determinate" value="{{progress}}")
+        md-input-container.md-block(flex)
+          input(md-no-float ng-model="user.userName" name="userName" placeholder="userName" required ng-pattern="/^([a-zA-Z])[a-zA-Z0-9._]+$/")
+          div(ng-messages="signp.userName.$error")
+            div(ng-message="required") This is required!
+        md-input-container.md-block(flex)
+          md-select(md-no-float ng-model="user.role" type="text" name="role" placeholder="select role" required)
+            md-option(ng-repeat="role in roles" ng-selected="role.title") {{role.title}}
+          div(ng-messages="signp.role.$error")
+            div(ng-message="required") This is required!
+      md-input-container.md-block(flex)
+        input(md-no-float ng-model="user.email" name="email" type="email" placeholder="youremail@email.com" required ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
+        div(ng-messages="signp.email.$error")
+          div(ng-message="required") This is required!
+      md-input-container.md-block(flex)
+        input(md-no-float ng-model="user.password" name="password" type="password" aria-label="password" required minlength="8" placeholder="Password")
+        div(ng-messages="signp.password.$error")
+          div(ng-message="required") This is required!
+          div(mg-message="minlength") Your password must not be less than 8 characters
+      md-input-container.md-block(flex)
+        input(md-no-float ng-model="user.confirmPassword" type="password" placeholder="Confirm password" name="confirmPassword" match="user.password" required)
+        div(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue") Password doesn't match
       div(layout="column" flex layout-align="center center")
         p.link {{status}}
-        md-button.md-raised.md-accent(type="submit" style="background-color:teal" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
-        h4
-          span Already registered? &nbsp;
+        md-button.md-raised.md-primary(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
+        h3 Already registered? &nbsp;
           a(ng-click="cancel()") Login

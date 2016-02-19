@@ -17,42 +17,53 @@
         });
 
         // login
-        user.login = function(user) {
-          var deferred = $q.defer();
+        user.login = function(user, cb) {
+          // var deferred = $q.defer();
           $http.post('/api/users/login', user)
-            .success(deferred.resolve)
-            .error(deferred.reject);
-          return deferred.promise;
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err);
+            });
         };
 
         // logout
-        user.logout = function() {
-          var deferred = $q.defer();
+        user.logout = function(cb) {
           $http.get('/api/users/logout')
-            .success(deferred.resolve)
-            .error(deferred.reject);
-          return deferred.promise;
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err);
+            });
         };
 
         // get the details of the loggedIn user
-        user.getUser = function() {
-          var deferred = $q.defer();
+        user.getUser = function(cb) {
+          // var deferred = $q.defer();
           $http.get('/api/users/userInSession', {
-              cache: true
+            cache: true
+          })
+            .success(function(res) {
+              cb(null, res);
             })
-            .success(deferred.resolve)
-            .error(deferred.reject);
-          return deferred.promise;
+            .error(function(err) {
+              cb(err, null);
+            });
         };
 
 
         // get all user's documents
-        user.getUserDocs = function(userId) {
-          var deferred = $q.defer();
+        user.getUserDocs = function(userId, cb) {
+          // var deferred = $q.defer();
           $http.get('/api/users/' + userId + '/documents')
-            .success(deferred.resolve)
-            .error(deferred.reject);
-          return deferred.promise;
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err, null);
+            });
         };
 
         user.getDocCount = function() {

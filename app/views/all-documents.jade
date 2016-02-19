@@ -2,23 +2,22 @@ md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
-  div(flex)
-    h2.md-padding(ng-if="!documents") There are currently no documents. Start today
+  div(flex ng-if="!documents")
+    h2.md-padding There are currently no documents. Start today
     md-divider(md-inset)
 
-    div(ng-if="documents" flex)
-      div
-        h2 Document View
-      md-grid-list(md-cols-sm='1' md-cols-md='2' md-cols-lg='3' md-cols-gt-lg='4' md-row-height='2:2' md-row-height-sm='1:1' md-gutter='8px' md-gutter-gt-sm='8px')
-        md-grid-tile.grid-border(md-ink-ripple ng-repeat="doc in documents | orderBy: 'lastModified':true")
-          md-grid-tile-header.grid-header(layout-align="center center") {{doc.title}}
-          div(layout="row" layout-align="start center")
-            h3 {{doc.content}}
-            md-button.md-primary.md-raised(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") View more
-            md-grid-tile-footer
-              div(flex layout="column" layout-padding)
-                h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
-                |by {{getName(doc.ownerId)}}
+  div(ng-if="documents" layout="row" flex)
+    div
+      h2 Document View
+    div.md-padding.md-margin(layout="row" layout-wrap)
+      .doc-preview.grid-border(flex-gt-sm="33" layout-align="row" ng-repeat="doc in documents | orderBy: 'lastModified':true")
+        h3.grid-header(layout-align="center center") {{doc.title}}
+        div(layout="column" layout-align="start start" flex)
+          | {{doc.content}}
+          md-button.md-primary.md-raised(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") View more
+        div(flex layout="column" layout-padding)
+          h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
+          |by {{getName(doc.ownerId)}}
 
 
 

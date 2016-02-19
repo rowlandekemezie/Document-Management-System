@@ -1,8 +1,8 @@
 .home-page
   .jumbobox(layout="column" flex-sm="33" layout-sm="row" flex-md="66" layout-md="row" ng-controller="UserDialogCtrl" layout-align="center center" ng-cloak)
-    div.box(flex="70")
-      span DocKip is the free, flexible, and easy way to organize and manage your documents.
-    div.md-margin(layout-wrap layout-padding layout-align="center center")
+    .box(flex="100")
+      span CREATE | SHARE | MANAGE
+    div.home-page-description(layout-padding layout-align="center center")
       span Create, Read, Edit, and Manage documents
 
       div(ng-if="!loggedInUser")
@@ -12,8 +12,16 @@
         div
         h4 Have no account, &nbsp;
          a(ng-click="createAccount($event)" md-no-ink) Sign Up - It's free
-
-
       div(ng-if="loggedInUser" flex)
         div
           h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
+  div.md-margin(layout="row" md-padding flex)
+    div(flex)
+      h5 About
+      h5 This is  a document management system that helps you manage your application
+    div(flex)
+      h5 Contact Us
+      h6 Do well to contact us as the case maybe for support
+    div(flex)
+      h5 Privileges
+      h5 privileges are assigned based on the role given to a document. Also, the SUper Admin manages the entire application for smooth operations. Reach out to the Admin for any support.

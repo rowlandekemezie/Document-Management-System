@@ -2,20 +2,22 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('EditProfileCtrl', ['Utils', 'Roles', 'Users', '$rootScope', '$scope', '$log',
-      function(Utils, Roles, Users, $rootScope, $scope, $log) {
+    .controller('EditProfileCtrl', ['Utils', 'Roles', 'Users', '$rootScope', '$scope', '$state',
+      function(Utils, Roles, Users, $rootScope, $scope, $state) {
 
         // initialize
         $scope.init = function() {
-          $scope.roles = Roles.query();
+          Roles.query(function(res){
+            $scope.roles = res;
+          });
         };
         $scope.init();
 
         $scope.editProfile = function() {
           Users.update($rootScope.loggedInUser, function(res) {
             Utils.toast(res.message);
+            $state.go('dashboard');
           }, function(err) {
-            $log.warn(err);
             $scope.status = err.message || err.error || 'Something went wrong';
           });
         };

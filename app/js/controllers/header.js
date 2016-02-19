@@ -3,26 +3,28 @@
 
   angular.module('docKip.controllers')
     .controller('HeadCtrl', ['$rootScope', '$scope', 'Auth', 'Users',
-      '$state', '$mdSidenav','Utils', '$route',
+      '$state', '$mdSidenav', 'Utils', '$route',
       function($rootScope, $scope, Auth, Users,
         $state, $mdSidenav, Utils, $route) {
 
         $scope.logoutUser = function() {
-          Users.logout().then(function(res) {
-            Auth.logout();
-            $rootScope.loggedInUser = '';
-            Utils.toast(res.message);
-            $state.go('home');
-            $route.reload();
-          }, function(err) {
-            return err;
+          Users.logout(function(err, res) {
+            if (!err && res) {
+              Auth.logout();
+              $rootScope.loggedInUser = '';
+              Utils.toast(res.message);
+              $state.go('home');
+              $route.reload();
+            } else {
+              return err;
+            }
           });
-
         };
+
         //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
 
-        $scope.toggleList = function() {
+        $rootScope.toggleList = function() {
           $mdSidenav('left').toggle();
         };
       }

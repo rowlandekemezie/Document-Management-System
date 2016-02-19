@@ -12,18 +12,17 @@
     height: 25px;
     margin: 16px;
     width: 25px;
-    outline: 1px;
 }
 
 img {
-    opacity: 100%;
+    opacity: 80%;
+    visibility: hidden;
 }
 
 .jumbobox {
     margin-top: 100px;
     text-align: center;
     min-width: 200px;
-    color: white;
     height: 350px;
     animation: jux 5s infinite;
     @media (max-width: 599px) {
@@ -41,24 +40,23 @@ img {
     padding-top: 3px;
     position: relative;
     margin: auto;
-    opacity: 0.7;
-    background: lightblue;
-    background-image: url('./../images/background1.png');
+    opacity: 0.6;
+    color: black;
+    background-color: lightblue;
+    background-image: url('./../images/backgroundImage1.png');
     background-repeat: repeat-x;
     animation: animatedBackground 40s linear infinite;
-    position: relative;
     overflow: hidden;
 }
 
 a {
-    color: blue;
     font-size: 18px;
-    font-family: Roboto;
     text-decoration: none;
+    cursor: pointer;
 }
 
 a:hover {
-    color: whitesmoke;
+    color: blue;
 }
 
 body {
@@ -93,38 +91,47 @@ h5 {
 
 @keyframes jux {
     from {
-        color: grey;
+        color: black;
     }
     to {
-        color: white;
+        color: black;
     }
 }
 
 .box {
-    width: 50%;
-    font-size: 40px;
+    width: 70%;
+    font-size: 50px;
     padding-top: 10px;
-    margin: 10px auto;
+    min-width: 300px !important;
     line-height: 1.5em;
-    color: white;
+    height: 150px !important;
+    max-height: 45% !important;
+    color: black;
     animation: jux 5s infinite;
-    font-family: Playball;
+    font-weight: bolder;
+    z-index: 50px;
 }
 
 h1.md-button.md-raised.md-primary {
-    margin-top: 16px;
+    margin-top: 10px;
     margin-bottom: 16px;
-    background-color: #ccc;
-    color: teal;
-    font-size: 20px;
+    font-size: 30px;
     width: auto;
-    height: 15px;
-    border-radius: 5px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.logo-text {
+    font-family: Playball;
+    font-size: 20px;
+}
+
+.logo-text:hover {
+    color: grey;
 }
 
 h2 > a,
 div > h4 {
-    font-family: Courgette;
     font-size: 20px;
     text-align: center;
 }
@@ -156,13 +163,13 @@ input {
 }
 
 .sign-up-wrap {
-    margin: 8px auto;
+    margin: 0 auto;
     width: 450px;
-    background-color: white;
-    padding-top: 30px;
+    background-color: rgb(63,81,181);
+    padding-top: 25px;
     padding-bottom: 10px;
     color: black;
-    opacity: 100%;
+    opacity: 60%;
     position: relative;
 }
 
@@ -173,11 +180,19 @@ input {
 }
 
 .sign-in-wrap {
-    background-color: white;
+    background-color: rgb(63,81,181);
+    opacity: 0.5%;
+    color: white;
+    margin: 0 auto;
     width: 400px;
-    margin: 50px auto;
     font-size: 1.2em;
     position: relative;
+    > .sign-up-header {
+        font-weight: bolder;
+        > input {
+            color:white;
+        }
+    }
 }
 
 p.link {
@@ -192,7 +207,7 @@ div > md-button {
 .header-display {
     text-align: center;
     color: grey;
-    font-family: Rightous;
+    font-weight: bold;
 }
 
 .dashboard-wrapper {
@@ -250,9 +265,9 @@ div > md-button {
 md-sidenav,
 md-sidenav.md-locked-open,
 md-sidenav.md-closed.md-locked-open-add-active {
-    width: 120px !important;
-    min-width: 120px !important;
-    max-width: 120px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
 }
 
 md-sidenav .ripple-container {
@@ -286,18 +301,31 @@ md-sidenav .ripple-container {
     border-radius: 5px;
 }
 
-.editForm > form {
+.editForm {
     border: 3px solid ghostwhite;
     background-color: whitesmoke;
     text-align: center;
-    margin: 0 auto;
     border-radius: 10px;
     z-index: 20px;
 }
 
-textarea {
-    border: white 5px dashed;
-    line-height: 24px;
+.editForm form {
+    margin: 0 auto;
+    text-align: center;
+    > md-card {
+    background-color: rgb(63,81,181);
+    border-radius: 10px;
+    opacity: 0.7%;
+   }
+}
+
+md-input-container textarea.md-input {
+    min-height: 250px;
+}
+
+.text-area-content {
+    height: 250px;
+    min-height: 250px;
 }
 
 .docForm > div > h4 {
@@ -311,6 +339,8 @@ textarea {
 }
 
 .grid-header {
+    font-size: 24px;
+    text-align: center;
     background-color: lightblue;
     color: #444;
 }
@@ -326,6 +356,7 @@ textarea {
     margin: 0 auto;
     background-color: whitesmoke;
 }
+
 .admin-page {
     width: 100%;
     border: 4px solid green;
@@ -337,14 +368,45 @@ textarea {
     border: yellow 3px dotted;
     background-color: whitesmoke;
     color: lightgray;
-
 }
-.admin-header{
+
+.admin-header {
     background: whitesmoke;
     color: #444;
     font-size: 1.2em;
 }
 
-.material-icons{
+.material-icons {
     color: grey;
+    cursor: pointer;
+}
+
+.fa {
+    cursor: pointer;
+    font-size: 1.3em;
+    text-decoration: none;
+}
+
+.doc-preview {
+    width: 100%;
+    min-height: 100%;
+    height: 200px;
+}
+
+.preview-footer {
+    margin-top: 120px;
+    height: 50px;
+    margin-bottom: 0;
+    text-align: center;
+    background-color: lightslategrey;
+}
+
+.home-page-description {
+    margin-top: -15px;
+}
+
+.back-icon {
+    font-size: 3em;
+    font-weight: bolder;
+    background-color: white;
 }
