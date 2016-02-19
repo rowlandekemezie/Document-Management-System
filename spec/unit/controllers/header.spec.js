@@ -5,6 +5,14 @@
 
     var scope,
       controller,
+      nav,
+      mdSidenav = function(direction) {
+        return {
+          toggle: function() {
+            nav = direction;
+          }
+        };
+      },
       Users = {
         logout: function(cb) {
           if (scope.loggedInUser) {
@@ -27,7 +35,8 @@
       scope = $injector.get('$rootScope');
       controller = $controller('HeadCtrl', {
         $scope: scope,
-        Users: Users
+        Users: Users,
+        $mdSidenav: mdSidenav
       });
       Auth = $injector.get('Auth');
       state = $injector.get('$state');
@@ -64,6 +73,11 @@
       expect(route.reload).not.toHaveBeenCalled();
       expect(scope.loggedIn).toBeTruthy();
       //expect(console.log).toHaveBeenCalled();
+    });
+
+    it('should call toggleList function', function() {
+      scope.toggleList();
+      expect(nav).toEqual('left');
     });
   });
 })();

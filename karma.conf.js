@@ -25,6 +25,8 @@ module.exports = function(config) {
       'public/lib/angular-aria/angular-aria.min.js',
       'public/lib/angular-ui-router/release/angular-ui-router.min.js',
       'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+      'public/lib/sinonjs/sinon.js',
+      'public/lib/jasmine-sinon/lib/jasmine-sinon.js',
       'public/js/application.js',
       'spec/unit/**/*.js'
     ],

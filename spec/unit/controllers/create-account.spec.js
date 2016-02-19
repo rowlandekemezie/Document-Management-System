@@ -7,6 +7,11 @@
       state,
       Auth,
       Utils,
+      Roles = {
+        query: function(cb){
+          cb([1, 2, 3]);
+        }
+      },
       Users = {
         login: function(user, cb) {
           cb(!user, {
@@ -40,13 +45,19 @@
       scope = $injector.get('$rootScope');
       controller = $controller('UserAccountCtrl', {
         $scope: scope,
-        Users: Users
+        Users: Users,
+        Roles: Roles
       });
       Auth = $injector.get('Auth');
       state = $injector.get('$state');
       Utils = $injector.get('Utils');
     }));
 
+    it('should call query on roles', function(){
+      spyOn(Roles, 'query').and.callThrough();
+        expect(scope.roles).toEqual([1, 2,3]);
+        expect(scope.roles).toBeDefined();
+        });
     it('should call the save function on signup', function() {
       spyOn(Users, 'save').and.callThrough();
       spyOn(Auth, 'setToken').and.callThrough();

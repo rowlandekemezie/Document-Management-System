@@ -2,20 +2,27 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('AdminCtrl', ['$log', '$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope',
-      function($log, $state, Utils, Roles, Documents, Users, $scope) {
+    .controller('AdminCtrl', ['$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope',
+      function($state, Utils, Roles, Documents, Users, $scope) {
 
         $scope.init = function() {
-          $scope.users = Users.query();
-          $scope.roles = Roles.query();
-          $scope.documents = Documents.query();
-          for (var i = 0, l = $scope.users.length; i < l; i++) {
-            for (var j = 0, n = $scope.documents.length; j < n; j++) {
-              if ($scope.documents[j].ownerId === $scope.users[i]._id) {
-                $scope.users[i].docSum = $scope.documents[j].count;
-              }
-            }
-          }
+          Users.query(function(res) {
+            $scope.users = res;
+          });
+          Roles.query(function(res) {
+            $scope.roles = res;
+          });
+          Documents.query(function(res) {
+            $scope.documents = res;
+          });
+          // for (var i = 0, l = $scope.users.length; i < l; i++) {
+          //   for (var j = 0, n = $scope.documents.length; j < n; j++) {
+          //     if ($scope.documents[j].ownerId === $scope.users[i]._id) {
+          //       $scope.users[i].docSum = $scope.documents[j].count;
+          //       console.log($scope.users[i].docSum);
+          //     }
+          //   }
+          // }
         };
 
         $scope.init();
@@ -64,7 +71,7 @@
         };
 
         // Create user function
-        $scope.createUser = function() {
+        $scope.createUserBtn = function() {
           Users.save($scope.user, function(res) {
             if (res.status !== 500) {
               Utils.toast('A new user has been created');

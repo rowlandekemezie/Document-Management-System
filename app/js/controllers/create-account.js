@@ -6,7 +6,9 @@
       function($state, $scope, Auth, Users, $rootScope, $mdDialog, $stateParams, Roles, Utils) {
 
         // get all roles from the Db
-        $scope.roles = Roles.query();
+        Roles.query(function(res){
+          $scope.roles = res;
+        });
 
         $scope.loginUser = function() {
           $scope.status = '';
@@ -14,8 +16,6 @@
             if (!err && res) {
               Auth.setToken(res.token);
               $rootScope.loggedInUser = res.user;
-              console.log(res.user);
-              console.log($rootScope.loggedInUser, 'great');
               $state.go('dashboard', {
                 id: res.user._id
               });
@@ -32,7 +32,6 @@
         $scope.signUp = function() {
           $scope.status = '';
           Users.save($scope.user, function(res) {
-            // $log.warn($scope.user, 'user supplied details');
             if (res.status !== 500) {
               $scope.loginUser();
             } else {

@@ -173,18 +173,11 @@
 
   // task for front end test
   gulp.task('test:fend', ['browserify'], function() {
-    return gulp.src([])
-      .pipe(karma({
-        configFile: __dirname + '/karma.conf.js',
-        // autoWatch: false,
-        // singleRun: true
-        action: 'run'
-      }))
-      .on('error', function(err) {
-        // Make sure failed tests cause gulp to exit non-zero
-        throw err;
-      });
-  });
+   new Server({
+     configFile: __dirname + '/karma.conf.js',
+     singleRun: true
+   }).start();
+ });
 
   // e2e test task
   gulp.task('test:e2e', function(cb) {

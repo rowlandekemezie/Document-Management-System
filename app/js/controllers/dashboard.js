@@ -7,15 +7,21 @@
       function(Utils, Users, Roles, Documents, $scope, $rootScope, $stateParams, $state, $mdSidenav) {
 
         $scope.init = function() {
-        Users.getUserDocs({id:$stateParams.id}, function(docs) {
+          Users.getUserDocs({
+            id: $stateParams.id
+          }, function(docs) {
             $scope.userDocs = docs;
           }, function(err) {
             if (err.status === 404) {
               $scope.message = 'You\'ve no document yet. Start today';
             }
           });
-          $scope.documents = Documents.query();
-          $scope.users = Users.query();
+           Documents.query(function(docs){
+            $scope.documents = docs;
+           });
+           Users.query(function(users){
+              $scope.users = users;
+           });
         };
         $scope.init();
 
@@ -28,26 +34,13 @@
           }
         };
 
-        $scope.isAdmin = function(){
-          if($rootScope.loggedInUser.role === 'SuperAdmin'){
+        $scope.isAdmin = function() {
+          if ($rootScope.loggedInUser.role === 'SuperAdmin') {
             return true;
           } else {
             return false;
           }
         };
-        // user inner view goes here
-
-        // // document count
-        // for (var i = 0, n = $scope.documents.length; i < n; i++) {
-        //   $scope.docCount = 0;
-        //   for (var j = 0, m = $scope.users.length; j < m; j++) {
-        //     if ($scope.documents[i].ownerId === $scope.users[j]._id) {
-        //       $scope.docCount++;
-        //     }
-        //     $scope.users[j].docCount = $scope.docCount;
-        //     $log.info($scope.users[j]);
-        //   }
-        // }
 
         $scope.toggleList = function() {
           $mdSidenav('left').toggle();

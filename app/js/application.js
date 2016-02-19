@@ -12,7 +12,6 @@
    require('./services/utils');
 
    // require controllers
-   require('./controllers/users');
    require('./controllers/header');
    require('./controllers/create-account');
    require('./controllers/login');

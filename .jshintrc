@@ -32,7 +32,9 @@
     "element",
     "by",
     "exports",
-    "spyOn"
+    "spyOn",
+    "$injector",
+    "sinon"
   ],
   "quotmark": true,
   "trailing": true,
