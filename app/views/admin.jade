@@ -28,11 +28,11 @@
                 md-card-content
                   h5 Create New Role
                   p.sucess-text {{status}}
-                  form(method="post" enctype="multipart/form-data")
+                  form(method="post" enctype="multipart/form-data" ng-submit="createRoleBtn()")
                     md-input-container(md-block)
                       label Title
                       input(type="text" md-no-float placecholder="Enter your role here" ng-model="role.title" ng-required)
-                    md-button.md-raised.md-accent(ng-click="createRoleBtn()") Create
+                    md-button.md-raised.md-accent(type="submit") Create
                     md-button.md-raised.md-primary(ng-click="updateRoleBtn(role)") Update
 
         md-tab(label='USERS')
@@ -91,7 +91,7 @@
                       label role
                       md-select(ng-model="user.role" name="role.title" placeholder="select a role" required)
                         md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
-                    md-button.md-raised.md-accent(type="submit" ng-click="createUser()") Create
+                    md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
                     md-button.md-raised.md-promary(ng-click="updateUserBtn()") Update
                     md-button.md-raised.md-primary(ui-sref="dashboard") Cancel
         md-tab(label='DOCUMENTS')

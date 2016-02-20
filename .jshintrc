@@ -33,7 +33,6 @@
     "by",
     "exports",
     "spyOn",
-    "$injector",
     "sinon"
   ],
   "quotmark": true,

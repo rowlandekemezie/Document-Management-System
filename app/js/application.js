@@ -162,7 +162,7 @@
          $httpProvider.interceptors.push('AuthInterceptor');
 
          // Theme colors
-         $mdThemingProvider.theme('blue')
+         $mdThemingProvider.theme('grey')
            .primaryPalette('grey')
            .accentPalette('indigo');
 

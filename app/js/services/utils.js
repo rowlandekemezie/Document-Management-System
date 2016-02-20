@@ -26,19 +26,6 @@
             }, function() {});
         };
 
-        // progress utility service
-        this.progress = function() {
-          this.status = 30;
-          // Iterate every 100ms, non-stop
-          $interval(function() {
-            // Increment the Determinate loader
-            this.status += 1;
-            if (this.status > 100) {
-              this.status = 30;
-            }
-          }, 100, 0, true);
-        };
-
         // modal service
         this.modal = function(ev, tmpl, ctrl) {
           $mdDialog.show({

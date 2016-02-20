@@ -2,7 +2,13 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('AdminCtrl', ['$state', 'Utils', 'Roles', 'Documents', 'Users', '$scope',
+    .controller('AdminCtrl', [
+      '$state',
+      'Utils',
+      'Roles',
+      'Documents',
+      'Users',
+      '$scope',
       function($state, Utils, Roles, Documents, Users, $scope) {
 
         $scope.init = function() {
@@ -15,14 +21,6 @@
           Documents.query(function(res) {
             $scope.documents = res;
           });
-          // for (var i = 0, l = $scope.users.length; i < l; i++) {
-          //   for (var j = 0, n = $scope.documents.length; j < n; j++) {
-          //     if ($scope.documents[j].ownerId === $scope.users[i]._id) {
-          //       $scope.users[i].docSum = $scope.documents[j].count;
-          //       console.log($scope.users[i].docSum);
-          //     }
-          //   }
-          // }
         };
 
         $scope.init();
@@ -53,7 +51,7 @@
             id: $scope.user._id
           }, function() {
             Utils.toast('User deleted successfully');
-            $state.reload($state.current);
+            $state.reload($state.current.name);
           }, function() {
             $scope.status = 'There was error deleting the user';
           });
@@ -72,13 +70,12 @@
 
         // Create user function
         $scope.createUserBtn = function() {
-          Users.save($scope.user, function(res) {
-            if (res.status !== 500) {
-              Utils.toast('A new user has been created');
-              $state.reload();
-            } else {
-              $scope.status = res.err || 'An error occured';
-            }
+          Users.save($scope.user, function() {
+            Utils.toast('A new user has been created');
+            $state.reload();
+          }, function() {
+            Utils.toast('Can not create User');
+            $scope.status = 'An error occured';
           });
         };
 
@@ -87,41 +84,14 @@
          *
          */
         $scope.createRoleBtn = function() {
-          Roles.save({
-            title: $scope.title
-          }, function(err, res) {
-            if (!err && res) {
-              //$scope.status = res.message;
-              $state.reload();
-            } else {
-              $scope.status = err || err.message || 'There was  error creating role';
-            }
-          });
-        };
-        /**
-         * [updateRole method]
-         * @return {[type]} [description]
-         */
-        function updateRole() {
-          Roles.update({
-            id: $scope.role._id
-          }, function() {
-            Utils.toast('Role successfully updated');
+          Roles.save($scope.role, function() {
+            Utils.toast('Role created');
             $state.reload();
           }, function() {
-            $scope.status = 'Role could not be updated';
+            Utils.toast('Can not create role');
+            $scope.status =
+              'There was  error creating role';
           });
-        }
-
-        // A confirmation message before updating role
-        $scope.updateRoleBtn = function(event, role) {
-          $scope.role = role;
-          Utils.dialog('Warning: Update Document, ' +
-            $scope.role.title + '?',
-            'Are you sure you want to update, ' +
-            $scope.role.title + '?',
-            event, updateRole
-          );
         };
 
         // delete role function
@@ -130,7 +100,6 @@
             id: $scope.role._id
           }, function() {
             Utils.toast('Role successfully deleted');
-            delete $scope.role;
             $state.reload();
           }, function() {
             $scope.status = 'There was problem deleting the role';
@@ -164,7 +133,7 @@
             id: $scope.doc._id
           }, function() {
             Utils.toast('Your document has been successfully deleted');
-            delete $scope.doc;
+            $state.reload();
           }, function() {
             $scope.status = 'There was problem deleting document';
           });

@@ -57,7 +57,7 @@
         // get all user's documents
         user.getUserDocs = function(userId, cb) {
           // var deferred = $q.defer();
-          $http.get('/api/users/' + userId + '/documents')
+          $http.get('/api/users/' + userId._Id + '/documents')
             .success(function(res) {
               cb(null, res);
             })

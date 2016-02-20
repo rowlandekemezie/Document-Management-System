@@ -6,7 +6,7 @@
       function($state, $scope, Auth, Users, $rootScope, $mdDialog, $stateParams, Roles, Utils) {
 
         // get all roles from the Db
-        Roles.query(function(res){
+        Roles.query(function(res) {
           $scope.roles = res;
         });
 

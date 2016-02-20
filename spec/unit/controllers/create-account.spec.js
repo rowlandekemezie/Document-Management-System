@@ -8,7 +8,7 @@
       Auth,
       Utils,
       Roles = {
-        query: function(cb){
+        query: function(cb) {
           cb([1, 2, 3]);
         }
       },
@@ -23,17 +23,17 @@
           });
         },
         save: function(user, cb) {
-          if(user){
-          cb(user);
-        } else{
-          cb({
-            res: {
-              err: 'Could not respond',
-              status: 500
-            }
-          });
+          if (user) {
+            cb(user);
+          } else {
+            cb({
+              res: {
+                err: 'Could not respond',
+                status: 500
+              }
+            });
+          }
         }
-      }
       };
 
     beforeEach(function() {
@@ -53,11 +53,11 @@
       Utils = $injector.get('Utils');
     }));
 
-    it('should call query on roles', function(){
+    it('should call query on roles', function() {
       spyOn(Roles, 'query').and.callThrough();
-        expect(scope.roles).toEqual([1, 2,3]);
-        expect(scope.roles).toBeDefined();
-        });
+      expect(scope.roles).toEqual([1, 2, 3]);
+      expect(scope.roles).toBeDefined();
+    });
     it('should call the save function on signup', function() {
       spyOn(Users, 'save').and.callThrough();
       spyOn(Auth, 'setToken').and.callThrough();
