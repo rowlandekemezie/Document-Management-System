@@ -2,9 +2,17 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('DashboardCtrl', ['Utils', 'Users', 'Roles', 'Documents',
-      '$scope', '$rootScope', '$stateParams', '$state', '$mdSidenav',
-      function(Utils, Users, Roles, Documents, $scope, $rootScope, $stateParams, $state, $mdSidenav) {
+    .controller('DashboardCtrl', [
+      'Users',
+      'Roles',
+      'Documents',
+      '$scope',
+      '$rootScope',
+      '$stateParams',
+      '$state',
+      '$mdSidenav',
+      function(Users, Roles, Documents, $scope, $rootScope,
+        $stateParams, $state, $mdSidenav) {
 
         $scope.init = function() {
           Users.getUserDocs({
@@ -16,12 +24,12 @@
               $scope.message = 'You\'ve no document yet. Start today';
             }
           });
-           Documents.query(function(docs){
-            $scope.documents = docs;
-           });
-           Users.query(function(users){
-              $scope.users = users;
-           });
+          Documents.query(function(allDocs) {
+            $scope.documents = allDocs;
+          });
+          Users.query(function(users) {
+            $scope.users = users;
+          });
         };
         $scope.init();
 

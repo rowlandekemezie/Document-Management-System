@@ -29,7 +29,8 @@
      'ngMaterial',
      'ui.router',
      'ngAnimate',
-     'md.data.table'
+     'md.data.table',
+     'textAngular'
    ])
      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
        function($rootScope, Auth, $state, Users, $log) {
@@ -117,7 +118,7 @@
            views: {
              'inner-view@dashboard': {
                templateUrl: 'views/all-documents.html',
-               controller: 'DashboardCtrl'
+               controller: 'DocumentCtrl'
              }
            }
          })
@@ -128,24 +129,24 @@
              controller: 'AdminCtrl'
            })
 
-         .state('dashboard.view-document', {
-           url: '/{docid}/view',
+         .state('dashboard.edit-document', {
+           url: '/{docid}/edit',
            authenticate: true,
            views: {
              'inner-view@dashboard': {
-               templateUrl: 'views/view-document.html',
+               templateUrl: 'views/edit-document.html',
                controller: 'DocumentCtrl'
              }
            }
          })
 
-         .state('dashboard.view-users', {
+         .state('dashboard.view-document', {
            url: '/{id}/view',
            authenticate: true,
            views: {
              'user-view@dashboard': {
-               templateUrl: 'views/users.html',
-               controller: 'userCtrl'
+               templateUrl: 'views/view-document.html',
+               controller: 'DashboardCtrl'
              }
            }
          })

@@ -1,7 +1,7 @@
 .sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak)
-  div(layout-padding layout-align="center center" layout="column")
+  .sign-up-header(layout-padding layout-align="center center" layout="column")
     div(layout-gt-sm="column")
-      h4.header-display.sign-up-header Sign Up
+      h4.header-display Sign Up
     form(Name="signup" method="post" ng-submit="signUp()")
       div(layout-gt-sm="row" flex)
         md-input-container.md-block(flex)
@@ -36,6 +36,6 @@
         div(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue") Password doesn't match
       div(layout="column" flex layout-align="center center")
         p.link {{status}}
-        md-button.md-raised.md-primary(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
+        md-button.md-raised.md-accent(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
         h3 Already registered? &nbsp;
           a(ng-click="cancel()") Login

@@ -132,12 +132,15 @@
      * @return {[JSON]}     [json status of the response]
      */
     getAllDocumentsForUser: function(req, res) {
+      console.log(JSON.parse(req.params.id));
+      console.log(res, 'res');
       Document.find({
-        ownerId: req.params.id
+        ownerId: JSON.stringify(req.params.id)
       })
       .limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
+          console.log(err, 'THe error');
           res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({

@@ -1,4 +1,4 @@
-md-content(layout-padding ng-if="loggedInUser")
+md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
@@ -6,35 +6,23 @@ md-content(layout-padding ng-if="loggedInUser")
     h2.md-padding(ng-if="!userDocs") There are currently no documents. Start today
     md-divider(md-inset)
 
-    div(ng-if="userDocs")
-      md-content.md-padding
-        h3.md-display-2.text-center.admin-header My dashboard
-        md-divider
-        md-card
-          md-table-container
-            table(md-table='' style="border:2px")
-              thead(md-head='')
-                tr(md-row='')
-                  th(md-column='', md-text='') DocNo Id
-                  th(md-column='', md-text='') Role Assigned
-                  th(md-column='', md-text='') Document Ownner
-                  th(md-column='', md-text='') Date Created
-                  th(md-column='', md-text='') Date Modified
-                  th(md-column='', md-text='') Document Title
-                  th(md-column='', md-text='') Document Content
-                  th(md-column='', md-text='') Authorized Operations
-              tbody(md-body='')
-                tr(md-row='' ng-repeat="doc in documents")
-                  td(md-cell='') {{doc._id}}
-                  td(md-cell='') {{doc.role}}
-                  td(md-cell='') {{getName(doc.ownerId)}}
-                  td(md-cell='') {{doc.createdAt | date:'dd/mm/yyyy'}}
-                  td(md-cell='') {{doc.lastModified | date:'dd/mm/yyyy'}}
-                  td(md-cell='') {{doc.title}}
-                  td(md-cell='') {{doc.content | limitTo:50}}
-                  td(md-cell='')
-                    i.material-icons(ui-sref="dashboard.view-document({docid:doc._id})") update
-                    i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
-           md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{documents.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
-
-
+    div(ng-if="userDocs" layout="column" layout-align="center center")
+      h2(style="font-weight:bold") ∞∞∞∞∞ MY DOCUMENTS ∞∞∞∞∞
+      md-divider(md-inset)
+      div.doc-container
+        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy: 'lastModified':true")
+          h3.grid-header « {{doc.title}} «
+          md-divider
+          div(layout="column" layout-align="start start")
+          .doc-content.md-margin(layout-padding ng-bind-html="doc.content | limitTo:100" md-ink-ripple class="md-clickable")
+          div(layout-align="column" style="margin-bottom:2px")
+            div.doc-operations(layout="row" layout-padding layout-align="center end" flex)
+              i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
+                md-tooltip click to preview
+              i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+                md-tooltip click to edit
+              i.material-icons(layout-align="end end" ng-click="deleteDocBtn($event, doc)") delete
+                md-tooltip click to delete
+            div.preview-footer(flex layout="column" layout-padding)
+              h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
+              | by {{getName(doc.ownerId)}}

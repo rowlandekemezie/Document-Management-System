@@ -5,26 +5,26 @@
       .md-toolbar-tools-bottom.inset(layout="column")
         span
         .text-center {{loggedInUser.userName}}
-    div.fit(layout="column" flex="25")
+        .text-center(style="font-size:0.8em") Role: {{loggedInUser.role}}
+    md-divider
+    md-content.fit(layout="column" flex="30")
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
         i(class="fa fa-user-secret")
         | View Roles
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
         i(class="fa fa-user-plus")
         .insert
-        | View Users
-      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ui-sref="dashboard.all")
+        | My Documents
+      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ui-sref="dashboard({loggedInUser._id})")
         i(class="fa fa-file")
         .insert
         | View Documents
-      a(ui-sref="dashboard.editProfile")
-        md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
-          i(class="fa fa-pencil-square-o")
-          | Edit Profile
-    md-divider
-    div.fit(layout="column" flex ng-if="isAdmin()")
-      div
-        h3 Admin Panel
+      md-card.fit-margin.ripple-container(ui-sref="dashboard.editProfile" md-ink-ripple layout="column" flex layout-align="center center")
+        i(class="fa fa-pencil-square-o")
+        | Edit Profile
+      md-divider
+      md-card.fit-margin.ripple-container(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center")
+        .text-center(style="font-size:1.4em") Admin Panel
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id})")
         i(class="fa fa-user")
         | Manage Roles
