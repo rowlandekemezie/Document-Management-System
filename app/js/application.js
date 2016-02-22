@@ -5,10 +5,10 @@
    angular.module('docKip.controllers', []);
 
    // require services
-   require('./services/users/auth-service');
+   require('./services/users/auth-services');
    require('./services/users/user-service');
    require('./services/role-service');
-   require('./services/doc-service');
+   require('./services/document-service');
    require('./services/utils');
 
    // require controllers

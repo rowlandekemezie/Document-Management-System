@@ -17,7 +17,6 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'public/lib/angular/angular.js',
-      'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/angular-resource/angular-resource.js',
       'public/lib/angular-route/angular-route.min.js',
       'public/lib/angular-material/angular-material.min.js',
@@ -25,10 +24,16 @@ module.exports = function(config) {
       'public/lib/angular-aria/angular-aria.min.js',
       'public/lib/angular-ui-router/release/angular-ui-router.min.js',
       'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+      'public/lib/rangy/rangy-core.min.js',
+      'public/lib/textAngular/dist/textAngularSetup.js',
+      'public/lib/rangy/rangy-selectionsaverestore.min.js',
+      'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+      'public/lib/textAngular/dist/textAngular.min.js',
+      'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/sinonjs/sinon.js',
       'public/lib/jasmine-sinon/lib/jasmine-sinon.js',
       'public/js/application.js',
-      'spec/unit/**/*.js'
+      'spec/unit/**/*.spec.js'
     ],
 
 
@@ -48,7 +53,7 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress', 'junit', 'growl',
     // 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: [ 'coverage', 'progress'],
+    reporters: [ 'coverage', 'progress', 'coveralls'],
 
     // web server port
     port: 9876,

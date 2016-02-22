@@ -49,7 +49,7 @@
               cb(null, res);
             })
             .error(function(err) {
-              cb(err, null);
+              cb(err);
             });
         };
 
