@@ -7,11 +7,18 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
     md-divider(md-inset)
 
     div(ng-if="userDocs" layout="column" layout-align="center center")
-      h2(style="font-weight:bold") ∞∞∞∞∞ MY DOCUMENTS ∞∞∞∞∞
-      md-divider(md-inset)
+      div(layout="row" layout-align="end end")
+        .preview-header(layout="end end") ««« MY DOCUMENTS «««
+        div(layout="row" layout-align="center end")
+          .search-bar(layout="row" layout-align="center center")
+            input(type="text" ng-model="searchBox" placeholder="search by title")
+            md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
+            h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
+            md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
+    md-divider(md-inset)
       div.doc-container
-        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy: 'lastModified':true")
-          h3.grid-header « {{doc.title}} «
+        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy: 'lastModified':true | filter:searchBox track by $index")
+          h3.grid-header « {{ doc.title }} «
           md-divider
           div(layout="column" layout-align="start start")
           .doc-content.md-margin(layout-padding ng-bind-html="doc.content | limitTo:100" md-ink-ripple class="md-clickable")
@@ -21,8 +28,8 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
                 md-tooltip click to preview
               i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
                 md-tooltip click to edit
-              i.material-icons(layout-align="end end" ng-click="deleteDocBtn($event, doc)") delete
+              i.material-icons(layout-align="end end" ng-click="deleteDoc($event)") delete
                 md-tooltip click to delete
             div.preview-footer(flex layout="column" layout-padding)
-              h5 LastModified  on {{doc.lastModified | date: "dd/mm/yyyy 'at' h:mma"}}
-              | by {{getName(doc.ownerId)}}
+              h5 LastModified  on {{ doc.lastModified | DateFormatter }}
+              | by {{ user.userName }}

@@ -261,11 +261,32 @@ div > md-button {
 }
 
 .search-bar {
-    height: 40px;
-    width: 150px;
-    text-align: center;
+    position: relative;
+    font-size: 18px;
+    padding-top: 40px;
+    margin:  0 auto;
+    > input {
+        border: 0;
+        border-radius: 23px;
+        outline: blanchedalmond;
+        background: lightblue;
+        text-align: left;
+        width: 300px;
+    > .fa {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+    }
 }
-
+.preview-header {
+    color: rgb(232, 58, 144);
+    font-weight: bolder;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+}
 .text-center {
     text-align: center;
 }
@@ -276,7 +297,7 @@ md-sidenav.md-closed.md-locked-open-add-active {
     width: 180px !important;
     min-width: 180px !important;
     max-width: 180px !important;
-    position: fixed;
+    position: relative;
     > .fa {
         color: white;
     }
@@ -298,7 +319,7 @@ md-sidenav .ripple-container {
     position: fixed;
     right: 0;
     color: white;
-    margin-bottom: 5%;
+    margin-top: 45%;
 }
 
 .fit,
@@ -329,16 +350,10 @@ md-sidenav .ripple-container {
 
 container.md-default-theme .md-input,
 md-input-container .md-input {
-    color: white;
+    color: white !important;
     border-color: white;
-    background-color: #2D355F;
+    background-color: #2D355F !important;
     opacity: 0.7%;
-}
-
-container.md-default-theme .md-input,
-md-input-container .md-input {
-    background-color: white;
-    color: black;
 }
 
 md-card.md-default-theme,
@@ -374,19 +389,6 @@ md-input-container textarea.md-input {
 
 .success-status {
     color: teal
-}
-
-.grid-header {
-    font-size: 20px;
-    width: 100%;
-    height: 30px;
-    text-align: center;
-    background-color: whitesmoke;
-    color: #444;
-    font-style: italic;
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .grid-border {
@@ -431,9 +433,40 @@ md-input-container textarea.md-input {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 245px;
+    height: 235px;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
+}
+
+.preview-doc {
+    width: 95%;
+    height: 700px;
+    overflow: scroll;
+}
+
+.preview-content {
+    min-height: 700px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.grid-header {
+    font-size: 20px;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    background-color: whitesmoke;
+    color: #444;
+    font-style: italic;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap
 }
 
 .doc-operations {
@@ -446,12 +479,14 @@ md-input-container textarea.md-input {
     height: auto;
     margin-bottom: 0;
     width: 100%;
-    padding: 1px;
-    line-height: 10px;
+    padding-bottom: 10px;
+    line-height: 50%;
     text-align: center;
     background-color: whitesmoke;
     position: relative;
     font-weight: 200;
+    overflow: hidden;
+    margin-left: -5px;
     > h5 {
         font-weight: 200;
     }
@@ -509,3 +544,15 @@ md-input-container textarea.md-input {
 .save-btn {
     text-align: right;
 }
+ ng-dirty ng-invalid {
+    color: red;
+ }
+
+ ng-dirty ng-valid {
+    color: green;
+ }
+
+ .doc-no {
+    font-style: italic;
+    font-weight: 200;
+ }
