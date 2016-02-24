@@ -1,6 +1,9 @@
 (function() {
   'use strict';
-
+  var env = process.env.NODE_ENV || 'development';
+  if (env === 'development') {
+    require('dotenv').load();
+  }
 
   var gulp = require('gulp'),
     jade = require('gulp-jade'),
@@ -172,12 +175,26 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', ['browserify'], function() {
-   new Server({
-     configFile: __dirname + '/karma.conf.js',
-     singleRun: true
-   }).start();
- });
+  gulp.task('test:fend', ['browserify'], function(done) {
+    var server = new Server({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: true
+    });
+    server.on('browser_error', function(browser, err) {
+      gutil.log('Karma Run Failed: ' + err.message);
+      throw err;
+    });
+
+    server.on('run_complete', function(browsers, results) {
+      if (results.failed) {
+        throw new Error('Karma: Tests Failed');
+      }
+      gutil.log('Karma Run Complete: No Failures');
+      done();
+    });
+
+    server.start();
+  });
 
   // e2e test task
   gulp.task('test:e2e', function(cb) {

@@ -21,7 +21,7 @@
         query: function(cb) {
           cb([1, 2, 3]);
         },
-        remove: function(id, cb, cbb){
+        remove: function(id, cb, cbb) {
           cb();
           cbb();
         }
@@ -233,7 +233,11 @@
       spyOn(Utils, 'dialog').and.callThrough();
       spyOn(Utils, 'toast').and.callThrough();
       expect(scope.deleteDocBtn).toBeDefined();
-      scope.deleteDocBtn({event:'event'},{doc: scope.doc});
+      scope.deleteDocBtn({
+        event: 'event'
+      }, {
+        doc: scope.doc
+      });
       expect(Documents.remove).toHaveBeenCalled();
       expect(Utils.dialog).toHaveBeenCalled();
       expect(Utils.toast).toHaveBeenCalled();

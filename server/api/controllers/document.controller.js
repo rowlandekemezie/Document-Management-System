@@ -68,6 +68,7 @@
       .limit(parseInt(req.params.limit))
       .exec(function(err, docs) {
         if (err) {
+          console.log(err, 'err');
           res.status(500).json(err);
         } else if (docs.length < 1) {
           res.status(404).json({
