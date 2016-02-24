@@ -25,18 +25,6 @@
               }
             }, function() {});
         };
-
-        // modal service
-        this.modal = function(ev, tmpl, ctrl) {
-          $mdDialog.show({
-            controller: ctrl,
-            templateUrl: tmpl,
-            parent: angular.element(document.body),
-            targetEvent: ev,
-            clickOutsideToClose: true,
-            fullscreen: true
-          });
-        };
       }
     ]);
 })();

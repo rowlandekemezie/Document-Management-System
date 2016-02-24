@@ -10,18 +10,22 @@
         }, {
           update: {
             method: 'PUT'
-          }
+          },
+          query: {
+            method: 'GET',
+            isArray: true
+          },
         }, {
           stripeTrailingSpaces: false
         });
 
         // Get all documents by limit
-        document.getDocsByLimit = function(limit, cb) {
-          $http.get('/api/documents/limit/' + limit)
-            .success(function(res){
+        document.getAllDocs = function(limit, page, cb) {
+          $http.get('/api/documents?limit=' + limit + '&page=' + page)
+            .success(function(res) {
               cb(null, res);
             })
-            .error(function(err){
+            .error(function(err) {
               cb(err);
             });
         };
@@ -29,25 +33,45 @@
         // Get documents by their roles
         document.getDocsByRole = function(role, limit, cb) {
           $http.get('/api/documents/' + role + '/' + limit)
-            .success(function(res){
+            .success(function(res) {
               cb(null, res);
             })
-            .error(function(err){
+            .error(function(err) {
               cb(err);
             });
         };
 
         // Get documents by date created
         document.getDocsByDate = function(date, limit, cb) {
-        //   var deferred = $q.defer();
           $http.get('/api/documents/' + date + '/' + limit)
-            .success(function(res){
+            .success(function(res) {
               cb(null, res);
             })
-            .error(function(err){
+            .error(function(err) {
               cb(err);
             });
+        };
 
+        // get all user's documents
+        document.userDocCount = function(userId, cb) {
+          $http.get('/api/documents/getCount/' + userId)
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err);
+            });
+        };
+
+        // get all user's documents
+        document.allDocCount = function(cb) {
+          $http.get('/api/documents/count/all')
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err);
+            });
         };
         return document;
       }

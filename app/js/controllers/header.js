@@ -13,7 +13,7 @@
               Auth.logout();
               $rootScope.loggedInUser = '';
               Utils.toast(res.message);
-              $state.go('home');
+              $state.go('home', {reload: true});
               $route.reload();
             } else {
               return err;

@@ -51,7 +51,6 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
-      console.log(req.body);
       User.findOne({
         $or: [{
           userName: req.body.userName
@@ -99,13 +98,14 @@
               error: 'Session has expired or does not exist.'
             });
           } else {
+
             User.findById(decoded._id, function(err, user) {
               if (!user) {
                 res.status(404).json({
                   message: 'User not found'
                 });
               } else {
-                delete user.password;
+                user.password = null;
                 req.decoded = user;
                 res.json(stripUser(user));
               }
@@ -321,33 +321,6 @@
           });
         }
       });
-    },
-    /**
-     * [countUserDocs function]
-     * @param  {[type]} req [description]
-     * @param  {[type]} res [description]
-     * @return {[type]}     [description]
-     */
-    countUserDocs: function(req, res) {
-      Document
-        .aggregate()
-        .group({
-          _id: '$ownerId',
-          count: {
-            $sum: 1
-          }
-        })
-        .exec(function(err, docs) {
-          if (err) {
-            res.status(500).send({
-              success: false,
-              message: 'There was a problem fetching the documents'
-            });
-          } else {
-            res.send(docs);
-          }
-        });
     }
-
   };
 })();
