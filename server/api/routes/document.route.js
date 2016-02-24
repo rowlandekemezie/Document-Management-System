@@ -12,10 +12,6 @@
       .post(userAuth, documentController.createDocument)
       .get(userAuth, documentController.getAllDocuments);
 
-    // endpoint for getting all document by limit
-    router.route('/documents/limit/:limit')
-      .get(userAuth, documentController.getAllDocuments);
-
     // endpoints to update and delete documents.
     // A document can only be updated/deleted by either the owner, SuperAdmin,
     // or Documentarian.
@@ -35,5 +31,13 @@
     // endpoint for documents  created on a specific date
     router.route('/documents/date/:date/:limit')
       .get(userAuth, documentController.getDocumentByDate);
+
+    // endpoint to get all document count
+    router.route('/documents/count/all')
+      .get(userAuth, documentController.allDocCount);
+
+    // endpoint to document count for a user
+    router.route('/documents/getCount/:id')
+      .get(userAuth, documentController.countUserDocs);
   };
 })();

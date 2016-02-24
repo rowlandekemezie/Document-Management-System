@@ -36,10 +36,10 @@
                 });
               } else if (!docs) {
                 var userId = req.decoded._id;
-                req.body.ownerId = userId;
+                doc.ownerId = userId;
                 // TODO: To add users name to the document
                 // for easy search.
-               // req.body.userName = req.decoded.userName;
+                // req.body.userName = req.decoded.userName;
                 var newDoc = new Document(doc);
                 newDoc.save(function(err) {
                   if (err) {
@@ -64,21 +64,27 @@
      * @return {[JSON]}     [Status and json documents on success]
      */
     getAllDocuments: function(req, res) {
+      var limit = parseInt(req.query.limit);
+      var page = parseInt(req.query.page) - 1;
       Document.find({})
-      .limit(parseInt(req.params.limit))
-      .exec(function(err, docs) {
-        if (err) {
-          console.log(err, 'err');
-          res.status(500).json(err);
-        } else if (docs.length < 1) {
-          res.status(404).json({
-            success: false,
-            message: 'No document found'
-          });
-        } else {
-          res.status(200).json(docs);
-        }
-      });
+        .populate({
+          path: 'ownerId',
+          select: 'userName name email'
+        })
+        .limit(limit)
+        .skip(limit * page)
+        .exec(function(err, docs) {
+          if (err) {
+            res.status(500).json(err);
+          } else if (docs.length < 1) {
+            res.status(404).json({
+              success: false,
+              message: 'No document found'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
     },
     /**
      * [getDocumentById method]
@@ -112,19 +118,19 @@
       Document.find({
         dateCreated: req.params.dateCreated
       })
-      .limit(parseInt(req.params.limit))
-      .exec(function(err, docs) {
-        if (err) {
-          res.status(500).json(err);
-        } else if (docs.length < 1) {
-          res.status(404).json({
-            success: false,
-            message: 'No document found'
-          });
-        } else {
-          res.status(200).json(docs);
-        }
-      });
+        .limit(parseInt(req.params.limit))
+        .exec(function(err, docs) {
+          if (err) {
+            res.status(500).json(err);
+          } else if (docs.length < 1) {
+            res.status(404).json({
+              success: false,
+              message: 'No document found'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
     },
     /**
      * [getAllDocumentsForUser method]
@@ -133,25 +139,24 @@
      * @return {[JSON]}     [json status of the response]
      */
     getAllDocumentsForUser: function(req, res) {
-      console.log(JSON.parse(req.params.id));
-      console.log(res, 'res');
+      var limit = parseInt(req.query.limit);
+      var page = parseInt(req.query.page) - 1;
       Document.find({
-        ownerId: JSON.stringify(req.params.id)
-      })
-      .limit(parseInt(req.params.limit))
-      .exec(function(err, docs) {
-        if (err) {
-          console.log(err, 'THe error');
-          res.status(500).json(err);
-        } else if (docs.length < 1) {
-          res.status(404).json({
-            success: false,
-            message: 'User has no document'
-          });
-        } else {
-          res.status(200).json(docs);
-        }
-      });
+        'ownerId': req.params.id
+      }).limit(limit)
+        .skip(limit * page)
+        .exec(function(err, docs) {
+          if (err) {
+            res.status(500).json(err);
+          } else if (docs.length < 1) {
+            res.status(404).json({
+              success: false,
+              message: 'User has no document'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
     },
     /**
      * [getAllDocumentsForRole method]
@@ -163,18 +168,18 @@
       Document.find({
         role: req.params.title
       }).limit(parseInt(req.params.limit))
-      .exec(function(err, docs) {
-        if (err) {
-          res.status(500).json(err);
-        } else if (docs.length < 1) {
-          res.status(404).json({
-            success: false,
-            message: 'Role has no document'
-          });
-        } else {
-          res.status(200).json(docs);
-        }
-      });
+        .exec(function(err, docs) {
+          if (err) {
+            res.status(500).json(err);
+          } else if (docs.length < 1) {
+            res.status(404).json({
+              success: false,
+              message: 'Role has no document'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
     },
     /**
      * [updateDocument method]
@@ -211,6 +216,44 @@
           });
         }
       });
+    },
+
+    /**
+     * [countUserDocs function]
+     * @param  {[type]} req [description]
+     * @param  {[type]} res [description]
+     * @return {[type]}     [description]
+     */
+    countUserDocs: function(req, res) {
+      Document
+        .find({
+          ownerId: req.params.id
+        })
+        .count(function(err, docs) {
+          if (err) {
+            res.status(500).send({
+              success: false,
+              message: 'There was a problem fetching the documents'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
+    },
+
+    allDocCount: function(req, res) {
+      Document
+        .find({})
+        .count(function(err, docs) {
+          if (err) {
+            res.status(500).send({
+              success: false,
+              message: 'There was a problem fetching the documents'
+            });
+          } else {
+            res.status(200).json(docs);
+          }
+        });
     }
   };
 })();

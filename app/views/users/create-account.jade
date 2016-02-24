@@ -1,4 +1,4 @@
-.sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak)
+.sign-up-wrap(layout="column" layout-padding flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak ng-init="init()")
   .sign-up-header(layout-padding layout-align="center center" layout="column")
     div(layout-gt-sm="column")
       h4.header-display Sign Up
@@ -6,34 +6,34 @@
       div(layout-gt-sm="row" flex)
         md-input-container.md-block(flex)
           input(md-no-float ng-model="user.firstName" name="firstName" placeholder="firstName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" required)
-          div(ng-messages="signp.firstName.$error")
+          div(ng-messages="signup.firstName.$invalid && signup.firstName.$dirty")
             div(ng-message="required") This is required!
         md-input-container.md-block(flex)
           input(md-no-float ng-model="user.lastName" name="lastName" placeholder="lastName" ng-pattern="/^([a-zA-Z])[a-zA-Z\-]+$/" required)
-          div(ng-messages="signp.lastName.$error")
+          div(ng-messages="signup.lastName.$invalid && signup.lastName.$dirty")
             div(ng-message="required") This is required!
       div(layout-gt-sm="row")
         md-input-container.md-block(flex)
           input(md-no-float ng-model="user.userName" name="userName" placeholder="userName" required ng-pattern="/^([a-zA-Z])[a-zA-Z0-9._]+$/")
-          div(ng-messages="signp.userName.$error")
+          div(ng-messages="signup.userName.$invalid && signup.userName.$dirty")
             div(ng-message="required") This is required!
         md-input-container.md-block(flex)
           md-select(md-no-float ng-model="user.role" type="text" name="role" placeholder="select role" required)
             md-option(ng-repeat="role in roles" ng-selected="role.title") {{role.title}}
-          div(ng-messages="signp.role.$error")
+          div(ng-messages="signup.role.$invalid && signup.role.$dirty")
             div(ng-message="required") This is required!
       md-input-container.md-block(flex)
         input(md-no-float ng-model="user.email" name="email" type="email" placeholder="youremail@email.com" required ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/")
-        div(ng-messages="signp.email.$error")
+        div(ng-messages="signup.email.$invalid && signup.email.$dirty")
           div(ng-message="required") This is required!
       md-input-container.md-block(flex)
         input(md-no-float ng-model="user.password" name="password" type="password" aria-label="password" required minlength="8" placeholder="Password")
-        div(ng-messages="signp.password.$error")
+        div(ng-messages="signup.password.$invalid && signup.password.$dirty")
           div(ng-message="required") This is required!
           div(mg-message="minlength") Your password must not be less than 8 characters
       md-input-container.md-block(flex)
         input(md-no-float ng-model="user.confirmPassword" type="password" placeholder="Confirm password" name="confirmPassword" match="user.password" required)
-        div(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue") Password doesn't match
+        div(flex ng-show="signup.confirmPassword.$touched && signup.confirmPassword.$modelValue !== signup.password.$modelValue && signup.confirmPassword.$dirty") Password doesn't match
       div(layout="column" flex layout-align="center center")
         p.link {{status}}
         md-button.md-raised.md-accent(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up

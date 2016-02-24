@@ -1,4 +1,4 @@
-.docForm-view.md-padding(layout-align="center center" flex="75")
+.docForm-view.md-padding(layout-align="center center" flex="75" ng-init="getDoc()")
   md-content(flex="100")
     form(name="view-form" method="post" ng-disabled="!isAuthView()")
       div(layout="row")
@@ -24,7 +24,7 @@
             label
             input(ng-model="docDetail.title" ng-required placeholder="Your title goes here" aria-label="docDetail.title")
           md-input-container.md-block(md-no-float flex)
-            md-select.md-padding.md-margin(placeholder='role' ng-model='loggedInUser.role' aria-label='role')
-              md-option(ng-repeat='role in roles' ng-value='role.title' ng-required) {{role.title}}
+            md-select.md-padding.md-margin(placeholder="role" ng-model="loggedInUser.role" aria-label="role")
+              md-option(ng-repeat="role in roles" ng-value="role.title" ng-required) {{role.title}}
 
         div(text-angular ng-model="docDetail.content" class="ta-editor" ta-text-editor-class="ta-editor border-around" ta-html-editor-class="border-around" placeholder="Enter your content here" ng-required="true" aria-label="docDetail.content")

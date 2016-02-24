@@ -3,6 +3,7 @@
    // angular modules
    angular.module('docKip.services', []);
    angular.module('docKip.controllers', []);
+   angular.module('docKip.filters', []);
 
    // require services
    require('./services/users/auth-services');
@@ -19,18 +20,22 @@
    require('./controllers/user-dialog');
    require('./controllers/document');
    require('./controllers/profile');
-   require('./controllers/admin.js');
+   require('./controllers/admin');
+
+   // require filters
+   require('./filters/date-filter');
 
    angular.module('docKip', [
      'docKip.services',
      'docKip.controllers',
+     'docKip.filters',
      'ngRoute',
      'ngResource',
      'ngMaterial',
      'ui.router',
      'ngAnimate',
      'md.data.table',
-     'textAngular'
+     'textAngular',
    ])
      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
        function($rootScope, Auth, $state, Users, $log) {
@@ -82,10 +87,9 @@
            views: {
              '@': {
                templateUrl: 'views/users/dashboard.html',
-               controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl'
              },
              'inner-view@dashboard': {
-               controller: 'DashboardCtrl',
                templateUrl: 'views/users/user-documents.html'
              }
            }
@@ -118,7 +122,7 @@
            views: {
              'inner-view@dashboard': {
                templateUrl: 'views/all-documents.html',
-               controller: 'DocumentCtrl'
+               controller: 'DashboardCtrl'
              }
            }
          })
@@ -141,12 +145,12 @@
          })
 
          .state('dashboard.view-document', {
-           url: '/{id}/view',
+           url: '/{docid}/view',
            authenticate: true,
            views: {
-             'user-view@dashboard': {
+             'inner-view@dashboard': {
                templateUrl: 'views/view-document.html',
-               controller: 'DashboardCtrl'
+               controller: 'DocumentCtrl'
              }
            }
          })

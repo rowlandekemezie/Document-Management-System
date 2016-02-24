@@ -33,11 +33,7 @@
         type: String,
         required: true,
         minlength: 8
-      },
-      // picture: {
-      //   type: String,
-      //   required: false
-      // }
+      }
     });
 
   // Bcrypt middleware on UserSchema
