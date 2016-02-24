@@ -379,7 +379,6 @@
               'SuperAdmin, or Documentarian'
           })
           .end(function(err, res) {
-            console.log(res.body + 'This is for your another user');
             expect(err).to.be.a('null');
             expect(res.status).to.equal(403);
             expect(res.forbidden).to.equal(true);
