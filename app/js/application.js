@@ -3,16 +3,16 @@
    // angular modules
    angular.module('docKip.services', []);
    angular.module('docKip.controllers', []);
+   angular.module('docKip.filters', []);
 
    // require services
-   require('./services/users/auth-service');
+   require('./services/users/auth-services');
    require('./services/users/user-service');
    require('./services/role-service');
-   require('./services/doc-service');
+   require('./services/document-service');
    require('./services/utils');
 
    // require controllers
-   require('./controllers/users');
    require('./controllers/header');
    require('./controllers/create-account');
    require('./controllers/login');
@@ -20,17 +20,22 @@
    require('./controllers/user-dialog');
    require('./controllers/document');
    require('./controllers/profile');
-   require('./controllers/admin.js');
+   require('./controllers/admin');
+
+   // require filters
+   require('./filters/date-filter');
 
    angular.module('docKip', [
      'docKip.services',
      'docKip.controllers',
+     'docKip.filters',
      'ngRoute',
      'ngResource',
      'ngMaterial',
      'ui.router',
      'ngAnimate',
-     'md.data.table'
+     'md.data.table',
+     'textAngular',
    ])
      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
        function($rootScope, Auth, $state, Users, $log) {
@@ -82,10 +87,9 @@
            views: {
              '@': {
                templateUrl: 'views/users/dashboard.html',
-               controller: 'DashboardCtrl'
+                controller: 'DashboardCtrl'
              },
              'inner-view@dashboard': {
-               controller: 'DashboardCtrl',
                templateUrl: 'views/users/user-documents.html'
              }
            }
@@ -129,6 +133,17 @@
              controller: 'AdminCtrl'
            })
 
+         .state('dashboard.edit-document', {
+           url: '/{docid}/edit',
+           authenticate: true,
+           views: {
+             'inner-view@dashboard': {
+               templateUrl: 'views/edit-document.html',
+               controller: 'DocumentCtrl'
+             }
+           }
+         })
+
          .state('dashboard.view-document', {
            url: '/{docid}/view',
            authenticate: true,
@@ -136,17 +151,6 @@
              'inner-view@dashboard': {
                templateUrl: 'views/view-document.html',
                controller: 'DocumentCtrl'
-             }
-           }
-         })
-
-         .state('dashboard.view-users', {
-           url: '/{id}/view',
-           authenticate: true,
-           views: {
-             'user-view@dashboard': {
-               templateUrl: 'views/users.html',
-               controller: 'userCtrl'
              }
            }
          })
@@ -163,7 +167,7 @@
          $httpProvider.interceptors.push('AuthInterceptor');
 
          // Theme colors
-         $mdThemingProvider.theme('blue')
+         $mdThemingProvider.theme('grey')
            .primaryPalette('grey')
            .accentPalette('indigo');
 

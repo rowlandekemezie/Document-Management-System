@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('docKip.services')
-    .factory('Auth', ['$http', '$q', 'AuthToken',
-      function($http, $q, AuthToken) {
+    .factory('Auth', ['$q', 'AuthToken',
+      function($q, AuthToken) {
         var authFactory = {};
 
         // Check that the user is loggedIn
@@ -19,19 +19,6 @@
         authFactory.setToken = function(token) {
           AuthToken.setToken(token);
         };
-
-        // Get the logged in user
-        // authFactory.getUser = function() {
-        //   if (AuthToken.getToken()) {
-        //     return $http.get('/api/users', {
-        //       cache: true
-        //     });
-        //   } else {
-        //     return $q.reject({
-        //       message: 'User has no token'
-        //     });
-        //   }
-        // };
 
         // log a user out by clearing the token
         authFactory.logout = function() {

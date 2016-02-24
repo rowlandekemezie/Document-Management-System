@@ -1,17 +1,21 @@
-.docForm(flex="80" layout-padding ng-cloak="")
-  i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
-    md-tooltip Go back
-  md-content(ng-controller="DocumentCtrl" layout-sm='column' flex='100' layout-align="center center")
+.docForm(flex="90" layout-padding ng-cloak="")
+  div(layout="row")
+    div(flex layout-gt-sm="row" layout="row" layout-sm="column")
+      i.material-icons.back-icon(layout-align="center center" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
+
+      div.md-margin(layout-align="center center" layout="row")
+        h4 Go back
+    div(layout="row" layout-sm="column" layout-align="space-around")
+      md-progress-circular(md-mode="determinate" value="{{determinateValue}}")
+  md-content(ng-controller="DocumentCtrl" layout-sm="column" flex="100" layout-align="center center")
     div(layout-align="center center" layout="row")
       h4 Create Document
     div(layout="column" flex)
-      form(method='post' enctype='multipart/data' ng-submit='createDoc()')
+      form(method="post" enctype="multipart/data" ng-submit="createDoc()")
         div(layout="column" flex)
           md-input-container(flex)
-            input(type='text' ng-model='document.title' ng-required='true' placeholder="Enter yout title here" aria-label='document.title')
-          md-input-container(flex)
-            textarea.text-area-content(type='text' rows="100" cols="50" ng-model='document.content' placeholder="Enter your content here" ng-required='true' aria-label='document.content')
-
+            input(type="text" ng-model="document.title" ng-required="true" placeholder="Enter yout title here" aria-label="document.title")
+          div(text-angular ng-model="document.content" class="ta-editor" ta-text-editor-class="ta-editor border-around" ta-html-editor-class="border-around" placeholder="Enter your content here" ng-required="true" aria-label="document.content")
         div.success-status
           | {{status}}
 

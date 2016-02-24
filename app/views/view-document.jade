@@ -1,29 +1,22 @@
-.docForm-view.md-padding(layout-align="center center" flex="75")
-  md-content(flex="100")
-    form(name="view-form" method="post" ng-disabled="!isAuthView()")
-      div(flex layout="row" layout-align="end end")
+md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y ng-init="getDoc()")
+  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+    span.fa.fa-plus.fa-lg
+    md-tooltip(md-direction='left') create new document
+  div(flex)
+    div(layout="column" layout-align="start start")
+      div(layout="row" layout-align="start end" flex)
         i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
           md-tooltip Go back
-        span.md-margin.success-status {{status}}
-        div(layout="row" layout-align="end end" ng-if="isAuthView()")
-          i.material-icons.back-icon(ng-click="updateDoc($event)" ng-disabled="view-form.$invalid") save
-            md-tooltip Update
-          i.material-icons.back-icon(ng-click="deleteDoc($event)") delete_forever
-            md-tooltip Delete
-          i.material-icons.back-icon(ui-sref="dashboard.all")
-            md-tooltip cancel
+        .preview-header(style="font-weight:bold") ∞∞∞∞∞ DOCUMENT PREVIEW ∞∞∞∞∞
       md-divider(md-inset)
-      div.grid-header(layout-align="center center")
-        h3 Document update
-      div(layout="column")
-        div(layout="row" align-wrap flex layout-align="start end")
-          md-input-container.md-block(md-no-float flex)
-            label
-            input(ng-model="docDetail.title" ng-required placeholder="Your title goes here" aria-label="docDetail.title")
-          md-input-container.md-block(md-no-float flex)
-            md-select.md-padding.md-margin(placeholder='role' ng-model='loggedInUser.role' aria-label='role')
-              md-option(ng-repeat='role in roles' ng-value='role.title' ng-required) {{role.title}}
-        md-input-container.md-block(md-no-float)
-          label
-          textarea(ng-model="docDetail.content" ng-required placeholder="Your document content goes here" ng-maxlength="500" rows="17" aria-label="docDetail.content")
-        div
+      .preview-doc
+        .grid-border
+          h3.grid-header « {{docDetail.title}} «
+          md-divider
+          div(layout="column" layout-align="start start")
+          .preview-content.md-margin(ng-bind-html="docDetail.content" md-ink-ripple class="md-clickable")
+          div(layout-align="column" style="margin-bottom:2px")
+            div.preview-footer(flex layout="column" layout-padding)
+              h5 LastModified  on {{docDetail.lastModified | DateFormatter }}
+              | by {{user}}
+

@@ -2,31 +2,33 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('DocumentCtrl', ['Documents', 'Roles', '$state', '$rootScope', 'Utils', '$scope', '$stateParams',
-      function(Documents, Roles, $state, $rootScope, Utils, $scope, $stateParams) {
+    .controller('DocumentCtrl', ['Documents',
+      'Roles',
+      '$state',
+      '$rootScope',
+      'Utils',
+      '$scope',
+      '$stateParams',
+      '$interval',
+      function(Documents, Roles, $state, $rootScope,
+        Utils, $scope, $stateParams, $interval) {
+
+        // progress bar
+        $scope.determinateValue = 30;
+
+        // Iterate every 100ms, non-stop
+        $interval(function() {
+          // Increment the Determinate loader
+          $scope.determinateValue += 1;
+          if ($scope.determinateValue > 100) {
+            $scope.determinateValue = 30;
+          }
+        }, 100, 0, true);
 
         // init function
-        $scope.init = function() {
-          Roles.query(function(res) {
-            $scope.roles = res;
-          });
-        };
-        $scope.init();
-
-        // Create document function
-        $scope.createDoc = function() {
-          $scope.document.ownerId = $stateParams.id;
-          $scope.document.role = $rootScope.loggedInUser.role;
-          Documents.save($scope.document, function(err, res) {
-            if (!err && res) {
-              Utils.toast(res.message);
-              $state.go('dashboard({id:loggedInUser._id})');
-              $scope.status = res.message + "\n Click cancel to return to your documents";
-            } else {
-              $scope.status = err.message || err || 'Could not create';
-            }
-          });
-        };
+        Roles.query(function(res) {
+          $scope.roles = res;
+        });
 
         // load document to view
         $scope.getDoc = function() {
@@ -36,16 +38,37 @@
             $scope.docDetail = res;
           });
         };
-        $scope.getDoc();
 
+        // Create document function
+        $scope.createDoc = function() {
+          $scope.document.ownerId = $stateParams.id;
+          $scope.document.role = $rootScope.loggedInUser.role;
+          Documents.save($scope.document, function(res) {
+            Utils.toast(res.message);
+            $state.go('dashboard', {
+              id: $rootScope.loggedInUser._id
+            }, {
+              reload: true
+            });
+            $scope.status = res.message + "\n Click cancel to return to your documents";
+          }, function(err) {
+            if (err.status === 409) {
+              $scope.status = 'Document already exist.';
+            } else {
+              $scope.status = 'There was error creating your document.';
+            }
+          });
+        };
 
         // delete document function
-        $scope.deleteDocFn = function () {
+        $scope.deleteDocFn = function() {
           Documents.remove({
             id: $scope.docDetail._id
           }, function() {
             Utils.toast('Your document has been successfully deleted');
-            delete $scope.docDetail;
+            $state.go('dashboard', {
+              id: $rootScope.loggedInUser._id
+            });
           }, function() {
             $scope.status = 'There was problem deleting document';
           });
@@ -62,13 +85,14 @@
         };
 
         // Update Document function
-        $scope.updateDocFn = function () {
-          Documents.update($scope.docDetail, function(err, res) {
-            if (!err && res) {
-              $scope.status = res.message + ". You can proceed to your page";
-            } else {
-              $scope.status = err.message || err || 'Could not Update';
-            }
+        $scope.updateDocFn = function() {
+          Documents.update($scope.docDetail, function(res) {
+            Utils.toast(res.message);
+            $state.go('dashboard', {
+              id: $rootScope.loggedInUser._id
+            });
+          }, function(err) {
+            $scope.status = err.message || err || 'Could not Update';
           });
         };
 
@@ -83,9 +107,20 @@
         };
 
         // Authenticate view privilieges
-        $scope.isAuthView = function() {
-          if ($rootScope.loggedInUser._id === $stateParams.docid ||
-            $rootScope.loggedInUser.userName === 'SuperAdmin') {
+        $scope.canDelete = function() {
+          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
+            $rootScope.loggedInUser.role === 'SuperAdmin') {
+            return true;
+          } else {
+            return false;
+          }
+        };
+
+        // Authenticate edit privileges
+        $scope.canEdit = function() {
+          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
+            $rootScope.loggedInUser.role === ('SuperAdmin' ||
+              'Documentarian' || $scope.docDetail.role)) {
             return true;
           } else {
             return false;
