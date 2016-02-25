@@ -15,31 +15,20 @@
     stripeDebug = require('gulp-strip-debug'),
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
-    // change = require('gulp-changed'),
     rename = require('gulp-rename'),
     del = require('del'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     notify = require('gulp-notify'),
     imagemin = require('gulp-imagemin'),
-    // concat = require('gulp-concat'),
-    // stylish = require('jshint-stylish'),
+
     ngAnnotate = require('gulp-ng-annotate'),
     jshint = require('gulp-jshint'),
     karma = require('gulp-karma'),
     uglify = require('gulp-uglify'),
-    buffer = require('vinyl-buffer'),
     minifyCss = require('gulp-minify-css'),
-    sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
     cache = require('gulp-cache');
-  // coveralls = require('gulp-coveralls'),
-  // rev = require('rev');
-
-  // define clean task
-  gulp.task('clean', function() {
-    return del(['public/']);
-  });
 
   // minify css
   gulp.task('less', function() {
