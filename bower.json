@@ -15,7 +15,9 @@
     "angular-material-data-table": "^0.9.11",
     "sinonjs": "^1.17.1",
     "jasmine-sinon": "^0.4.0",
-    "moment": "^2.11.2"
+    "moment": "^2.11.2",
+    "textAngular": "^1.5.0",
+    "bootstrap": "^3.3.6"
   },
   "resolutions": {
     "angular": "1.4.9"
