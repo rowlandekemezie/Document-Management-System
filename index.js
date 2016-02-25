@@ -21,7 +21,7 @@
   //   console.log(err);
   // } else {
   //   console.log('Connected to the database...');
-  //   if (env === 'test' || process.argv[2] === 'seed' ) {
+  //   if (env === 'production' || process.argv[2] === 'seed' ) {
   //     mongoose.connection.db.dropDatabase(function(err) {
   //       if (err) {
   //         return err;
