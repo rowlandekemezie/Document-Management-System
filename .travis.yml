@@ -30,8 +30,8 @@ before_script:
   - npm install -g gulp
   - npm install -g bower
   - bower install
+  - gulp build
 script:
-  - run gulp build
   - npm test
   - npm run fend:test
   - npm run check-coverage
@@ -48,5 +48,5 @@ deploy:
     develop: dockip-develop
     production: dockip-production
 after_deploy:
-  - gulp heroku
+  - gulp heroku:develop
   - "heroku ps:scale web=1 --app dockip-develop"
