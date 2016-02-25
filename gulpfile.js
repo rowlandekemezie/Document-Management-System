@@ -175,7 +175,7 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', ['browserify'], function() {
+  gulp.task('test:fend', ['browserify', 'bower'], function() {
   new Server({
       configFile: __dirname + '/karma.conf.js',
       singleRun: true
@@ -240,7 +240,7 @@
   gulp.task('test', ['test:fend', 'test:bend']);
   // deployment tasks
   gulp.task('heroku:production', ['build']);
-  gulp.task('heroku:staging', ['build']);
+  gulp.task('heroku:develop', ['build']);
   gulp.task('production', ['nodemon', 'build']);
   // register default tasks
   gulp.task('default', ['nodemon', 'watch', 'build']);

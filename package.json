@@ -4,12 +4,13 @@
   "description": "A document management system that manages user's documents",
   "preferGlobal": true,
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
+    "build": "gulp heroku:develop",
     "test": "istanbul cover -x *.spec.js _mocha -- -R spec spec/server/",
-    "test:single": "mocha spec/server",
+    "fend:test": "gulp test:fend",
     "check-coverage": "istanbul check-coverage --statements 80 --branches 60 --statements 80 --lines 80",
     "report-coverage": "cat ./coverage/lcov.info | codecov",
-    "coveralls": "cat ./coverage/lcov.info | coveralls",
+    "coveralls": "cat ./coverage_FEND/lcov.info | coveralls",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "commit": "git-cz"
   },
