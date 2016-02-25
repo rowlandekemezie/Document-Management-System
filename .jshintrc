@@ -17,6 +17,7 @@
     "jQuery",
     "jasmine",
     "beforeEach",
+    "moment",
     "afterEach",
     "describe",
     "expect",

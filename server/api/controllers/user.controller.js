@@ -32,10 +32,10 @@
      * @param  {[http response]} res [response on request]
      * @return {[json]}     [Json response]
      */
-    logout: function(req, res) {
+      logout: function(req, res) {
       req.session.destroy(function(err) {
         if (err) {
-          res.status(500).json(err);
+          res.status(500).send(err);
         } else {
           res.status(200).json({
             success: true,
@@ -157,9 +157,9 @@
             });
           } else {
             User.findOne({
-              userName: userData.userName,
-              email: userData.email
+              userName: userData.userName
             }, function(err, users) {
+
               if (users) {
                 res.status(409).json({
                   success: false,
@@ -246,6 +246,7 @@
         if (err) {
           res.status(500).json(err);
         }
+
         var updateFn = function() {
           // set the new user information if it exists in the request
           var userDetail = {
@@ -258,6 +259,7 @@
             email: userData.email || user.email,
             role: userData.role || user.role
           };
+
           User.findByIdAndUpdate(req.params.id, userDetail,
             function(err, user) {
               if (err) {

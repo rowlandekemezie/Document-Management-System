@@ -19,10 +19,10 @@
         required: true,
         validate: /[a-zA-Z\^w]/
       },
-      role: [{
+      role: {
         type: String,
         ref: 'Role'
-      }],
+      },
       createdAt: {
         type: String
       },

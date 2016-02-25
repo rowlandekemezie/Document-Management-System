@@ -53,7 +53,7 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress', 'junit', 'growl',
     // 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: [ 'coverage', 'progress', 'coveralls'],
+    reporters: [ 'coverage', 'progress'],
 
     // web server port
     port: 9876,
@@ -104,7 +104,7 @@ module.exports = function(config) {
     singleRun: false,
     coverageReporter: {
       // specify a common output directory
-      dir: 'coverage',
+      dir: 'coverage_FEND',
       reporters: [
         // reporters not supporting the `file` property
         { type: 'html', subdir: 'report-html' },

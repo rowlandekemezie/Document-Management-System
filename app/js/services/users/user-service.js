@@ -53,7 +53,7 @@
 
         // get all user's documents
         user.getUserDocs = function(userId, limit, page, cb) {
-          $http.get('/api/users/' + userId + '/documents?limit=' +
+          $http.get('/api/users/' + userId.id + '/documents?limit=' +
             limit + '&page=' + page)
             .success(function(res) {
               cb(null, res);

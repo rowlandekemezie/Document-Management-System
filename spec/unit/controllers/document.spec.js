@@ -7,8 +7,8 @@
       Utils,
       scope,
       Roles = {
-        query: function(cb) {
-          cb([1, 2, 3]);
+        query: function() {
+          return [1, 2, 3];
         }
       },
       state,
@@ -35,8 +35,8 @@
         role: 'Trainer'
       },
       Documents = {
-        save: function(doc, cb) {
-          !doc.fail ? cb(null, doc) : cb(true, null);
+        save: function(doc, cb, cbb) {
+          !doc.fail ? cb(false, doc) : cbb(true, null);
         },
         update: function(doc, cb) {
           doc ? cb(null, doc) : cb(true, null);
@@ -69,10 +69,9 @@
         });
       });
     });
-    it('should call init and return roles', function() {
+
+    it('should return roles', function() {
       spyOn(Roles, 'query').and.callThrough();
-      scope.init();
-      expect(Roles.query).toHaveBeenCalled();
       expect(scope.roles).toBeTruthy();
       expect(scope.roles).toEqual([1, 2, 3]);
       expect(scope.roles.length).toBe(3);
@@ -82,13 +81,7 @@
     it('should define and create a document', function() {
       scope.loggedInUser = loggedInUser;
       scope.document = {
-        _id: '56c5075e7efeed831fcfbe88',
-        title: 'Test document',
-        content: 'Description content',
-        ownerId: stateParams.id,
-        createdAt: new Date(),
-        lastModified: new Date(),
-        role: loggedInUser.role
+        fail: false
       };
       spyOn(Documents, 'save').and.callThrough();
       spyOn(Utils, 'toast');
@@ -96,7 +89,6 @@
       scope.createDoc();
       expect(Documents.save).toHaveBeenCalled();
       expect(Utils.toast).toHaveBeenCalled();
-      expect(scope.status).toBeDefined();
       expect(state.go).toHaveBeenCalled();
     });
 
@@ -120,15 +112,22 @@
       expect(scope.docDetail.length).toBe(1);
     });
 
-    it('should Util dialog for delete', function() {
+    it('should load Util dialog for delete', function() {
       spyOn(Utils, 'dialog').and.callThrough();
-      scope.deleteDoc();
+      scope.getDoc();
+      scope.deleteDoc({
+        _event: 'event'
+      });
       expect(Utils.dialog).toHaveBeenCalled();
     });
 
     it('should call delete function and delete document', function() {
+      scope.docDetail = {
+        _id: '1',
+        title: 'pass'
+      };
       spyOn(Documents, 'remove').and.callThrough();
-      spyOn(Utils, 'toast').and.callThrough();
+      spyOn(Utils, 'toast');
       scope.deleteDocFn();
       expect(Documents.remove).toHaveBeenCalled();
       expect(Utils.toast).toHaveBeenCalled();
@@ -137,7 +136,8 @@
 
     it('should call delete function and fail', function() {
       scope.docDetail = {
-        _id: null
+        _id: '',
+        title: 'fail'
       };
       spyOn(Documents, 'remove').and.callThrough();
       scope.deleteDocFn();
@@ -146,7 +146,10 @@
 
     it('should  Util dialog for update', function() {
       spyOn(Utils, 'dialog').and.callThrough();
-      scope.updateDoc();
+      scope.getDoc();
+      scope.updateDoc({
+        _event: 'event'
+      });
       expect(Utils.dialog).toHaveBeenCalled();
     });
 
@@ -168,21 +171,61 @@
       expect(scope.status).toBeDefined();
     });
 
-    it('should authenticate view on a document', function() {
+    it('should assign delete privilege on a document', function() {
       scope.loggedInUser = {
-        _id: 2
-      };
-      var view = scope.isAuthView();
-      expect(view).toBeTruthy();
-    });
-
-    it('should call isAuthView and fail', function() {
-      scope.loggedInUser = {
+        role: 'SuperAdmin',
         _id: 1
       };
-      var view = scope.isAuthView();
-      expect(view).toBeFalsy();
+      scope.docDetail = {
+        ownerId: 1
+      };
+
+      expect(scope.canDelete()).toBeTruthy();
     });
 
+    it('should assert that only SuperAdmin and document owner can delete a documen', function() {
+      scope.loggedInUser = {
+        role: 'Documentarian',
+        _id: 2
+      };
+      scope.docDetail = {
+        ownerId: 1
+      };
+      expect(scope.canDelete()).toBeFalsy();
+    });
+
+    it('should assign edit privilege on a document', function() {
+      scope.loggedInUser = {
+        role: 'Documentarian',
+        _id: 1
+      };
+      scope.docDetail = {
+        ownerId: 2
+      };
+      expect(scope.canEdit()).toBeTruthy();
+    });
+
+    it('should assert that same role has edit privilege on a document', function() {
+      scope.loggedInUser = {
+        role: 'Trainer',
+        _id: 1
+      };
+      scope.docDetail = {
+        role: 'Trainer'
+      };
+      expect(scope.canEdit()).toBeTruthy();
+    });
+
+    it('should assert that only SuperAdmin, Documentarian, and owner or same role can edit a document', function() {
+      scope.loggedInUser = {
+        role: 'Trainer',
+        id : 1
+      };
+      scope.docDetail = {
+        role: 'Admin',
+        ownerId : 2
+      };
+      expect(scope.canEdit()).toBeFalsy();
+    });
   });
 })();

@@ -7,6 +7,7 @@
       state,
       Auth,
       Utils,
+      mdDialog,
       Roles = {
         query: function(cb) {
           cb([1, 2, 3]);
@@ -27,9 +28,8 @@
             cb(user);
           } else {
             cb({
-              res: {
-                err: 'Could not respond',
-                status: 500
+              err: {
+                status: 406
               }
             });
           }
@@ -51,13 +51,16 @@
       Auth = $injector.get('Auth');
       state = $injector.get('$state');
       Utils = $injector.get('Utils');
+      mdDialog = $injector.get('$mdDialog');
     }));
 
     it('should call query on roles', function() {
       spyOn(Roles, 'query').and.callThrough();
+      scope.init();
       expect(scope.roles).toEqual([1, 2, 3]);
       expect(scope.roles).toBeDefined();
     });
+
     it('should call the save function on signup', function() {
       spyOn(Users, 'save').and.callThrough();
       spyOn(Auth, 'setToken').and.callThrough();
@@ -90,11 +93,11 @@
       expect(Auth.setToken).not.toHaveBeenCalled();
       expect(state.go).not.toHaveBeenCalled();
       expect(scope.loggedInUser).not.toBeDefined();
-      expect(scope.status).toBeDefined();
     });
 
     it('should call login function on loginUser', function() {
       spyOn(Users, 'login').and.callThrough();
+      spyOn(mdDialog, 'cancel');
       spyOn(Auth, 'setToken');
       spyOn(state, 'go');
       spyOn(Utils, 'toast');
@@ -106,6 +109,7 @@
       expect(state.go).toHaveBeenCalled();
       expect(scope.loggedInUser).toBeDefined();
       expect(Utils.toast).toHaveBeenCalled();
+      expect(mdDialog.cancel).toHaveBeenCalled();
     });
 
     it('should call login function unsuccesfully', function() {
@@ -120,7 +124,6 @@
       expect(Auth.setToken).not.toHaveBeenCalled();
       expect(state.go).not.toHaveBeenCalled();
       expect(scope.loggedInUser).not.toBeDefined();
-      expect(scope.status).toBeDefined();
       expect(Utils.toast).not.toHaveBeenCalled();
     });
   });

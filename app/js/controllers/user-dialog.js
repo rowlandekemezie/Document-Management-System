@@ -1,8 +1,14 @@
 (function() {
+
   'use strict';
   angular.module('docKip.controllers')
-    .controller('UserDialogCtrl', ['$mdDialog', '$scope', '$mdMedia',
-      function($mdDialog, $scope, $mdMedia) {
+    .controller('UserDialogCtrl', ['$mdDialog', '$scope', '$mdMedia', 'Roles',
+      function($mdDialog, $scope, $mdMedia, Roles) {
+
+        $scope.init = function(){
+        $scope.roles = Roles.query();
+        };
+
         // Accomodating different screen sizes
         $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
         // Opens the signup dialog
@@ -47,6 +53,7 @@
         };
       }
     ]);
+
   // modal dialog controller
   function DialogController($mdDialog, $scope) {
     // cancel the dialog

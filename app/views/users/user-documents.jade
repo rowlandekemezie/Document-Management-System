@@ -5,7 +5,6 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
   div(flex)
     h2.md-padding(ng-if="!userDocs") There are currently no documents. Start today
     md-divider(md-inset)
-
     div(ng-if="userDocs" layout="column" layout-align="center center")
       div(layout="row" layout-align="end end")
         .preview-header(layout="end end") ««« MY DOCUMENTS «««
@@ -17,7 +16,7 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
             md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
     md-divider(md-inset)
       div.doc-container
-        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy: 'lastModified':true | filter:searchBox track by $index")
+        div.doc-display.grid-border(ng-repeat="doc in userDocs | filter:searchBox track by $index")
           h3.grid-header « {{ doc.title }} «
           md-divider
           div(layout="column" layout-align="start start")
