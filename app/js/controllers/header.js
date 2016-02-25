@@ -2,30 +2,31 @@
   'use strict';
 
   angular.module('docKip.controllers')
-    .controller('HeadCtrl', ['$rootScope', '$scope', 'Auth', 'Users', '$state',
-      function($rootScope, $scope, Auth, Users, $state) {
-        $scope.logout = function() {
+    .controller('HeadCtrl', ['$rootScope', '$scope', 'Auth', 'Users',
+      '$state', '$mdSidenav', 'Utils', '$route',
+      function($rootScope, $scope, Auth, Users,
+        $state, $mdSidenav, Utils, $route) {
+
+        $scope.logoutUser = function() {
           Users.logout(function(err, res) {
-            if (err) {
-              return err;
+            if (!err && res) {
+              Auth.logout();
+              $rootScope.loggedInUser = '';
+              Utils.toast(res.message);
+              $state.go('home', {reload: true});
+              $route.reload();
             } else {
-              delete $rootScope.loggedInUser;
-              Auth.logout()
-                .success(function() {
-                  $state.go('login');
-                });
+              return err;
             }
           });
         };
-        $scope.test = function(){
-          Users.getUserDocs({id: '56ab4c4ac82a87191caad0f2'}, function  (err, docs) {
-            $scope.docs = docs || err;
-          })
-        }
-        // check that the user is logged in
-        $scope.loggedIn = Auth.isLoggedIn();
-        // ToDO: Details of logged in user
 
+        //  check that the user is logged in
+        $scope.loggedIn = Auth.isLoggedIn();
+
+        $rootScope.toggleList = function() {
+          $mdSidenav('left').toggle();
+        };
       }
     ]);
 })();

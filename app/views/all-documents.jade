@@ -1,0 +1,34 @@
+md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="column" md-scroll-y)
+  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+    span.fa.fa-plus.fa-lg
+    md-tooltip(md-direction='left') create new document
+  div(flex)
+    h2.md-padding(ng-if="!documents") There are currently no documents. Start today
+    md-divider(md-inset)
+    div(ng-if="documents" layout="column" layout-align="center center")
+      div(layout="row" layout-align="end end")
+        .preview-header(layout="end end") ∞ DOCUMENTS VIEW ∞
+        div(layout="row" layout-align="center end")
+          .search-bar(layout="row" layout-align="center center")
+            input(type="text" ng-model="searchBox.title" placeholder="search by title")
+            md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
+            h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
+            md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
+    md-divider(md-inset)
+      .doc-container
+        .doc-display.grid-border(ng-repeat="doc in documents | filter : searchBoxssss")
+          .grid-header « {{doc.title}} «
+          md-divider
+          div(layout="column" layout-align="start start")
+            .doc-content.md-margin(layout-padding ng-bind-html="doc.content | limitTo:150" md-ink-ripple class="md-clickable")
+            div(layout-align="column")
+              .doc-operations(layout="row" layout-padding layout-align="center end" flex)
+                i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
+                  md-tooltip click to preview
+                i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+                  md-tooltip click to edit
+              .preview-footer(flex layout="column" layout-padding)
+                h5 LastModified {{ doc.lastModified | DateFormatter }}
+                | by {{doc.ownerId[0].userName}}
+
+

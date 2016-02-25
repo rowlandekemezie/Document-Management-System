@@ -1,5 +1,7 @@
 (function() {
+
   'use strict';
+
   angular.module('docKip.services')
     .factory('Users', ['$resource', '$http',
       function($resource, $http) {
@@ -7,25 +9,40 @@
         var user = $resource('/api/users/:id', {
           id: '@_id'
         }, {
-          update: 'PUT'
+          update: {
+            method: 'PUT'
+          }
         }, {
           stripTrailingSpaces: false
         });
 
-        // login
+        // login service
         user.login = function(user, cb) {
-          $http.post('/api/users/login')
+          $http.post('/api/users/login', user)
             .success(function(res) {
               cb(null, res);
             })
             .error(function(err) {
-              cb(err, null);
+              cb(err);
             });
         };
 
-        // logout
+        // logout service
         user.logout = function(cb) {
-          $http.post('/api/users/logout')
+          $http.get('/api/users/logout')
+            .success(function(res) {
+              cb(null, res);
+            })
+            .error(function(err) {
+              cb(err);
+            });
+        };
+
+        // get the details of the loggedIn user
+        user.getUser = function(cb) {
+          $http.get('/api/users/userInSession', {
+            cache: true
+          })
             .success(function(res) {
               cb(null, res);
             })
@@ -35,14 +52,15 @@
         };
 
         // get all user's documents
-        user.getUserDocs = function(user, cb) {
-          $http.get('/api/users/' + user.id + '/documents')
-            .success(function(docs) {
-              cb(null, docs);
+        user.getUserDocs = function(userId, limit, page, cb) {
+          $http.get('/api/users/' + userId.id + '/documents?limit=' +
+            limit + '&page=' + page)
+            .success(function(res) {
+              cb(null, res);
             })
             .error(function(err) {
               cb(err, null);
-            })
+            });
         };
         return user;
       }

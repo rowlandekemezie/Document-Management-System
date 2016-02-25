@@ -7,12 +7,18 @@ meta(name="description" content="Document manager that allows you to keep data w
 // Angular material style
 link(rel="stylesheet" href="lib/angular-material/angular-material.min.css")
 link(rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css")
+link(rel="stylesheet" href="lib/angular-material-data-table/dist/md-data-table.min.css")
+link(rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css")
+
+// Text Angular
+link(rel='stylesheet' href='lib/textAngular/dist/textAngular.css')
+
+// google fonts
 link(href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css")
 link(href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet" type="text/css")
-link(href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet" type="text/css")
-link(href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet" type="text/css")
+link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 style(type="text/css").
-  /* Hide when Angular is not yet loaded and initialized */
+  /* Hide when Angular is not yet loaded ansd initialized */
   [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
   }
@@ -28,10 +34,18 @@ script(src="lib/angular-animate/angular-animate.min.js")
 script(src="lib/angular-material/angular-material.min.js")
 script(src="lib/angular-resource/angular-resource.min.js")
 script(src="lib/angular-route/angular-route.min.js")
-script(src="lib/angular-messages/angular-messages.min.js")
+script(src="lib/angular-material-data-table/dist/md-data-table.min.js")
 
 // Font Awesome javascript dependency
 script(src="lib/font-awesome/css/font-awesome.css")
+
+// Moment file
+script(src="lib/moment/min/moment.min.js")
+
+//TextAngular Scripts
+script(src="lib/textAngular/dist/textAngular-rangy.min.js")
+script(src="lib/textAngular/dist/textAngular-sanitize.min.js")
+script(src="lib/textAngular/dist/textAngular.min.js")
 
 // custom javascript script
 script(src="js/application.js")

@@ -14,7 +14,7 @@
   module.exports = function(req, res, next) {
     Document.findById(req.params.id, function(err, doc) {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).json(err);
       } else {
         if (!doc) {
           res.status(404).json({
@@ -22,9 +22,9 @@
             message: 'Document not available'
           });
         } else {
-          if (req.decoded._doc_id !== doc.ownerId &&
-            req.decoded._doc.role !== config.role &&
-            req.decoded._doc.role !== 'Documentarian') {
+          if (JSON.stringify(req.decoded._id) !== JSON.stringify(doc.ownerId) &&
+            req.decoded.role !== config.role &&
+            req.decoded.role !== 'Documentarian') {
             res.status(403).json({
               success: false,
               message: 'Forbidden. You don\'t have the permission'

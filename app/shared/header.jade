@@ -1,14 +1,19 @@
-md-toolbar.header-spacing.md-whiteframe-z2(flex layout="row" ng-cloak='' ng-controller="HeadCtrl")
+md-toolbar.header-tab.md-whiteframe-z2(flex layout="row" ng-cloak='' padding-layout ng-controller="HeadCtrl")
   .md-toolbar-tools
-    h2
+    i.show-sm.hide-gt-md(class="material-icons" ng-click="toggleList()", aria-label="toggleList") view_headline
+    h2.logo-text
       a(ui-sref="home" layout-padding) DocKip
     span(flex='')
-    | You are logged in as {{loggedInUser.username}}
+    a(ng-if="loggedIn" ui-sref="dashboard({id: loggedInUser._id})")
+      | {{loggedInUser.userName}}
+      md-tooltip {{loggedInUser.userName}}
     a(ng-if="loggedIn")
-      md-button.md-icon-button(aria-label='logout' ng-click="logout()" layout-wrap)
-        i.md-accent.fa.fa-sign-out
+      md-button.md-icon-button(aria-label='logout' ng-click="logoutUser()" layout-wrap)
+        i.md-accent.fa.fa-sign-out.fa-lg
         md-tooltip logout
-    a(ng-if="!loggedIn" ui-sref="login")
-      md-button.md-icon-button(aria-label='login' layout-wrap)
-        i.md-accent.fa.fa-sign-in
+    a(ng-if="!loggedIn" ui-sref="home")
+      md-button.md-icon-button(aria-label='login' ng-click="loginUser()" layout-wrap)
+        i.md-accent.fa.fa-sign-in.fa-lg
         md-tooltip login
+    md-button.md-icon-button(aria-label="More")
+      i.material-icons more_vert

@@ -18,7 +18,7 @@
     console.log('Connection established successfully');
   });
   // view engine setup
-  app.set('views', path.join(__dirname, 'server/views'));
+  app.set('views', path.join(__dirname, 'app/views'));
   app.set('view engine', 'jade');
 
   // error handlers
@@ -31,8 +31,12 @@
     });
   }
   app.use(express.static(path.join(__dirname, './public')));
-  // app.route('/*').get(function(req, res) {
-  //   return res.sendFile(path.join(__dirname, './public/index.html'));
+  app.route('/*').get(function (req, res) {
+   return res.sendFile(path.join(__dirname, './public/index.html'));
+ });
+
+  // app.use(function(req, res) {
+  //   res.sendfile(__dirname + './Public');
   // });
 
   var server = app.listen(port, function() {

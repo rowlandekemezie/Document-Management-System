@@ -17,6 +17,7 @@
     "jQuery",
     "jasmine",
     "beforeEach",
+    "moment",
     "afterEach",
     "describe",
     "expect",
@@ -31,7 +32,9 @@
     "browser",
     "element",
     "by",
-    "exports"
+    "exports",
+    "spyOn",
+    "sinon"
   ],
   "quotmark": true,
   "trailing": true,

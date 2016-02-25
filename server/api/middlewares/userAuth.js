@@ -12,9 +12,9 @@
    */
   module.exports = function(req, res, next) {
     var token = req.body.token || req.query.token ||
-    req.headers['x-access-token'];
+    req.headers['x-access-token'] || req.params.token;
     if (!token) {
-      res.status(403).send({
+      res.status(403).json({
         success: false,
         message: 'Please provide your token'
       });

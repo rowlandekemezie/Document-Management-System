@@ -4,23 +4,36 @@
 module.exports = function(config) {
   config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, 
+    // base path that will be used to resolve all patterns (eg. files,
     // exclude)
     basePath: '',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'sinon'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/angular/angular.js',
       'public/lib/angular-resource/angular-resource.js',
-      'public/lib/angular-route/angular-route.js',
-      'public/js/application.js'
+      'public/lib/angular-route/angular-route.min.js',
+      'public/lib/angular-material/angular-material.min.js',
+      'public/lib/angular-animate/angular-animate.min.js',
+      'public/lib/angular-aria/angular-aria.min.js',
+      'public/lib/angular-ui-router/release/angular-ui-router.min.js',
+      'public/lib/angular-material-data-table/dist/md-data-table.min.js',
+      'public/lib/rangy/rangy-core.min.js',
+      'public/lib/textAngular/dist/textAngularSetup.js',
+      'public/lib/rangy/rangy-selectionsaverestore.min.js',
+      'public/lib/textAngular/dist/textAngular-sanitize.min.js',
+      'public/lib/textAngular/dist/textAngular.min.js',
+      'public/lib/angular-mocks/angular-mocks.js',
+      'public/lib/sinonjs/sinon.js',
+      'public/lib/jasmine-sinon/lib/jasmine-sinon.js',
+      'public/js/application.js',
+      'spec/unit/**/*.spec.js'
     ],
 
 
@@ -31,14 +44,16 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/
     // karma-preprocessor
-    preprocessors: {},
+    preprocessors: {
+        'public/js/application.js': ['coverage']
+    },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl',
     // 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: [ /*'coverage',*/ 'progress'],
+    reporters: [ 'coverage', 'progress'],
 
     // web server port
     port: 9876,
@@ -86,6 +101,22 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+    coverageReporter: {
+      // specify a common output directory
+      dir: 'coverage_FEND',
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'html', subdir: 'report-html' },
+        { type: 'lcov', subdir: 'report-lcov' },
+        // reporters supporting the `file` property, use `subdir` to directly
+        // output them in the `dir` directory
+        { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+        { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+        { type: 'text', subdir: '.', file: 'text.txt' },
+        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+      ]
+    }
   });
 };

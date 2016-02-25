@@ -6,10 +6,10 @@
 
     // var Schema = mongoose.Shema;
     documentSchema = new mongoose.Schema({
-      ownerId: {
+      ownerId: [{
         type: mongoose.Schema.Types.ObjectId,
-        Ref: 'User',
-      },
+        ref: 'User',
+      }],
       title: {
         type: String,
         required: true
@@ -21,7 +21,7 @@
       },
       role: {
         type: String,
-        Ref: 'Role'
+        ref: 'Role'
       },
       createdAt: {
         type: String

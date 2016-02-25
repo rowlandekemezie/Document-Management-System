@@ -1,5 +1,16 @@
+engines:
+  duplication:
+    enabled:false
+    config:
+      languages:
+        - javascript
 languages:
   JavaScript: true
 ratings:
    paths:
    - '**.js'
+exclude_paths:
+  - tests/**/*
+  - public/**/*
+  - app/**/*
+  - server/**/*

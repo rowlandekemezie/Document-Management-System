@@ -115,10 +115,24 @@
             done();
           });
       });
+
+      it('should return the number of document for a user', function(done) {
+        var doctest = docData[0];
+        doctest.ownerId = id;
+        var newDoc = new Document(doctest);
+        newDoc.save();
+        request.get('/api/documents/getCount/' + id)
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.equal(1);
+            done();
+          });
+      });
     });
 
     describe('GET, UPDATE, DELETE DOCUMENTS on /api/documents/', function() {
-      var docId, roleTitle, userToken, limit = 1;
+      var docId, roleTitle, userToken, limit = 2;
       beforeEach(function(done) {
         var newRole = new Role(roleData[0]);
         var newUser = new User(userData[0]);
@@ -184,7 +198,7 @@
               title: 'The beautiful ones are not yet born',
               role: 'Librarian',
               content: 'It makes more sense when people understand the ' +
-                'essence of existence rather outward beauty that fades '+
+                'essence of existence rather outward beauty that fades ' +
                 'away and is no more'
             });
             done();
@@ -192,7 +206,7 @@
       });
 
       it('should return all documents limited by a value', function(done) {
-        request.get('/api/documents/limit/' + limit)
+        request.get('/api/documents?/limit=' + limit)
           .set('x-access-token', userToken)
           .end(function(err, res) {
             expect(res.status).to.equal(200);
@@ -236,7 +250,7 @@
               title: 'The beautiful ones are not yet born',
               role: 'Librarian',
               content: 'It makes more sense when people understand the ' +
-                'essence of existence rather outward beauty that fades '+
+                'essence of existence rather outward beauty that fades ' +
                 'away and is no more'
             });
             done();
@@ -402,7 +416,7 @@
           });
       });
 
-      it('should not delete  any document by an invalid id', function(done) {
+      it('should not delete any document by an invalid id', function(done) {
         var invalidId = mongoose.Types.ObjectId('4edd40c86762e0fb12000003');
         request.delete('/api/documents/' + invalidId)
           .set('x-access-token', userToken)
@@ -413,6 +427,26 @@
               success: false,
               message: 'Document not available'
             });
+            done();
+          });
+      });
+
+      it('should return the document length in the database', function(done) {
+        var user1 = new User(userData[1]);
+        user1.save();
+        var doc1 = docData[1];
+        var doc2 = docData[2];
+        doc1.ownerId = user1._id;
+        doc2.ownerId = user1._id;
+        var newDoc1 = new Document(doc1);
+        var newDoc2 = new Document(doc2);
+        newDoc1.save();
+        newDoc2.save();
+        request.get('/api/documents/count/all')
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(200);
+            expect(res.body).to.equal(3);
             done();
           });
       });

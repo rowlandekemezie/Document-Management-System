@@ -1,6 +1,9 @@
 (function() {
   'use strict';
-
+  var env = process.env.NODE_ENV || 'development';
+  if (env === 'development') {
+    require('dotenv').load();
+  }
 
   var gulp = require('gulp'),
     jade = require('gulp-jade'),
@@ -23,14 +26,15 @@
     // stylish = require('jshint-stylish'),
     ngAnnotate = require('gulp-ng-annotate'),
     jshint = require('gulp-jshint'),
+    karma = require('gulp-karma'),
     uglify = require('gulp-uglify'),
     buffer = require('vinyl-buffer'),
     minifyCss = require('gulp-minify-css'),
     sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
     cache = require('gulp-cache');
-    // coveralls = require('gulp-coveralls'),
-    // rev = require('rev');
+  // coveralls = require('gulp-coveralls'),
+  // rev = require('rev');
 
   // define clean task
   gulp.task('clean', function() {
@@ -54,11 +58,11 @@
         stream: true
       }))
       .pipe(notify({
-       message: 'less task completed'
+        message: 'less task completed'
       }))
       .on('error', function(error) {
         gutil.log(gutil.colors.red(error.message));
-          // Notify on error. Uses node-notifier
+        // Notify on error. Uses node-notifier
         notifier.notify({
           title: 'Less compilation error',
           message: error.message
@@ -103,23 +107,24 @@
         'Error: in browserify gulp task'))
       // vinyl-source-stream makes the bundle compatible with gulp
       .pipe(source('application.js')) // Desired filename
-      .pipe(ngAnnotate())
-      .pipe(buffer())
-      .pipe(uglify())
-      .pipe(stripeDebug())
+      //.pipe(ngAnnotate())
+      // .pipe(buffer())
+      // .pipe(uglify())
+      // .pipe(stripeDebug())
       // Output the file
-      .pipe(gulp.dest('./public/js/'))
-      .pipe(sourcemaps.init({
-       loadMaps: true
-      }))
-      .pipe(sourcemaps.write('./maps'))
+      // .pipe(gulp.dest('./public/js/'))
+      // .pipe(sourcemaps.init({
+      //  loadMaps: true
+      // }))
+      // .pipe(sourcemaps.write('./maps'))
       .pipe(gulp.dest('./public/js/'));
   });
 
   // define jshint lint
   gulp.task('jshint', function() {
     return gulp.src(['./app/js/**/*.js', './server/**/*.js',
-      './index.js', './spec/**/*.js'])
+        './index.js', './spec/**/*.js'
+      ])
       .pipe(jshint())
       .pipe(jshint.reporter('default'));
   });
@@ -152,7 +157,7 @@
   });
 
   //  task for back end test
-  gulp.task('test:bend', function() {
+  gulp.task('test:bend', ['test:fend'], function() {
     return gulp.src('spec/server/*.js', {
         read: false
       })
@@ -170,10 +175,25 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', function(done) {
-    new Server({
+  gulp.task('test:fend', ['browserify'], function() {
+  new Server({
       configFile: __dirname + '/karma.conf.js',
-    }, done).start();
+      singleRun: true
+    }).start();
+    // server.on('browser_error', function(browser, err) {
+    //   gutil.log('Karma Run Failed: ' + err.message);
+    //   throw err;
+    // });
+
+    // server.on('run_complete', function(browsers, results) {
+    //   if (results.failed) {
+    //     throw new Error('Karma: Tests Failed');
+    //   }
+    //   gutil.log('Karma Run Complete: No Failures');
+    //   done();
+    // });
+
+    // server.start();
   });
 
   // e2e test task
@@ -192,12 +212,12 @@
   // task for nodemon
   gulp.task('nodemon', function() {
     nodemon({
-        ext: 'js',
-        script: 'index.js',
-        ignore: ['node_modules/', 'public/', 'coverage/']
-      })
-      // .on('watch', ['watch'])
-      .on('change', ['watch'])
+      ext: 'js',
+      script: 'index.js',
+      ignore: ['node_modules/', 'public/', 'coverage/']
+    })
+    // .on('watch', ['watch'])
+    .on('change', ['watch'])
       .on('restart', function() {
         console.log('Appliction restarted..>>');
       });
@@ -213,10 +233,11 @@
 
   // build task
   gulp.task('build', ['jade', 'less', 'static-files',
-   'imagemin', 'browserify', 'bower']);
+    'imagemin', 'browserify', 'bower'
+  ]);
 
   // register test task
-  gulp.task('test', ['test:fend', 'test:bend', 'test-coverage']);
+  gulp.task('test', ['test:fend', 'test:bend']);
   // deployment tasks
   gulp.task('heroku:production', ['build']);
   gulp.task('heroku:staging', ['build']);
