@@ -18,21 +18,24 @@
         id: ''
       },
       Users = {
-        query: function(cb) {
-          cb(['Abu', 'Emy', 'Chy']);
+        getUserDocs: function(id, limit, page, cb) {
+          cb(null, ['Novels', 'Ado', 'Poets']);
         },
-        getUserDocs: function(id, cb, cbb) {
-          cb(['Novels', 'Ado', 'Poets']);
-          cbb({
-            err: {
-              status: 404
-            }
-          });
-        },
+        get: function(id, cb, cbb){
+          var user;
+          cb(null, user);
+          cbb();
+        }
       },
       Documents = {
-        query: function(cb) {
-          cb([1, 2, 3]);
+        getAllDocs: function(limit, page, cb) {
+          cb(null, [1, 2, 3]);
+        },
+        userDocCount: function(id, cb) {
+          cb(null, [5]);
+        },
+        allDocCount: function(cb) {
+           cb(null, [5]);
         }
       };
 
@@ -54,77 +57,75 @@
           $mdSidenav: mdSidenav
         });
       });
-    });
-
-    it('should call init function and resolve', function() {
       stateParams = {
         id: 1
       };
-      spyOn(Users, 'query').and.callThrough();
+      scope.param = {
+        limit: 3,
+        page: 1
+      };
+    });
+
+    it('should call init function and resolve', function() {
+
       spyOn(Users, 'getUserDocs').and.callThrough();
-      spyOn(Documents, 'query').and.callThrough();
+      spyOn(Users, 'get').and.callThrough();
+      spyOn(Documents, 'getAllDocs').and.callThrough();
+      spyOn(Documents, 'userDocCount');
+      spyOn(Documents, 'allDocCount');
       expect(scope.init).toBeDefined();
-      scope.init();
+      scope.init(scope.param);
       expect(scope.documents).toBeDefined();
-      expect(Documents.query).toHaveBeenCalled();
+      expect(Documents.getAllDocs).toHaveBeenCalled();
       expect(scope.documents).toEqual([1, 2, 3]);
-      expect(scope.users).toBeDefined();
-      expect(Users.query).toHaveBeenCalled();
-      expect(scope.users).toEqual(['Abu', 'Emy', 'Chy']);
+      expect(scope.user).toBeDefined();
       expect(Users.getUserDocs).toHaveBeenCalled();
+      expect(Users.get).toHaveBeenCalled();
+      expect(scope.allDocCount).toEqual([5]);
+      expect(scope.docCount).toEqual([5]);
       expect(scope.userDocs).toBeDefined();
       expect(scope.userDocs).toEqual(['Novels', 'Ado', 'Poets']);
     });
 
-    // it('should call getUserDocs function and return nothing', function() {
-    //   stateParams = {
-    //     id: ''
-    //   };
-    //   spyOn(Users, 'query').and.callThrough();
-    //   spyOn(Users, 'getUserDocs').and.callThrough();
-    //   spyOn(Documents, 'query').and.callThrough();
-    //   expect(scope.init).toBeDefined();
-    //   scope.init();
-    //   expect(scope.documents).toBeDefined();
-    //   expect(Documents.query).toHaveBeenCalled();
-    //   expect(scope.documents).toEqual([1, 2, 3]);
-    //   expect(scope.users).toBeDefined();
-    //   expect(Users.query).toHaveBeenCalled();
-    //   expect(scope.users).toEqual(['Abu', 'Emy', 'Chy']);
-    //   expect(Users.getUserDocs).toHaveBeenCalled();
-    //   expect(scope.userDocs).not.toBeDefined();
-    //   expect(scope.message).toBeDefined();
-    // });
-
-    it('should call getName function', function() {
-      scope.users[0] = {
-        _id: 1,
-        userName: 'Trainer'
-      };
-      var nameConverter = scope.getName(1);
-      expect(nameConverter).toBeTruthy();
+    it('should load anotheer page', function(){
+        scope.nextPage();
+        expect(scope.param.page).toEqual(2);
     });
 
-    it('should call getName function and fail', function() {
-      scope.users[0] = {
-        _id: 1,
-        userName: 'Trainer'
-      };
-      var nameConverter = scope.getName(2);
-      expect(nameConverter).toBeFalsy();
+    it('should load previous page', function(){
+      scope.previousPage();
+      expect(scope.param.page).toEqual(0);
     });
 
-    it('should call authview function', function() {
+    it('should disable next page button', function(){
+       scope.allDocCount = 4;
+      spyOn(scope, 'numberOfPages').and.callThrough();
+      expect(scope.disableNextPage()).toBe(false);
+    });
+
+    it('should disable previous page button', function(){
+      spyOn(scope, 'numberOfPages').and.callThrough();
+      expect(scope.disablePreviousPage()).toBe(true);
+    });
+
+    it('should call numberOfPages', function(){
+       scope.allDocCount = 4;
+       expect(scope.numberOfPages()).toEqual(2);
+    });
+
+    it('should call isAdmin function and be truthy', function() {
       scope.loggedInUser = {
-        role: 'SuperAdmin'
+        role: 'SuperAdmin',
+        userName: 'BuddyMaster'
       };
       var isAdmin = scope.isAdmin();
       expect(isAdmin).toBeTruthy();
     });
 
-    it('should call authview function', function() {
+    it('should call isAdmin function and be falsy', function() {
       scope.loggedInUser = {
-        role: 'Trainer'
+        role: 'SuperAdmin',
+        userName: 'Job'
       };
       var isAdmin = scope.isAdmin();
       expect(isAdmin).toBeFalsy();

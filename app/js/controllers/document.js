@@ -26,9 +26,7 @@
         }, 100, 0, true);
 
         // init function
-        Roles.query(function(res) {
-          $scope.roles = res;
-        });
+        $scope.roles = Roles.query();
 
         // load document to view
         $scope.getDoc = function() {
@@ -50,7 +48,6 @@
             }, {
               reload: true
             });
-            $scope.status = res.message + "\n Click cancel to return to your documents";
           }, function(err) {
             if (err.status === 409) {
               $scope.status = 'Document already exist.';
@@ -118,9 +115,12 @@
 
         // Authenticate edit privileges
         $scope.canEdit = function() {
+          if ($rootScope.loggedInUser.role === $scope.docDetail.role ||
+            $rootScope.loggedInUser.role === 'SuperAdmin') {
+            return true;
+          }
           if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
-            $rootScope.loggedInUser.role === ('SuperAdmin' ||
-              'Documentarian' || $scope.docDetail.role)) {
+            $rootScope.loggedInUser.role === 'Documentarian') {
             return true;
           } else {
             return false;

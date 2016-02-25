@@ -175,25 +175,25 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', ['browserify'], function(done) {
-    var server = new Server({
+  gulp.task('test:fend', ['browserify'], function() {
+  new Server({
       configFile: __dirname + '/karma.conf.js',
       singleRun: true
-    });
-    server.on('browser_error', function(browser, err) {
-      gutil.log('Karma Run Failed: ' + err.message);
-      throw err;
-    });
+    }).start();
+    // server.on('browser_error', function(browser, err) {
+    //   gutil.log('Karma Run Failed: ' + err.message);
+    //   throw err;
+    // });
 
-    server.on('run_complete', function(browsers, results) {
-      if (results.failed) {
-        throw new Error('Karma: Tests Failed');
-      }
-      gutil.log('Karma Run Complete: No Failures');
-      done();
-    });
+    // server.on('run_complete', function(browsers, results) {
+    //   if (results.failed) {
+    //     throw new Error('Karma: Tests Failed');
+    //   }
+    //   gutil.log('Karma Run Complete: No Failures');
+    //   done();
+    // });
 
-    server.start();
+    // server.start();
   });
 
   // e2e test task

@@ -15,8 +15,7 @@
     "angular-material-data-table": "^0.9.11",
     "sinonjs": "^1.17.1",
     "jasmine-sinon": "^0.4.0",
-    "moment": "^2.11.2",
-    "ng-simplePagination": "^1.0.3"
+    "moment": "^2.11.2"
   },
   "resolutions": {
     "angular": "1.4.9"

@@ -88,7 +88,7 @@
     });
 
     it('should logout user', function(done) {
-      request.post('/api/users/logout')
+      request.get('/api/users/logout')
         .end(function(err, res) {
           expect(res.status).to.equal(200);
           expect(res.body).contain({
@@ -359,31 +359,6 @@
           expect(res.body).contain({
             message: 'User details updated',
             success: true
-          });
-          expect(err).not.to.be.a('undefined');
-          expect(err).to.be.a('null');
-          done();
-        });
-    });
-
-    it('should not update user with an invalid role', function(done) {
-      request.put('/api/users/' + id)
-        .set('x-access-token', userToken)
-        .send({
-          userName: 'Haski',
-          name: {
-            firstName: 'Lamboni',
-            lastName: 'Ruskima',
-          },
-          email: 'lamboniruskina@gmail.com',
-          password: 'PythonPhpJavascript',
-          role: undefined
-        })
-        .end(function(err, res) {
-          expect(res.status).to.equal(406);
-          expect(res.body).contain({
-            message: 'Please provide your role',
-            success: false
           });
           expect(err).not.to.be.a('undefined');
           expect(err).to.be.a('null');

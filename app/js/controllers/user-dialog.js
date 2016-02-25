@@ -1,4 +1,5 @@
 (function() {
+
   'use strict';
   angular.module('docKip.controllers')
     .controller('UserDialogCtrl', ['$mdDialog', '$scope', '$mdMedia',

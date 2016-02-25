@@ -45,6 +45,40 @@
           console.log('limit: ', limit);
         };
 
+         //delete buttoon for document
+        $scope.deleteDocBtn = function(event, doc) {
+          $scope.doc = doc;
+          Utils.dialog('Warning: Delete Document, ' +
+            $scope.doc.title + '?',
+            'Are you sure you want to delete, ' +
+            $scope.doc.title + '?',
+            event, deleteDoc
+          );
+        };
+
+        // delete document function
+        function deleteDoc() {
+          Documents.remove({
+            id: $scope.doc._id
+          }, function() {
+            Utils.toast('Your document has been successfully deleted');
+            $state.reload();
+          }, function() {
+            $scope.status = 'There was problem deleting document';
+          });
+        }
+
+        // Create user function
+        $scope.createUserBtn = function() {
+          Users.save($scope.user, function() {
+            Utils.toast('A new user has been created');
+            $state.reload();
+          }, function() {
+            Utils.toast('Can not create User');
+            $scope.status = 'An error occured';
+          });
+        };
+
         //Delete button
         function deleteUser() {
           Users.remove({
@@ -56,6 +90,7 @@
             $scope.status = 'There was error deleting the user';
           });
         }
+
         // Loading confirmation dialog box
         // A confirmation message before deleting
         $scope.deleteUserBtn = function(event, user) {
@@ -66,17 +101,6 @@
             $scope.user.userName + '?',
             event, deleteUser
           );
-        };
-
-        // Create user function
-        $scope.createUserBtn = function() {
-          Users.save($scope.user, function() {
-            Utils.toast('A new user has been created');
-            $state.reload();
-          }, function() {
-            Utils.toast('Can not create User');
-            $scope.status = 'An error occured';
-          });
         };
 
         /**
@@ -117,27 +141,6 @@
           );
         };
 
-        //delete buttoon for document
-        $scope.deleteDocBtn = function(event, doc) {
-          $scope.doc = doc;
-          Utils.dialog('Warning: Delete Document, ' +
-            $scope.doc.title + '?',
-            'Are you sure you want to delete, ' +
-            $scope.doc.title + '?',
-            event, deleteDoc
-          );
-        };
-        // delete document function
-        function deleteDoc() {
-          Documents.remove({
-            id: $scope.doc._id
-          }, function() {
-            Utils.toast('Your document has been successfully deleted');
-            $state.reload();
-          }, function() {
-            $scope.status = 'There was problem deleting document';
-          });
-        }
         // Get userName of document creator by id
         $scope.getName = function(id) {
           for (var i = 0, n = $scope.users; i < n.length; i++) {

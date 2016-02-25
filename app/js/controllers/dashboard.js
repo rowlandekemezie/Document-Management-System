@@ -20,7 +20,7 @@
         };
 
         $scope.init = function(param) {
-          Users.getUserDocs($stateParams.id, param.limit, param.page,
+          Users.getUserDocs({id:$stateParams.id}, param.limit, param.page,
             function(err, docs) {
               if (!err && docs) {
                 $scope.userDocs = docs;
@@ -54,7 +54,6 @@
             console.log(err);
           });
         };
-
 
         $scope.init($scope.param);
 

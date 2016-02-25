@@ -4,6 +4,7 @@
   describe('Users service test', function() {
     var Users,
       http,
+      scope,
       httpBackend;
 
     beforeEach(function() {
@@ -12,6 +13,7 @@
 
     beforeEach(inject(function($injector) {
       httpBackend = $injector.get('$httpBackend');
+      scope = $injector.get('$rootScope');
       httpBackend.when('GET', '/api/users/userInSession')
         .respond(200, {
           res: 'res'
@@ -128,15 +130,14 @@
       });
 
       it('should return success on status 200', function() {
-        httpBackend.whenGET(/\/api\/users\/(.+)\/documents/,
-          undefined, undefined, ['id'])
+        httpBackend.when('GET', /\/api\/users\/(.+)\/documents\?limit=(.+)&page=(.+)/,
+          undefined, undefined, ['id', 'limit', 'page'])
           .respond(200, {
             res: 'res'
           });
         var cb = sinon.spy();
         Users.getUserDocs({
-          id: 'id'
-        }, cb);
+          id: 'id'}, 10, 5, cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
@@ -144,16 +145,15 @@
       });
 
       it('should return error on status 500', function() {
-        httpBackend.whenGET(/\/api\/users\/(.+)\/documents/,
-          undefined, undefined, ['id'])
+        httpBackend.when('GET', /\/api\/users\/(.+)\/documents\?limit=(.+)&page=(.+)/,
+          undefined, undefined, ['id', 'limit', 'page'])
           .respond(500, {
             err: 'err'
           });
         var cb = sinon.spy();
         Users.getUserDocs({
-          id: 'id'
-        }, cb);
-        httpBackend.flush();
+          id: 'id'}, 10, 5,cb);
+          httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0].err).toBe('err');
       });

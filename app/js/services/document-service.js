@@ -32,7 +32,7 @@
 
         // Get documents by their roles
         document.getDocsByRole = function(role, limit, cb) {
-          $http.get('/api/documents/' + role + '/' + limit)
+          $http.get('/api/documents/role/' + role + '/' + limit)
             .success(function(res) {
               cb(null, res);
             })
@@ -43,7 +43,7 @@
 
         // Get documents by date created
         document.getDocsByDate = function(date, limit, cb) {
-          $http.get('/api/documents/' + date + '/' + limit)
+          $http.get('/api/documents/date/' + date + '/' + limit)
             .success(function(res) {
               cb(null, res);
             })
