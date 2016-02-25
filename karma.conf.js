@@ -86,7 +86,7 @@ module.exports = function(config) {
     // - Safari
     // - PhantomJS
     // - IE
-    browsers: ['Chrome', 'FireFox'], // 'Firefox', 'Safari'],
+    browsers: ['Chrome', 'Firefox'], // 'Firefox', 'Safari'],
 
     // https://www.youtube.com/watch?v=FQwZrOAmMAc
     // To turn off chrome's security limitations that do
