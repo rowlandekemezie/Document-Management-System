@@ -21,12 +21,13 @@
     source = require('vinyl-source-stream'),
     notify = require('gulp-notify'),
     imagemin = require('gulp-imagemin'),
-
     ngAnnotate = require('gulp-ng-annotate'),
     jshint = require('gulp-jshint'),
     karma = require('gulp-karma'),
     uglify = require('gulp-uglify'),
+    buffer = require('vinyl-buffer'),
     minifyCss = require('gulp-minify-css'),
+    sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
     cache = require('gulp-cache');
 
