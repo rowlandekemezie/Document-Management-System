@@ -41,12 +41,13 @@
                 // for easy search.
                 // req.body.userName = req.decoded.userName;
                 var newDoc = new Document(doc);
-                newDoc.save(function(err) {
+                newDoc.save(function(err, doc) {
                   if (err) {
                     res.status(500).json(err);
                   } else {
                     res.status(200).json({
                       success: true,
+                      doc: doc,
                       message: 'Document successfully created'
                     });
                   }
@@ -65,7 +66,7 @@
      */
     getAllDocuments: function(req, res) {
       var limit = parseInt(req.query.limit);
-      var page = parseInt(req.query.page) - 1;
+      var page = parseInt(req.query.page) || 1;
       Document.find({})
         .populate({
           path: 'ownerId',
