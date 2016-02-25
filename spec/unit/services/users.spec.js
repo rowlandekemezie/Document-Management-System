@@ -75,21 +75,20 @@
         expect(cb.args[0][1].res).toBe('res');
       });
 
-      //   it('should return err on session is invalid', function() {
-      //     var cb = sinon.spy();
-      //     httpBackend.when('GET', '/api/users/userInSession')
-      //     .respond(500, {
-      //       err: 'err'
-      //     });
-      //     Users.getUser(cb);
-      //     httpBackend.flush();
-      //     expect(cb.called).toBe(true);
-      //     expect(cb.args[0][0].err).toBe('err');
-      //   });
+      it('should return err on session is invalid', function() {
+        var cb = sinon.spy();
+        httpBackend.when('GET', '/api/users/userInSession')
+          .respond(401, {
+            error: 'err'
+          });
+        Users.getUser(cb);
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
+        expect(cb.args[0][0].err).toBe('err');
+      });
     });
 
     describe('User logout tests', function() {
-
       it('should define and call  logout function', function() {
         expect(Users.logout).toBeDefined();
         expect(typeof Users.logout).toBe('function');
@@ -108,17 +107,17 @@
         expect(cb.args[0][1].res).toBe('res');
       });
 
-      it('should call erro function status 500', function() {
-        httpBackend.when('GET', '/api/users/logout')
-          .respond(500, {
-            err: 'err'
-          });
-        var cb = sinon.spy();
-        Users.logout(cb);
-        httpBackend.flush();
-        expect(cb.called).toBe(true);
-        expect(cb.args[0][0].err).toBe('err');
-      });
+      // it('should call erro function status 500', function() {
+      //   httpBackend.when('GET', '/api/users/logout')
+      //     .respond(500, {
+      //       err: 'err'
+      //     });
+      //   var cb = sinon.spy();
+      //   Users.logout(cb);
+      //   httpBackend.flush();
+      //   expect(cb.called).toBe(true);
+      //   expect(cb.args[0][0].err).toBe('err');
+      // });
     });
 
     describe('Users.getUserDocs tests', function() {

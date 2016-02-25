@@ -2,8 +2,7 @@
   'use strict';
 
   var Documents,
-    httpBackend,
-    http;
+    httpBackend;
 
   describe('Documents service tests', function() {
 
@@ -14,17 +13,20 @@
     beforeEach(inject(function($injector) {
       Documents = $injector.get('Documents');
       httpBackend = $injector.get('$httpBackend');
-      http = $injector.get('$http');
-
-      httpBackend.when('GET', '/api/documents').respond(200, [{
-        res: 'res'
-      }]);
+      httpBackend.when('GET', '/api/users/userInSession')
+        .respond(200, {
+          res: 'res'
+        });
+      httpBackend.when('GET', 'views/home.html')
+        .respond(200, [{
+          res: 'res'
+        }]);
     }));
 
     describe('getDocsByLimit service tests', function() {
 
       it('should return success response on 200 status', function() {
-        httpBackend.whenPOST(/\/api\/documents\/limit\/(.+)/,
+        httpBackend.whenGET(/\/api\/documents\/limit\/(.+)/,
           undefined, undefined, ['limit']).respond(200, {
           res: 'res'
         });
@@ -32,58 +34,98 @@
         Documents.getDocsByLimit({
           limit: 'limit'
         }, cb);
-        expect(Documents.getDocsByLimit.called).toBe(true);
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
         expect(cb.args[0][1].res).toBe('res');
       });
 
       it('should return error response on 500 status', function() {
-        httpBackend.when('GET', /\/api\/documents/,
-          undefined, undefined, ['id']).respond(500, [{
+        httpBackend.when('GET', /\/api\/documents\/limit\/(.+)/,
+          undefined, undefined, ['limit']).respond(500, {
           err: 'err'
-        }]);
+        });
 
         var cb = sinon.spy();
         Documents.getDocsByLimit({
-          limit: 1
+          limit: 'limit'
         }, cb);
-        expect(Documents.getDocsByLimit.called).toBe(true);
-        expect(cb.args[0][0]).toBe(null);
-        expect(cb.args[0][1].err).toBe('err');
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
 
     describe('getDocByRole service tests', function() {
       it('should return success response on 200 status', function() {
-        httpBackend.when('GET', /\/api\/documents/,
-          undefined, undefined, ['id']).respond(200, [{
+        httpBackend.when('GET', /\/api\/documents\/(.+)\/(.+)/,
+          undefined, undefined, ['role', 'limit']).respond(200, {
           res: 'res'
-        }]);
+        });
 
         var cb = sinon.spy();
-        Documents.getDocsByLimit({
-          limit: 1
+        Documents.getDocsByRole({
+          limit: 'limit',
+        }, {
+          role: 'role'
         }, cb);
-        expect(Documents.getDOcsByLimit.called).toBe(true);
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
         expect(cb.args[0][1].res).toBe('res');
       });
 
       it('should return error response on 500 status', function() {
-        httpBackend.when('GET', '/api/documents/').respond(500, [{
+        httpBackend.when('GET', /\/api\/documents\/(.+)\/(.+)/,
+          undefined, undefined, ['role', 'limit']).respond(500, {
           err: 'err'
-        }]);
-
+        });
         var cb = sinon.spy();
-        Documents.getDocsByLimit({
-          limit: 1
+        Documents.getDocsByRole({
+          role: 'role'
+        }, {
+          limit: 'limit'
         }, cb);
-        expect(Documents.getDOcsByLimit.called).toBe(true);
-        expect(cb.args[0][0]).toBe(null);
-        expect(cb.args[0][1].err).toBe('err');
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
 
-  });
+    describe('getDocByDate', function() {
+      it('should return success response on 200 status', function() {
+        httpBackend.when('GET', /\/api\/documents\/(.+)\/(.+)/,
+          undefined, undefined, ['date', 'limit']).respond(200, {
+          res: 'res'
+        });
 
+        var cb = sinon.spy();
+        Documents.getDocsByDate({
+          limit: 'limit',
+        }, {
+          date: 'date'
+        }, cb);
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
+        expect(cb.args[0][0]).toBe(null);
+        expect(cb.args[0][1].res).toBe('res');
+      });
+
+      it('should return error response on 500 status', function() {
+        httpBackend.when('GET', /\/api\/documents\/(.+)\/(.+)/,
+          undefined, undefined, ['date', 'limit']).respond(500, {
+          err: 'err'
+        });
+        var cb = sinon.spy();
+        Documents.getDocsByDate({
+          date: 'date'
+        }, {
+          limit: 'limit'
+        }, cb);
+        httpBackend.flush();
+        expect(cb.called).toBe(true);
+        expect(cb.args[0][0].err).toBe('err');
+      });
+    });
+  });
 })();
