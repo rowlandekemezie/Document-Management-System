@@ -1,10 +1,10 @@
-(function(){
-  'use strict';
+// (function(){
+//   'use strict';
 
-  Roles = require('./server/api/models/role');
-  Users = require('./server/api/models/user');
+//   Roles = require('./server/api/models/role');
+//   Users = require('./server/api/models/user');
 
-  module.export = function(){
+//   module.export = function(){
 
-  };
-})();
+//   };
+// })();
