@@ -165,7 +165,7 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', ['browserify', 'bower'], function() {
+  gulp.task('test:fend', ['browserify'], function() {
   new Server({
       configFile: __dirname + '/karma.conf.js',
       singleRun: true

@@ -34,7 +34,6 @@ before_script:
 script:
   - npm test
   - npm run fend:test
-  - npm run check-coverage
 after_success:
   - npm run report-coverage
   - npm run coveralls

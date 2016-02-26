@@ -51,12 +51,9 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
+      console.log(req.body.userName, 'my username');
       User.findOne({
-        $or: [{
           userName: req.body.userName
-        }, {
-          email: req.body.email
-        }]
       }, function(err, user) {
         if (err) {
           res.status(500).json(err);
