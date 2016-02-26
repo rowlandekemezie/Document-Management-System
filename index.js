@@ -12,10 +12,12 @@
     express = require('express'),
     app = require('./server/config/express'),
     initDb =  require('./seeds/user'),
+
     port = process.env.PORT || 5555;
 
   // connection to the database;
-    mongoose.connect(database.url, function(err) {
+    console.log(database);
+    mongoose.connect(process.env.DATABASE_URL, function(err) {
     if (err) {
     console.log('Error connecting to the database');
     console.log(err);
@@ -53,6 +55,7 @@
  });
 
   var server = app.listen(port, function() {
+    console.log(database);
     console.log('Express server listening on %d, in %s' +
       ' mode', server.address().port, app.get('env'));
   });
