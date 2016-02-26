@@ -52,7 +52,6 @@
       }))
       .on('error', function(error) {
         gutil.log(gutil.colors.red(error.message));
-        // Notify on error. Uses node-notifier
         notifier.notify({
           title: 'Less compilation error',
           message: error.message
@@ -96,17 +95,7 @@
       .on('error', gutil.log.bind(gutil, 'Browserify ' +
         'Error: in browserify gulp task'))
       // vinyl-source-stream makes the bundle compatible with gulp
-      .pipe(source('application.js')) // Desired filename
-      //.pipe(ngAnnotate())
-      // .pipe(buffer())
-      // .pipe(uglify())
-      // .pipe(stripeDebug())
-      // Output the file
-      // .pipe(gulp.dest('./public/js/'))
-      // .pipe(sourcemaps.init({
-      //  loadMaps: true
-      // }))
-      // .pipe(sourcemaps.write('./maps'))
+      .pipe(source('application.js')) // Desired filename)
       .pipe(gulp.dest('./public/js/'));
   });
 
@@ -170,20 +159,6 @@
       configFile: __dirname + '/karma.conf.js',
       singleRun: true
     }).start();
-    // server.on('browser_error', function(browser, err) {
-    //   gutil.log('Karma Run Failed: ' + err.message);
-    //   throw err;
-    // });
-
-    // server.on('run_complete', function(browsers, results) {
-    //   if (results.failed) {
-    //     throw new Error('Karma: Tests Failed');
-    //   }
-    //   gutil.log('Karma Run Complete: No Failures');
-    //   done();
-    // });
-
-    // server.start();
   });
 
   // e2e test task
