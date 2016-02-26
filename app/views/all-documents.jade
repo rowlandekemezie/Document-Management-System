@@ -10,13 +10,13 @@ md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="
         .preview-header(layout="end end") ∞ DOCUMENTS VIEW ∞
         div(layout="row" layout-align="center end")
           .search-bar(layout="row" layout-align="center center")
-            input(type="text" ng-model="searchBox" placeholder="search by title")
+            input(type="text" ng-model="searchBox.title" placeholder="search by title")
             md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
             h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
             md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
     md-divider(md-inset)
       .doc-container
-        .doc-display.grid-border(ng-repeat="doc in documents | orderBy:'-lastModified' | filter:searchBox track by $index")
+        .doc-display.grid-border(ng-repeat="doc in documents | orderBy:'-lastModified' | filter:searchBox.title track by $index")
           .grid-header « {{doc.title}} «
           md-divider
           div(layout="column" layout-align="start start")
