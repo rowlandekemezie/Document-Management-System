@@ -351,8 +351,9 @@ md-sidenav .ripple-container {
     text-align: center;
     margin: 0 auto;
     border-radius: 5px;
-    > container.md-default-theme .md-input, md-input-container .md-input {
-        color: black;
+    > container.md-default-theme
+    .md-input, md-input-container .md-input {
+        color: black !important;
     }
 }
 
@@ -413,6 +414,11 @@ md-input-container textarea.md-input {
 
 .docForm-view {
     background-color: rgb(238, 238, 238);
+    > container.md-default-theme
+    .md-input, md-input-container .md-input {
+        color: black !important;
+        background-color: white;
+    }
 }
 
 .doc-container {
@@ -514,15 +520,18 @@ md-input-container textarea.md-input {
 
 .admin-page {
     width: 100%;
-    border: 4px solid green;
     width: 100%;
     height: 670px;
     padding-top: 3px;
     position: relative;
     margin: 0 auto;
-    border: yellow 3px dotted;
     background-color: whitesmoke;
     color: lightgray;
+    > container.md-default-theme
+    .md-input, md-input-container .md-input {
+        color: black !important;
+        background-color: white;
+    }
 }
 
 .admin-header {
