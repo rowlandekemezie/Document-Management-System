@@ -55,7 +55,6 @@
  });
 
   var server = app.listen(port, function() {
-    console.log(database);
     console.log('Express server listening on %d, in %s' +
       ' mode', server.address().port, app.get('env'));
   });
