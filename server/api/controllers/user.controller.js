@@ -51,7 +51,6 @@
      * @return {[JSON]}     [response status]
      */
     login: function(req, res) {
-      console.log(req.body.userName, 'my username');
       User.findOne({
           userName: req.body.userName
       }, function(err, user) {

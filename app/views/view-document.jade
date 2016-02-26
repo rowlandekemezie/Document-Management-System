@@ -18,4 +18,4 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y ng-init="getDoc(
           div(layout-align="column" style="margin-bottom:2px")
             div.preview-footer(flex layout="column" layout-padding)
               h5 LastModified  on {{docDetail.lastModified | DateFormatter }}
-              | by {{user}}
+              | by {{user.userName}}

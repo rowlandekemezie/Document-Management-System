@@ -7,7 +7,7 @@
         h4(style="color:black") Go back
     div(layout="row" layout-sm="column" layout-align="space-around")
       md-progress-circular(md-mode="determinate" value="{{determinateValue}}")
-  md-content(layout-sm="column" flex="100" layout-align="center center")
+  md-content(ng-controller="DocumentCtrl" layout-sm="column" flex="100" layout-align="center center")
     div(layout-align="center center" layout="row")
       h4 Create Document
     div(layout="column" flex)

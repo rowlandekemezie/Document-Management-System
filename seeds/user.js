@@ -41,7 +41,7 @@
               firstName: 'Buddy',
               lastName: 'Master'
             },
-            role: role.title,
+            role: 'SuperAdmin',
             userName: 'BuddyMaster',
             password: 'ApplicationOwner',
             email: 'buddymaster@dockip.com'
