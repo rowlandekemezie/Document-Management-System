@@ -1,26 +1,29 @@
-[![Code Climate](https://codeclimate.com/repos/56713dac42795072ee00011e/badges/f59b3386d66cdde21c2b/gpa.svg)](https://codeclimate.com/repos/56713dac42795072ee00011e/feed)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-# Document-Manager-REST-API
+[![Travis Ci](https://img.shields.io/travis/andela-rekemezie/Document-Management-System/develop.svg)](https://travis-ci.org/andela-rekemezie/Document-Management-System)
+[![Coveralls](https://img.shields.io/coveralls/andela-rekemezie/Document-Management-System/develop.svg)](https://coveralls.io/github/andela-rekemezie/Document-Management-System)
+# DocKip
 
-Document-Manager-REST-API is a  RESTful API built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it implements CRUD(Create-Read-Update-Delete) for User, Role, and Document models.
+DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and management documents with easy. 
 
 ## Installation
 
 1. Download and install [**Node JS**](https://nodejs.org/en/) if not already installed.
 2. Download and install [**Mongodb**](https://www.mongodb.org/downloads/) if not already installed.
-3. Clone the [**repository here**](hhttps://github.com/andela-rekemezie/Document-Manager-REST-API.git) or go to the project github page [**here**](https://github.com/andela-rekemezie/Document-Manager-REST-API) and download the zip file of the project. Unzip it.
+3. Clone the [**repository here**](hhttps://github.com/andela-rekemezie/Document-Management-System.git) or go to the project github page [**here**](https://github.com/andela-rekemezie/Document-Management-System) and download the zip file of the project. Unzip it.
 4. Navigate to your terminal and change your directory to the **Document-Manager-REST-API**.
 5. Run `npm install` to install node dependencies.
+6. Run `bower install` to install frontend dependencies
+7. Run `npm run initDb` to initialize your database with a role.
 
 ### Usage
+The application allows for the SuperAdmin to manage the entire process and assign authorization for different roles.
 Run `npm start` on your terminal.
 Navigate to `http://localhost:5555` on your browser.
 
 ### Test
-Run `npm test` on your terminal. Remember to  run test on the project root directory.
+Run `gulp test` on your terminal. Remember to  run test on the project root directory.
 
 ### Contributing
-1. Create an issue. First look through [the open issues](https://github.com/andela-rekemezie/Document-Manager-REST-API/issues).
+1. Create an issue. First look through [the open issues](https://github.com/andela-rekemezie/Document-Management-System/issues).
 2. Clone the repository or fork it.
 3. Create your feature branch: `git checkout -b my-new-feature`
 5. Commit your changes: `git commit -m 'Add some feature'`
@@ -31,4 +34,4 @@ Run `npm test` on your terminal. Remember to  run test on the project root direc
 * Follow me on [twitter](https://twitter.com/EkemezieRowland).
 * [CLI version of Document manager with mongodb](https://github.com/andela-rekemezie/DMS-Mongoose).
 * [CLI version of Document manager with PostgreSQL](https://github.com/andela-rekemezie/DMS-Sequelize).
->>>>>>> 09a43acb318d307d9b756752448864405fa0f0f1
+* [Document-REST-API](https://github.com/andela-rekemezie/Document-Manager-REST-API)

@@ -6,8 +6,8 @@
       div(layout-gt-sm="column" flex)
         md-input-container.md-block(flex)
           input(md-no-float ng-model="userName" name="username" type="text" placeholder="username or email" ng-required="true")
-          div(ng-messages="login.userName.$error && login.userName.$dirty")
-            div(ng-message="required") This is required!
+          div(ng-messages="login.userName.$error && login.userName.$touched")
+            div(ng-if="login.userName.$invalid && login.userName.$dirty") This is required!
         md-input-container.md-block(flex)
           input(md-no-float ng-model="password" name="password" type="password" placeholder="password" required="true" minlength="8")
           div(ng-messages="login.password.$error" ng-show="login.password.$touched")
@@ -16,5 +16,5 @@
           p.link {{status}}
           div(layout="column")
             md-button.md-raised.md-accent(type="submit" layout-padding ng-disabled="login.$invalid") Login
-            h3 Create new account? &nbsp;
+            h5 Create new account? &nbsp;
               a(ng-click="cancel()") Sign Up
