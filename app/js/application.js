@@ -15,7 +15,6 @@
    // require controllers
    require('./controllers/header');
    require('./controllers/create-account');
-   require('./controllers/login');
    require('./controllers/dashboard');
    require('./controllers/user-dialog');
    require('./controllers/document');
