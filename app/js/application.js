@@ -1,5 +1,6 @@
  (function() {
    'use strict';
+
    // angular modules
    angular.module('docKip.services', []);
    angular.module('docKip.controllers', []);
@@ -57,7 +58,6 @@
          Users.getUser(function(err, res) {
            if (!err && res) {
              $rootScope.loggedInUser = res;
-             $log.info($rootScope.loggedInUser, 'respond with user details');
            } else {
              $log.debug(err);
            }

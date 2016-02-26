@@ -52,10 +52,6 @@
    return res.sendFile(path.join(__dirname, './public/index.html'));
  });
 
-  // app.use(function(req, res) {
-  //   res.sendfile(__dirname + './Public');
-  // });
-
   var server = app.listen(port, function() {
     console.log('Express server listening on %d, in %s' +
       ' mode', server.address().port, app.get('env'));

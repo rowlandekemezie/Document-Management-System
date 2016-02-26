@@ -16,7 +16,7 @@ md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="
             md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
     md-divider(md-inset)
       .doc-container
-        .doc-display.grid-border(ng-repeat="doc in documents | filter : searchBox")
+        .doc-display.grid-border(ng-repeat="doc in documents | orderBy:'-lastModified' | filter:searchBox track by $index")
           .grid-header « {{doc.title}} «
           md-divider
           div(layout="column" layout-align="start start")
