@@ -3,9 +3,10 @@
   "version": "1.0.1",
   "description": "A document management system that manages user's documents",
   "preferGlobal": true,
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "gulp heroku:develop",
+    "build": "gulp build && node index.js",
     "test": "istanbul cover -x *.spec.js _mocha -- -R spec spec/server/",
     "fend:test": "gulp test:fend",
     "initDb": "node index.js initDb",

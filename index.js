@@ -6,36 +6,35 @@
     require('dotenv').load();
   }
 
-  var database = require('./server/config/database')[env],
-    mongoose = require('mongoose'),
+   // var database = require('./server/config/database')[env];
+    var mongoose = require('mongoose'),
     path = require('path'),
     express = require('express'),
     app = require('./server/config/express'),
-    initDb =  require('./seeds/user'),
+    //initDb =  require('./seeds/user'),
 
     port = process.env.PORT || 5555;
 
   // connection to the database;
-    console.log(database);
-    mongoose.connect(process.env.DATABASE_URL, function(err) {
-    if (err) {
-    console.log('Error connecting to the database');
-    console.log(err);
-  } else {
-    console.log('Connected to the database...');
-    if (env === 'production' || process.argv[2] === 'initDb' ) {
-      mongoose.connection.db.dropDatabase(function(err) {
-        if (err) {
-          return err;
-        } else {
-          console.log('Dropped database...');
-          console.log('Seeding database...');
-          initDb();
-        }
-      });
-    }
-  }
- });
+    mongoose.connect(process.env.DATABASE_URL); //function(err) {
+  //   if (err) {
+  //   console.log('Error connecting to the database');
+  //   console.log(err);
+  // } else {
+  //   console.log('Connected to the database...');
+    // if (env === 'test' || process.argv[2] === 'initDb' ) {
+    //   mongoose.connection.db.dropDatabase(function(err) {
+    //     if (err) {
+    //       return err;
+    //     } else {
+    //       console.log('Dropped database...');
+    //       console.log('Seeding database...');
+    //       initDb();
+    //     }
+    //   });
+    // }
+  //}
+ //});
   // view engine setup
   app.set('views', path.join(__dirname, 'app/views'));
   app.set('view engine', 'jade');
