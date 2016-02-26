@@ -32,6 +32,7 @@
               $scope.documents = docall;
             }
           });
+          console.log($scope.documents, 'all documents');
 
           Documents.userDocCount($stateParams.id, function(err, num) {
             if (!err && num) {

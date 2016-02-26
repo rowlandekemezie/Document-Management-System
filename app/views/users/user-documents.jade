@@ -16,7 +16,7 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
             md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
     md-divider(md-inset)
       div.doc-container
-        div.doc-display.grid-border(ng-repeat="doc in userDocs | filter:searchBox track by $index")
+        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy:'-lastModified' | filter:searchBox track by $index")
           h3.grid-header « {{ doc.title }} «
           md-divider
           div(layout="column" layout-align="start start")
@@ -27,8 +27,6 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
                 md-tooltip click to preview
               i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
                 md-tooltip click to edit
-              i.material-icons(layout-align="end end" ng-click="deleteDoc($event)") delete
-                md-tooltip click to delete
             div.preview-footer(flex layout="column" layout-padding)
               h5 LastModified  on {{ doc.lastModified | DateFormatter }}
               | by {{ user.userName }}

@@ -1,5 +1,6 @@
  (function() {
    'use strict';
+
    // angular modules
    angular.module('docKip.services', []);
    angular.module('docKip.controllers', []);
@@ -15,7 +16,6 @@
    // require controllers
    require('./controllers/header');
    require('./controllers/create-account');
-   require('./controllers/login');
    require('./controllers/dashboard');
    require('./controllers/user-dialog');
    require('./controllers/document');
@@ -58,7 +58,6 @@
          Users.getUser(function(err, res) {
            if (!err && res) {
              $rootScope.loggedInUser = res;
-             $log.info($rootScope.loggedInUser, 'respond with user details');
            } else {
              $log.debug(err);
            }

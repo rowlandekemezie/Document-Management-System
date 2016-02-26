@@ -9,11 +9,8 @@
         .text-center.doc-no No of docs: {{docCount}}
     md-divider
     md-content.fit(layout="column" flex="30")
-      md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center")
-        i(class="fa fa-user-secret")
-        | View Roles
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex layout-align="center center")
-        i(class="fa fa-user-plus")
+        i(class="fa fa-file")
         .insert
         | My Documents
       md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ui-sref="dashboard.all")
@@ -25,15 +22,15 @@
         | Edit Profile
       md-divider
       md-card.fit-margin.ripple-container(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center")
-        .text-center(style="font-size:1.4em") Admin Panel
-        md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id})")
-          i(class="fa fa-user")
-          | Manage Roles
-        md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeUsers($event)" ui-sref="admin({id:loggedInUser._id})")
-          i(class="fa fa-user-secret")
-          | Manage Users
-        md-card.fit-margin.ripple-container(md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeDoc($event)")
-          i(class="fa fa-list")
-          | Manage Documents
+        | Admin Panel
+      md-card.fit-margin.ripple-container(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id})")
+        i(class="fa fa-user")
+        | Manage Roles
+      md-card.fit-margin.ripple-container(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeUsers($event)" ui-sref="admin({id:loggedInUser._id})")
+        i(class="fa fa-user-secret")
+        | Manage Users
+      md-card.fit-margin.ripple-container(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeDoc($event)")
+        i(class="fa fa-list")
+        | Manage Documents
   .md-padding(flex ui-view="inner-view")
 

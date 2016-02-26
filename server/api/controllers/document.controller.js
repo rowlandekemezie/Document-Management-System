@@ -66,7 +66,7 @@
      */
     getAllDocuments: function(req, res) {
       var limit = parseInt(req.query.limit);
-      var page = parseInt(req.query.page) || 1;
+      var page = parseInt(req.query.page) - 1 || 0;
       Document.find({})
         .populate({
           path: 'ownerId',
@@ -141,7 +141,7 @@
      */
     getAllDocumentsForUser: function(req, res) {
       var limit = parseInt(req.query.limit);
-      var page = parseInt(req.query.page) - 1;
+      var page = parseInt(req.query.page) - 1 || 0;
       Document.find({
         'ownerId': req.params.id
       }).limit(limit)

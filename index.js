@@ -11,12 +11,31 @@
     path = require('path'),
     express = require('express'),
     app = require('./server/config/express'),
+    initDb =  require('./seeds/user'),
+
     port = process.env.PORT || 5555;
 
-  // connection to the database
-  mongoose.connect(database.url, function() {
-    console.log('Connection established successfully');
-  });
+  // connection to the database;
+    console.log(database);
+    mongoose.connect(process.env.DATABASE_URL, function(err) {
+    if (err) {
+    console.log('Error connecting to the database');
+    console.log(err);
+  } else {
+    console.log('Connected to the database...');
+    if (env === 'production' || process.argv[2] === 'initDb' ) {
+      mongoose.connection.db.dropDatabase(function(err) {
+        if (err) {
+          return err;
+        } else {
+          console.log('Dropped database...');
+          console.log('Seeding database...');
+          initDb();
+        }
+      });
+    }
+  }
+ });
   // view engine setup
   app.set('views', path.join(__dirname, 'app/views'));
   app.set('view engine', 'jade');
@@ -34,10 +53,6 @@
   app.route('/*').get(function (req, res) {
    return res.sendFile(path.join(__dirname, './public/index.html'));
  });
-
-  // app.use(function(req, res) {
-  //   res.sendfile(__dirname + './Public');
-  // });
 
   var server = app.listen(port, function() {
     console.log('Express server listening on %d, in %s' +

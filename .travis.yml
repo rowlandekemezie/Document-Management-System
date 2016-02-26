@@ -22,14 +22,18 @@ branches:
     - develop
 before_install:
   - npm i -g npm@^2.0.0
-  - bower install
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 before_script:
   - npm prune
+  - npm install
+  - npm install -g gulp
+  - npm install -g bower
+  - bower install
+  - gulp build
 script:
-  - run gulp build
   - npm test
   - npm run fend:test
-  - npm run check-coverage
 after_success:
   - npm run report-coverage
   - npm run coveralls
@@ -42,3 +46,6 @@ deploy:
   app:
     develop: dockip-develop
     production: dockip-production
+after_deploy:
+  - gulp heroku:develop
+  - "heroku ps:scale web=1 --app dockip-develop"

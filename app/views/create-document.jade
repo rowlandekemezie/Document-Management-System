@@ -14,7 +14,7 @@
       form(method="post" enctype="multipart/data" ng-submit="createDoc()")
         div(layout="column" flex)
           md-input-container(flex)
-            input.change-input-view(style="background-color:white" type="text" ng-model="document.title" ng-required="true" placeholder="Enter yout title here" aria-label="document.title")
+            input.change-input-view(type="text" ng-model="document.title" ng-required="true" placeholder="Enter yout title here" aria-label="document.title")
           div(text-angular ng-model="document.content" class="ta-editor" ta-text-editor-class="ta-editor border-around" ta-html-editor-class="border-around" placeholder="Enter your content here" ng-required="true" aria-label="document.content")
         div.success-status
           | {{status}}

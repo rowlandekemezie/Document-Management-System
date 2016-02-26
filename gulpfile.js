@@ -15,15 +15,12 @@
     stripeDebug = require('gulp-strip-debug'),
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
-    // change = require('gulp-changed'),
     rename = require('gulp-rename'),
     del = require('del'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     notify = require('gulp-notify'),
     imagemin = require('gulp-imagemin'),
-    // concat = require('gulp-concat'),
-    // stylish = require('jshint-stylish'),
     ngAnnotate = require('gulp-ng-annotate'),
     jshint = require('gulp-jshint'),
     karma = require('gulp-karma'),
@@ -33,13 +30,6 @@
     sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
     cache = require('gulp-cache');
-  // coveralls = require('gulp-coveralls'),
-  // rev = require('rev');
-
-  // define clean task
-  gulp.task('clean', function() {
-    return del(['public/']);
-  });
 
   // minify css
   gulp.task('less', function() {
@@ -62,7 +52,6 @@
       }))
       .on('error', function(error) {
         gutil.log(gutil.colors.red(error.message));
-        // Notify on error. Uses node-notifier
         notifier.notify({
           title: 'Less compilation error',
           message: error.message
@@ -106,17 +95,7 @@
       .on('error', gutil.log.bind(gutil, 'Browserify ' +
         'Error: in browserify gulp task'))
       // vinyl-source-stream makes the bundle compatible with gulp
-      .pipe(source('application.js')) // Desired filename
-      //.pipe(ngAnnotate())
-      // .pipe(buffer())
-      // .pipe(uglify())
-      // .pipe(stripeDebug())
-      // Output the file
-      // .pipe(gulp.dest('./public/js/'))
-      // .pipe(sourcemaps.init({
-      //  loadMaps: true
-      // }))
-      // .pipe(sourcemaps.write('./maps'))
+      .pipe(source('application.js')) // Desired filename)
       .pipe(gulp.dest('./public/js/'));
   });
 
@@ -175,25 +154,11 @@
   });
 
   // task for front end test
-  gulp.task('test:fend', ['browserify', 'bower'], function() {
+  gulp.task('test:fend', ['browserify'], function() {
   new Server({
       configFile: __dirname + '/karma.conf.js',
       singleRun: true
     }).start();
-    // server.on('browser_error', function(browser, err) {
-    //   gutil.log('Karma Run Failed: ' + err.message);
-    //   throw err;
-    // });
-
-    // server.on('run_complete', function(browsers, results) {
-    //   if (results.failed) {
-    //     throw new Error('Karma: Tests Failed');
-    //   }
-    //   gutil.log('Karma Run Complete: No Failures');
-    //   done();
-    // });
-
-    // server.start();
   });
 
   // e2e test task

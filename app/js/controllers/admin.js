@@ -9,7 +9,8 @@
       'Documents',
       'Users',
       '$scope',
-      function($state, Utils, Roles, Documents, Users, $scope) {
+      '$stateParams',
+      function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
 
         $scope.init = function() {
           Users.query(function(res) {
@@ -24,6 +25,14 @@
         };
 
         $scope.init();
+
+        Users.get({
+          id: $stateParams.id
+        }, function(user) {
+          $scope.user = user;
+        }, function(err) {
+          console.log(err);
+        });
 
         // pagination
         $scope.options = {
@@ -45,7 +54,7 @@
           console.log('limit: ', limit);
         };
 
-         //delete buttoon for document
+        //delete buttoon for document
         $scope.deleteDocBtn = function(event, doc) {
           $scope.doc = doc;
           Utils.dialog('Warning: Delete Document, ' +
@@ -139,15 +148,6 @@
             $scope.role.title + '?',
             event, deleteRole
           );
-        };
-
-        // Get userName of document creator by id
-        $scope.getName = function(id) {
-          for (var i = 0, n = $scope.users; i < n.length; i++) {
-            if (id === n[i]._id) {
-              return n[i].userName;
-            }
-          }
         };
       }
 

@@ -1,6 +1,6 @@
 .docForm-view.md-padding(layout-align="center center" flex="75" ng-init="getDoc()")
   md-content(flex="100")
-    form(name="view-form" method="post" ng-disabled="!isAuthView()")
+    form(name="view-form" method="post")
       div(layout="row")
         div(layout="row" layout-sm="column" layout-align="space-around")
           md-progress-circular(md-mode="determinate" value="{{determinateValue}}")
@@ -8,10 +8,10 @@
           i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
             md-tooltip Go back
           span.md-margin.success-status {{status}}
-        div(layout="row" layout-align="end end" ng-if="isAuthView()")
-          i.material-icons.back-icon(ng-click="updateDoc($event)" ng-disabled="view-form.$invalid") save
+        div(layout="row" layout-align="end end" ng-if="canEdit()")
+          i.material-icons.back-icon(ng-disabled="!canEdit()" ng-click="updateDoc($event)") save
             md-tooltip Update
-          i.material-icons.back-icon(ng-click="deleteDoc($event)") delete_forever
+          i.material-icons.back-icon(ng-disabled="!canDelete()" ng-click="deleteDoc($event)") delete_forever
             md-tooltip Delete
           i.material-icons.back-icon(ui-sref="dashboard({id:loggedInUser._id})")
             md-tooltip cancel

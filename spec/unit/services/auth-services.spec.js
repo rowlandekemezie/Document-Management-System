@@ -3,12 +3,10 @@
 
   var Auth,
     AuthToken,
-    // q,
     _window,
     AuthInterceptor,
     location,
     localStorage;
-
 
   describe('Auth unit tests', function() {
 
@@ -71,28 +69,10 @@
       expect(typeof AuthToken.getToken).toBe('function');
     });
 
-    it('should call _window.localStorage.getItem to getToken', function() {
-      localStorage.getItem = sinon.stub().returns(true);
-      expect(AuthToken.getToken()).toBe(true);
-      expect(localStorage.getItem.called).toBe(true);
-    });
-
     it('should define AuthToken.setToken as a function', function() {
       expect(AuthToken.setToken).toBeDefined();
       expect(typeof AuthToken.setToken).toBe('function');
     });
-
-    // it('should call _window.localStorage.setItem to setToken', function() {
-    //   localStorage.setItem = sinon.stub();
-    //   AuthToken.setToken('token');
-    //   expect(localStorage.setItem.called).toBe(true);
-    // });
-
-    // it('should call _window.localStorage.setItem and clear localStorage', function() {
-    //   localStorage.removeItem = sinon.stub();
-    //   AuthToken.setToken();
-    //   expect(localStorage.removeItem.called).toBe(true);
-    // });
   });
 
   describe('AuthInterceptor tests', function() {
@@ -116,18 +96,5 @@
       expect(AuthInterceptor.responseError).toBeDefined();
       expect(typeof AuthInterceptor.responseError).toBe('function');
     });
-
-    // it('should call responseError and check for forbidden error', function() {
-    //   AuthToken.setToken = sinon.stub();
-    //   location.path = sinon.stub();
-    //   expect(AuthInterceptor.responseError({
-    //     response: {
-    //       status: 403
-    //     }
-    //   })).toBe(true);
-    //   expect(AuthToken.setToken.called).toBe(true);
-    //   expect(location.path.called).toBe(true);
-    // });
   });
-
 })();
