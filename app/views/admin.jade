@@ -86,7 +86,6 @@
                       md-select(ng-model="user.role" name="role.title" placeholder="select a role" required)
                         md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
                     md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
-                    md-button.md-raised.md-promary(ng-click="updateUserBtn()") Update
                     md-button.md-raised.md-primary(ui-sref="dashboard") Cancel
         md-tab(label='DOCUMENTS')
           md-content.md-padding
@@ -102,7 +101,7 @@
                     tr(md-row)
                       th(md-column, md-text) DocNo Id
                       th(md-column, md-text) Role Assigned
-                      th(md-column, md-text) Document Ownner
+                      th(md-column, md-text) Document Owner
                       th(md-column, md-text) Date Created
                       th(md-column, md-text) Date Modified
                       th(md-column, md-text) Document Title
@@ -119,5 +118,6 @@
                       td(md-cell) {{doc.content | limitTo:50}}
                       td(md-cell)
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
+                        i.material-icons(ui-sref="dashboard.view-document({docid: doc._id})") pageview
                md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{documents.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
 

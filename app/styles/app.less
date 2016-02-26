@@ -351,8 +351,8 @@ md-sidenav .ripple-container {
     text-align: center;
     margin: 0 auto;
     border-radius: 5px;
-    > container.md-default-theme
-    .md-input, md-input-container .md-input {
+    > container.md-default-theme .md-input,
+    md-input-container .md-input {
         color: black !important;
     }
 }
@@ -414,10 +414,13 @@ md-input-container textarea.md-input {
 
 .docForm-view {
     background-color: rgb(238, 238, 238);
-    > container.md-default-theme
-    .md-input, md-input-container .md-input {
+    > container.md-default-theme .md-input,
+    md-input-container .md-input {
         color: black !important;
         background-color: white;
+    }
+    > md-content {
+        margin: 0 auto;
     }
 }
 
@@ -527,8 +530,8 @@ md-input-container textarea.md-input {
     margin: 0 auto;
     background-color: whitesmoke;
     color: lightgray;
-    > container.md-default-theme
-    .md-input, md-input-container .md-input {
+    > container.md-default-theme .md-input,
+    md-input-container .md-input {
         color: black !important;
         background-color: white;
     }
@@ -553,7 +556,7 @@ md-input-container textarea.md-input {
 
 .home-page-description {
     margin-top: -15px;
-    font-size:   1.4em
+    font-size: 1.4em
 }
 
 .back-icon {
@@ -583,9 +586,10 @@ md-input-container textarea.md-input {
     font-style: italic;
     font-weight: 200;
 }
- .describe-page {
+
+.describe-page {
     text-align: left;
     width: 33%;
     line-height: 40px;
     font-size: 1.8em;
- }
+}

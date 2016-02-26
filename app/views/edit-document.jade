@@ -8,10 +8,10 @@
           i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
             md-tooltip Go back
           span.md-margin.success-status {{status}}
-        div(layout="row" layout-align="end end" ng-if="isAuthView()")
+        div(layout="row" layout-align="end end" ng-if="canEdit()")
           i.material-icons.back-icon(ng-disabled="!canEdit()" ng-click="updateDoc($event)") save
             md-tooltip Update
-          i.material-icons.back-icon(ng-disabled="!canDelete" ng-click="deleteDoc($event)") delete_forever
+          i.material-icons.back-icon(ng-disabled="!canDelete()" ng-click="deleteDoc($event)") delete_forever
             md-tooltip Delete
           i.material-icons.back-icon(ui-sref="dashboard({id:loggedInUser._id})")
             md-tooltip cancel
