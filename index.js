@@ -15,20 +15,20 @@
     port = process.env.PORT || 5555;
 
   // connection to the database;
+  console.log(database.url, 'bd');
     mongoose.connect(database.url, function(err) {
     if (err) {
     console.log('Error connecting to the database');
     console.log(err);
   } else {
     console.log('Connected to the database...');
-    if (env === 'production' || process.argv[2] === 'initDb' ) {
+    if (env === 'test' || process.argv[2] === 'initDb' ) {
       mongoose.connection.db.dropDatabase(function(err) {
         if (err) {
           return err;
         } else {
           console.log('Dropped database...');
           console.log('Seeding database...');
-          console.log(initDb(), 'initing db');
           initDb();
         }
       });

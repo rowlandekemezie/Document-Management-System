@@ -4,7 +4,6 @@
   var Roles = require('../server/api/models/role.model'),
     Users = require('../server/api/models/user.model');
 
-
   function report(err) {
     if (err) {
       console.log('There was a problem seeding a user.');
@@ -39,19 +38,20 @@
         if (users.length === 0) {
           var userData = {
             name: {
-              first: 'Buddy',
-              last: 'Master'
+              firstName: 'Buddy',
+              lastName: 'Master'
             },
             role: role.title,
-            username: 'BuddyMaster',
+            userName: 'BuddyMaster',
             password: 'ApplicationOwner',
             email: 'buddymaster@dockip.com'
           };
-          userData.save(report());
+          var newUser = new Users(userData);
+          newUser.save(report);
         }
       }
     });
   }
 
-  module.export = initDb;
+  module.exports = initDb;
 })();

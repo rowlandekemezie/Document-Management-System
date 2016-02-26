@@ -24,6 +24,7 @@
         $scope.loginUser = function() {
           $scope.status = '';
           Users.login($scope.user, function(err, res) {
+            console.log($scope.user, 'user login details');
             if (!err && res) {
               Auth.setToken(res.token);
               $rootScope.loggedInUser = res.user;
@@ -35,9 +36,8 @@
               Utils.toast('Welcome to DocKip ' + res.user.userName);
               $scope.status = res.message;
               $mdDialog.cancel();
-            } else if (err.status === 406) {
-              $scope.status = 'Error logging in.';
             } else {
+              console.log(err, 'error message from login')
               $scope.status = err.message;
             }
           });
