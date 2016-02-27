@@ -17,7 +17,6 @@
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
     rename = require('gulp-rename'),
-    del = require('del'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     notify = require('gulp-notify'),
