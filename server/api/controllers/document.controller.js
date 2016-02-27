@@ -189,12 +189,13 @@
      * @return {[JSON]}     [status of search result]
      */
     updateDocument: function(req, res) {
-      Document.findByIdAndUpdate(req.params.id, req.body, function(err) {
+      Document.findByIdAndUpdate(req.params.id, req.body, function(err, doc) {
         if (err) {
           res.status(500).json(err);
         } else {
           res.status(200).json({
             success: true,
+            doc: doc,
             message: 'Document updated successfully'
           });
         }
@@ -207,12 +208,13 @@
      * @return {[JSON]}     [status]
      */
     deleteDocument: function(req, res) {
-      Document.findByIdAndRemove(req.params.id, function(err) {
+      Document.findByIdAndRemove(req.params.id, function(err, doc) {
         if (err) {
           res.status(500).json(err);
         } else {
           res.status(200).json({
             success: true,
+            doc: doc,
             message: 'Document deleted successfully'
           });
         }

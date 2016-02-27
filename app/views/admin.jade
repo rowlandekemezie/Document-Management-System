@@ -1,28 +1,29 @@
 .admin-page
   div(ng-cloak)
     md-content
-      md-tabs(md-dynamic-height, md-border-bottom)
+      md-tabs(md-dynamic-height, md-border-bottom md-selected="selectedIndex")
         md-tab(label='ROLES')
+          div(layout="row" layout-sm="column" flex style="background: whitesmoke")
+            h3.md-display-2.md-margin.text-center.admin-header ROLES DASHBOARD
+            .admin-search-bar(layout="row" layout-align="end end")
+              input(type="text" ng-model="searchBox" placeholder="Search role")
           md-content.md-padding(layout-align="start center")
-            h3.md-display-2.text-center.admin-header ROLES DASHBOARD
             md-divider
             div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
               md-card
                 md-table-container
-                  table(md-table md-progress="promise" style="border:2px")
+                  table(md-table style="border:2px")
                     thead(md-head)
                       tr(md-row)
                         th(md-column, md-text) Role Id
                         th(md-column, md-text) Role Title
                         th(md-column, md-text) Authorized Operations
                     tbody(md-body)
-                      tr(md-row ng-repeat="role in roles")
+                      tr(md-row ng-repeat="role in roles | filter:searchBox")
                         td(md-cell) {{role._id}}
                         td(md-cell) {{role.title}}
                         td(md-cell)
                           i.material-icons(ng-click="deleteRoleBtn($event, role)") delete
-                md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{roles.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
-
               md-card
                 md-card-content
                   h5 Create New Role
@@ -30,11 +31,14 @@
                   form(method="post" enctype="multipart/form-data" ng-submit="createRoleBtn()")
                     md-input-container(md-block)
                       label Title
-                      input(type="text" md-no-float placecholder="Enter your role here" ng-model="role.title" ng-required)
+                      input(type="text" md-no-float placecholder="Enter your role here" ng-model="newRole.title" ng-required)
                     md-button.md-raised.md-accent(type="submit") Create
         md-tab(label='USERS')
           md-content.md-padding
-            h3.md-display-2.md-margin.text-center.admin-header USERS DASHBOARD
+            div(layout="row" flex style="background: whitesmoke")
+              h3.md-display-2.text-center.admin-header USERS DASHBOARD
+              .admin-search-bar(layout="row" layout-align="end end")
+                input(type="text" ng-model="searchBox" placeholder="Search users")
             md-divider
             div.md-margin(layout="column" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
               md-card
@@ -50,7 +54,7 @@
                         th(md-column, md-text) Role
                         th(md-column, md-text) Authorized Operations
                     tbody(md-body)
-                      tr(md-row ng-repeat="user in users")
+                      tr(md-row ng-repeat="user in users | filter:searchBox")
                         td(md-cell) {{user._id}}
                         td(md-cell) {{user.userName}}
                         td(md-cell) {{user.name.firstName}}
@@ -59,8 +63,6 @@
                         td(md-cell) {{user.role}}
                         td(md-cell)
                           i.material-icons(ng-click="deleteUserBtn($event, user)") delete
-                md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{users.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
-
               md-card
                 md-card-content
                   h5 Manage Users
@@ -68,31 +70,35 @@
                   form(method="post" enctype="multipart/form-data")
                     md-input-container(md-block)
                       label userName
-                      input(type="text" md-no-float placecholder="Enter role" ng-model="user.userName" required)
+                      input(type="text" md-no-float placecholder="Enter role" ng-model="newUser.userName" required)
                     md-input-container(md-block)
                       label firstName
-                      input(type="text" md-no-float placecholder="Enter firstName" ng-model="user.firstName" ng-required)
+                      input(type="text" md-no-float placecholder="Enter firstName" ng-model="newUser.firstName" ng-required)
                     md-input-container(md-block)
                       label lastName
-                      input(type="text" md-no-float placecholder="Enter lastName" ng-model="user.lastName" ng-required)
+                      input(type="text" md-no-float placecholder="Enter lastName" ng-model="newUser.lastName" ng-required)
                     md-input-container(md-block)
                       label email
-                      input(type="email" md-no-float placecholder="Enter email" ng-model="user.email" ng-required)
+                      input(type="email" md-no-float placecholder="Enter email" ng-model="newUser.email" ng-required)
                     md-input-container(md-block)
                       label password
-                      input(type="password" md-no-float placecholder="Enter password" ng-model="user.password" ng-required)
+                      input(type="password" md-no-float placecholder="Enter password" ng-model="newUser.password" ng-required)
                     md-input-container(md-block)
                       label role
-                      md-select(ng-model="user.role" name="role.title" placeholder="select a role" required)
+                      md-select(ng-model="newUser.role" name="role.title" placeholder="select a role" required)
                         md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
-                    md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
-                    md-button.md-raised.md-primary(ui-sref="dashboard") Cancel
+                    div(layout="row")
+                      md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
+                      md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})") Cancel
         md-tab(label='DOCUMENTS')
           md-content.md-padding
             md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
               span.fa.fa-plus.fa-lg
               md-tooltip(md-direction='left') create new document
-            h3.md-display-2.text-center.admin-header DOCUMENTS DASHBOARD
+            div(layout="row" flex style="background: whitesmoke")
+              h3.md-display-2.text-center.admin-header DOCUMENTS DASHBOARD
+              .admin-search-bar(layout="row" layout-align="end end")
+                input(type="text" ng-model="searchBox" placeholder="Search documents")
             md-divider
             md-card
               md-table-container
@@ -108,7 +114,7 @@
                       th(md-column, md-text) Document Content
                       th(md-column, md-text) Authorized Operations
                   tbody(md-body)
-                    tr(md-row ng-repeat="doc in documents")
+                    tr(md-row ng-repeat="doc in documents | filter:searchBox")
                       td(md-cell) {{doc._id}}
                       td(md-cell) {{doc.role}}
                       td(md-cell) {{user.userName}}
@@ -119,5 +125,6 @@
                       td(md-cell)
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
                         i.material-icons(ui-sref="dashboard.view-document({docid: doc._id})") pageview
-               md-table-pagination(md-limit="query.limit" md-page="query.page" md-total="{{documents.count()}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination")
+
+
 

@@ -173,12 +173,13 @@
                   role: userData.role
                 };
                 var newUser = new User(userDetail);
-                newUser.save(function(err) {
+                newUser.save(function(err, user) {
                   if (err) {
                     res.status(500).json(err);
                   } else {
                     res.status(200).json({
                       success: true,
+                      user: user,
                       message: 'User created successfully'
                     });
                   }
@@ -314,6 +315,7 @@
           });
         } else {
           res.status(200).json({
+            user: user,
             success: true,
             message: 'User deleted successfully'
           });
