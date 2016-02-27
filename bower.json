@@ -1,6 +1,7 @@
 {
   "name": "doc-kip",
   "version": "1.0.0",
+  "main": "index.js",
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
@@ -20,6 +21,13 @@
     "bootstrap": "^3.3.6"
   },
   "resolutions": {
-    "angular": "1.4.9"
-  }
+    "angular": "1.4.x"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "specs"
+  ]
 }
