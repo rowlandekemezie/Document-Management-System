@@ -40,12 +40,11 @@ after_success:
 
 deploy:
   provider: heroku
-  api_key:
-    develop: e32c893b-cda7-4512-b544-eaf96ca8bf6f
-    production: e32c893b-cda7-4512-b544-eaf96ca8bf6f
-  app:
-    develop: dockip-develop
-    production: dockip-production
+  api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
+  app: dockip-develop
+  on:
+    repo: andela-rekemezie/Document-Management-System
+    branch: develop
 after_deploy:
   - gulp heroku:develop
   - "heroku ps:scale web=1 --app dockip-develop"
