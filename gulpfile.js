@@ -1,5 +1,6 @@
 (function() {
   'use strict';
+
   var env = process.env.NODE_ENV || 'development';
   if (env === 'development') {
     require('dotenv').load();
@@ -16,7 +17,6 @@
     istanbul = require('gulp-istanbul'),
     nodemon = require('gulp-nodemon'),
     rename = require('gulp-rename'),
-    del = require('del'),
     browserify = require('browserify'),
     source = require('vinyl-source-stream'),
     notify = require('gulp-notify'),
@@ -68,18 +68,15 @@
 
   // define task for imagemin
   gulp.task('imagemin', function() {
-    return del(['public/images']),
-      gulp.src('app/images/**/*')
-      .pipe(cache(imagemin({
+    return gulp.src('app/images/**/*')
+      .pipe(imagemin({
         optimizationLevel: 3,
         progressive: true,
         interlaced: true
-      })))
+      }))
       .pipe(gulp.dest('public/images'))
-      .pipe(notify({
-        message: 'Images task completed'
-      }));
   });
+
   // bower install task
   gulp.task('bower', function() {
     return bower()
@@ -94,8 +91,7 @@
       .on('success', gutil.log.bind(gutil, 'Browserify Rebundled'))
       .on('error', gutil.log.bind(gutil, 'Browserify ' +
         'Error: in browserify gulp task'))
-      // vinyl-source-stream makes the bundle compatible with gulp
-      .pipe(source('application.js')) // Desired filename)
+      .pipe(source('application.js'))
       .pipe(gulp.dest('./public/js/'));
   });
 
@@ -130,7 +126,7 @@
   gulp.task('test-coverage', function() {
     return gulp.src('./coverage/lcov/info')
       .pipe(istanbul())
-      // .pipe(coveralls())
+      .pipe(coveralls())
       // Force `require` to return covered files
       .pipe(istanbul.hookRequire());
   });
@@ -155,7 +151,7 @@
 
   // task for front end test
   gulp.task('test:fend', ['browserify'], function() {
-  new Server({
+    new Server({
       configFile: __dirname + '/karma.conf.js',
       singleRun: true
     }).start();
@@ -204,8 +200,7 @@
   // register test task
   gulp.task('test', ['test:fend', 'test:bend']);
   // deployment tasks
-  gulp.task('heroku:production', ['build']);
-  gulp.task('heroku:develop', ['build']);
+  gulp.task('heroku', ['build']);
   gulp.task('production', ['nodemon', 'build']);
   // register default tasks
   gulp.task('default', ['nodemon', 'watch', 'build']);

@@ -14,19 +14,13 @@
   var role;
   var initDb = function() {
 
-    Roles.find({}).exec(function(err, roles) {
-      if (err) {
-        console.log('There was problem seeding roles');
-      } else {
-        if (roles.length === 0) {
-          var roleData = {
-            title: 'SuperAdmin'
-          };
-          var newRole = new Roles(roleData);
-          role = newRole.save();
-          seedUser();
-        }
-      }
+    var roleData = {
+      title: 'SuperAdmin'
+    };
+    var newRole = new Roles(roleData);
+    newRole.save(function(err, roles) {
+      role = roles;
+      seedUser();
     });
   };
 
@@ -41,9 +35,9 @@
               firstName: 'Buddy',
               lastName: 'Master'
             },
-            role: 'SuperAdmin',
+            role: role.title,
             userName: 'BuddyMaster',
-            password: 'ApplicationOwner',
+            password: 'owner123',
             email: 'buddymaster@dockip.com'
           };
           var newUser = new Users(userData);

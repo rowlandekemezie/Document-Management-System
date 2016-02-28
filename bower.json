@@ -1,6 +1,7 @@
 {
   "name": "doc-kip",
   "version": "1.0.0",
+  "main": "index.js",
   "dependencies": {
     "angular": "latest",
     "angular-animate": "latest",
@@ -11,7 +12,6 @@
     "angular-route": "latest",
     "angular-ui-router": "latest",
     "font-awesome": "fontawesome#~4.4.0",
-    "material-design-icons": "^2.2.0",
     "angular-material-data-table": "^0.9.11",
     "sinonjs": "^1.17.1",
     "jasmine-sinon": "^0.4.0",
@@ -21,5 +21,12 @@
   },
   "resolutions": {
     "angular": "1.4.9"
-  }
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "specs"
+  ]
 }

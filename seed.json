@@ -1,5 +1,0 @@
-{
-	"test": "localhost/docKip_test",
-	"development": "localhost/do",
-	"prod": "localhost/PROD_DB_NAME"
-}
