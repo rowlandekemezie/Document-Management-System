@@ -25,11 +25,12 @@
           }
         }, 100, 0, true);
 
-        // init function
+        // get role function
         Roles.query(function(res) {
           $scope.roles = res.slice(1, res.length);
         });
 
+        $scope.docDetail = '';
         // load document to view
         $scope.getDoc = function() {
           Documents.get({

@@ -76,7 +76,7 @@
          // Set up the states
          $stateProvider
            .state('home', {
-             url: '/{section?}',
+             url: '/',
              templateUrl: 'views/home.html',
            })
 
@@ -126,7 +126,7 @@
            }
          })
            .state('admin', {
-             url: '/{id}/control-panel/{section?}',
+             url: '/{id}/control-panel/{section}',
              authenticate: true,
              templateUrl: 'views/admin.html',
              controller: 'AdminCtrl'

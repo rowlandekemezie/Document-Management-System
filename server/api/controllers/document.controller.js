@@ -96,18 +96,19 @@
     getDocumentById: function(req, res) {
       Document.findOne({
         _id: req.params.id
-      }, function(err, doc) {
-        if (err) {
-          res.status(500).json(err);
-        } else if (!doc) {
-          res.status(404).json({
-            success: false,
-            message: 'No document found for the Id'
-          });
-        } else {
-          res.status(200).json(doc);
-        }
-      });
+      })
+        .exec(function(err, doc) {
+          if (err) {
+            res.status(500).json(err);
+          } else if (!doc) {
+            res.status(404).json({
+              success: false,
+              message: 'No document found for the Id'
+            });
+          } else {
+            res.status(200).json(doc);
+          }
+        });
     },
     /**
      * [getDocumentByDate method]
