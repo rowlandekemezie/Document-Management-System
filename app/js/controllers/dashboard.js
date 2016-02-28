@@ -20,7 +20,9 @@
         };
 
         $scope.init = function(param) {
-          Users.getUserDocs({id:$stateParams.id}, param.limit, param.page,
+          Users.getUserDocs({
+              id: $stateParams.id
+            }, param.limit, param.page,
             function(err, docs) {
               if (!err && docs) {
                 $scope.userDocs = docs;
@@ -32,8 +34,6 @@
               $scope.documents = docall;
             }
           });
-          $scope.documents = Documents.query();
-          console.log($scope.documents);
 
           Documents.userDocCount($stateParams.id, function(err, num) {
             if (!err && num) {

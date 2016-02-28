@@ -64,7 +64,6 @@
             id: $scope.doc._id
           }, function(res) {
             Utils.toast('Your document has been successfully deleted');
-            console.log(res.doc, 'deleted doc');
             $scope.documents.splice($scope.documents.indexOf(res.doc), 1);
           }, function() {
             $scope.status = 'There was problem deleting document';

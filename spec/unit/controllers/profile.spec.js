@@ -61,8 +61,8 @@
       scope.init();
       expect(Roles.query).toHaveBeenCalled();
       expect(scope.roles).toBeTruthy();
-      expect(scope.roles).toEqual([1, 2, 3]);
-      expect(scope.roles.length).toBe(3);
+      expect(scope.roles).toEqual([2, 3]);
+      expect(scope.roles.length).toBe(2);
       expect(scope.roles instanceof Array).toBe(true);
     });
 
