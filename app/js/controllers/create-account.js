@@ -17,7 +17,7 @@
         // get all roles from the Db
         $scope.init = function() {
           Roles.query(function(res) {
-            $scope.roles = res;
+            $scope.roles = res.slice(1, res.length);
           });
         };
 

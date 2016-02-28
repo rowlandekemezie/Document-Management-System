@@ -272,7 +272,6 @@ div > md-button {
 .search-bar {
     position: relative;
     font-size: 18px;
-    padding-top: 40px;
     margin: 0 auto;
     > input {
         border: 0;
@@ -288,6 +287,22 @@ div > md-button {
         font-size: inherit;
         text-rendering: auto;
         -webkit-font-smoothing: antialiased;
+    }
+}
+
+.admin-search-bar {
+    position: relative;
+    font-size: 18px;
+    margin-left: 150px;
+    margin-bottom: 20px;
+    > input {
+        border: 0;
+        border-radius: 23px;
+        outline: blue;
+        border-color: blue;
+        background: white;
+        text-align: center;
+        width: 300px;
     }
 }
 
@@ -414,13 +429,12 @@ md-input-container textarea.md-input {
 
 .docForm-view {
     background-color: rgb(238, 238, 238);
+    margin: 0 auto;
     > container.md-default-theme .md-input,
     md-input-container .md-input {
         color: black !important;
         background-color: white;
-    }
-    > md-content {
-        margin: 0 auto;
+        outline: rgb(63, 81, 181);
     }
 }
 
@@ -541,6 +555,7 @@ md-input-container textarea.md-input {
     background: whitesmoke;
     color: #444;
     font-size: 1.2em;
+    margin-left: 500px;
 }
 
 .material-icons {

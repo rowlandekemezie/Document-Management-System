@@ -46,5 +46,5 @@ deploy:
     repo: andela-rekemezie/Document-Management-System
     branch: develop
 after_deploy:
-  - gulp heroku:develop
+  - gulp heroku
   - "heroku ps:scale web=1 --app dockip-develop"
