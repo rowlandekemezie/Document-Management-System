@@ -40,10 +40,9 @@ img {
     padding-top: 3px;
     position: relative;
     margin: auto;
-    opacity: 0.6;
+    opacity: 80%;
     color: black;
-    background-color: lightblue;
-    background-image: url('./../images/backgroundImage1.png');
+    background-color: whitesmoke;
     background-repeat: repeat-x;
     overflow: hidden;
 }
@@ -95,7 +94,7 @@ h5 {
 
 .box {
     width: 80%;
-    font-size: 50px;
+    font-size: 40px;
     padding-top: 10px;
     min-width: 300px !important;
     line-height: 1.5em;
@@ -160,17 +159,22 @@ input {
 .sign-up-wrap {
     margin: 0 auto;
     border-radius: 10px;
-    width: 450px;
-    background-color: rgb(63, 81, 181);
-    padding-top: 25px;
-    padding-bottom: 10px;
+    width: 430px;
+    min-height: 450px;
+    background-color: #D7D9E0;
     color: black;
     opacity: 60%;
     position: relative;
     > container.md-default-theme .md-input,
     md-input-container .md-input {
-        background-color: rgb(63, 81, 181);
+        background-color: #D7D9E0;
+        color: black!important;
     }
+}
+
+.signup-button {
+    text-align: center;
+    margin: 0 auto;
 }
 
 .error {
@@ -180,36 +184,47 @@ input {
 }
 
 .sign-in-wrap {
-    background-color: rgb(63, 81, 181);
+    background-color: #D7D9E0;
     opacity: 0.5%;
     border-radius: 10px;
-    color: white;
+    color: black;
+    padding: 10px, -10px, 10px, -10px;
     margin: 0 auto;
     width: 400px;
     font-size: 1.2em;
     position: relative;
     > container.md-default-theme .md-input,
     md-input-container .md-input {
-        background-color: rgb(63, 81, 181);
+        background-color: #D7D9E0;
+        color: black!important;
     }
+}
+
+.layout-align-center-center>*,
+.layout-align-end-center>*,
+.layout-align-space-around-center>*,
+.layout-align-space-between-center>*,
+.layout-align-start-center>* {
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 md-dialog {
     border-radius: 10px !important;
-    background-color: rgb(63, 81, 181);
+    background-color: #D7D9E0;
 }
 
 .sign-up-header {
     /*background-color: rgb(45, 53, 95) !important;*/
     font-weight: bolder;
     >input {
-        color: white;
+        color: #555;
     }
 }
 
 p.link {
     color: red;
-    font-size: 9px;
+    font-size: 1.2em;
 }
 
 div > md-button {
@@ -228,7 +243,6 @@ div > md-button {
     padding-top: 3px;
     position: relative;
     margin: 0 auto;
-    /*border: yellow 3px dotted;*/
     background-color: white;
     color: white;
     text-decoration-color: white;
@@ -273,12 +287,15 @@ div > md-button {
     position: relative;
     font-size: 18px;
     margin: 0 auto;
+    margin-bottom: -10px;
+    outline: blue;
     > input {
         border: 0;
         border-radius: 23px;
         outline: blanchedalmond;
-        background: lightblue;
+        background: white;
         text-align: center;
+        border-color: blue;
         width: 300px;
     }
     > .fa {
@@ -309,10 +326,10 @@ div > md-button {
 .preview-header {
     color: rgb(232, 58, 144);
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 15px;
     text-align: center;
     margin: 0 auto;
-    margin-left: 350px;
+    margin-left: 250px;
 }
 
 .text-center {
@@ -322,13 +339,20 @@ div > md-button {
 md-sidenav,
 md-sidenav.md-locked-open,
 md-sidenav.md-closed.md-locked-open-add-active {
-    width: 180px !important;
-    min-width: 180px !important;
+    width: 240px !important;
+    min-width: 240px !important;
     max-width: 180px !important;
+    font-size: 1.2em;
     position: relative;
-    > .fa {
-        color: white;
-    }
+}
+
+md-toolbar~md-content>md-list {
+    font-size: 1.2em;
+    background-color: rgb(250, 250, 250) !important;
+}
+
+.navbar-icons {
+    color: rgb(63, 81, 181) !important;
 }
 
 md-toolbar.md-default-theme:not(.md-menu-toolbar),
@@ -347,12 +371,12 @@ md-sidenav .ripple-container {
     position: fixed;
     right: 0;
     color: white;
-    margin-bottom: 20%;
+    margin-top: 35%;
 }
 
 .fit,
 .fit-margin {
-    margin: 0
+    margin: -5px
 }
 
 .fit,
@@ -363,7 +387,7 @@ md-sidenav .ripple-container {
 .docForm {
     border: 3px solid ghostwhite;
     background-color: whitesmoke;
-    text-align: center;
+    text-align: left;
     margin: 0 auto;
     border-radius: 5px;
     > container.md-default-theme .md-input,
@@ -395,12 +419,22 @@ md-card {
 
 .editForm form {
     margin: 0 auto;
+    width: 50%;
     text-align: center;
+    color: grey;
     > md-card {
-        background-color: #2D355F;
+        background-color: #D7D9E0;
         border-radius: 10px;
         opacity: 0.2%;
-        color: white;
+        > theme .md-input,
+        md-input-container .md-input {
+            background-color: #D7D9E0;
+            color: black;
+        }
+        > container.md-default-theme .md-input,
+        md-input-container .md-input {
+            color: black!important;
+        }
     }
 }
 
@@ -454,16 +488,15 @@ md-input-container textarea.md-input {
 .doc-display {
     background: rgb(238, 238, 238);
     padding: 5px;
-    width: 300px;
+    width: 250px;
     height: 400px;
     margin-top: 10px;
-    padding: 5px;
     line-height: 20px;
     color: black;
     font-weight: bold;
     font-size: 1.2em;
     text-align: left;
-    z-index: 50px;
+    z-index: -10px;
     font-weight: normal;
     -webkit-align-content: flex-end;
 }
@@ -472,11 +505,10 @@ md-input-container textarea.md-input {
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 235px;
+    height: 232px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 10;
     -webkit-box-orient: vertical;
 }
 
@@ -520,7 +552,7 @@ md-input-container textarea.md-input {
 
 .preview-footer {
     height: auto;
-    margin-bottom: 2px;
+    margin-bottom: -20px;
     width: 100%;
     margin-bottom: 10px;
     line-height: 50%;
@@ -528,7 +560,9 @@ md-input-container textarea.md-input {
     background-color: whitesmoke;
     position: relative;
     font-weight: 200;
+    font-style: italic;
     overflow: hidden;
+    font-size: 0.8em;
     margin-right: 150px;
     > h5 {
         font-weight: 200;
@@ -537,8 +571,6 @@ md-input-container textarea.md-input {
 
 .admin-page {
     width: 100%;
-    width: 100%;
-    height: 670px;
     padding-top: 3px;
     position: relative;
     margin: 0 auto;
@@ -600,6 +632,8 @@ md-input-container textarea.md-input {
 .doc-no {
     font-style: italic;
     font-weight: 200;
+    font-size: 0.8em;
+    color: whitesmoke;
 }
 
 .describe-page {

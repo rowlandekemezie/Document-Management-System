@@ -121,7 +121,7 @@
                       td(md-cell) {{doc.createdAt | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.lastModified | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.title}}
-                      td(md-cell) {{doc.content | limitTo:50}}
+                      td(md-cell ng-bind-html="doc.content | limitTo: 50")
                       td(md-cell)
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
                         i.material-icons(ui-sref="dashboard.view-document({docid: doc._id})") pageview
