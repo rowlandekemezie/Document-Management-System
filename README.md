@@ -9,7 +9,7 @@ DocKip is a custom document magement system built with Express, Node, and Mongod
 1. Download and install [**Node JS**](https://nodejs.org/en/) if not already installed.
 2. Download and install [**Mongodb**](https://www.mongodb.org/downloads/) if not already installed.
 3. Clone the [**repository here**](hhttps://github.com/andela-rekemezie/Document-Management-System.git) or go to the project github page [**here**](https://github.com/andela-rekemezie/Document-Management-System) and download the zip file of the project. Unzip it.
-4. Navigate to your terminal and change your directory to the **Document-Manager-REST-API**.
+4. Navigate to your terminal and change your directory to the **Document-Manager-MANAGEMENT-SYSTEM**.
 5. Run `npm install` to install node dependencies.
 6. Run `bower install` to install frontend dependencies
 7. Run `npm run initDb` to initialize your database with a role.
@@ -19,9 +19,9 @@ Checkout [Pivotal tracker](https://www.pivotaltracker.com/n/projects/1515820)
 
 ### Usage
 The application allows for the SuperAdmin to manage the entire process and assign authorization for different roles.
-Run `npm install gulp -g`
-Run `gulp` on your terminal.
-Navigate to `http://localhost:5555` on your browser.
+1. Run `npm install gulp -g`
+2. Run `gulp` on your terminal.
+3. Navigate to `http://localhost:5555` on your browser.
 
 ### Test
 Run `gulp test` on your terminal. Remember to  run test on the project root directory.
