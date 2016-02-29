@@ -38,7 +38,6 @@ script:
 after_success:
   - npm run report-coverage
   - npm run coveralls
-
 deploy:
   provider: heroku
   api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
