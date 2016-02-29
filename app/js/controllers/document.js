@@ -25,9 +25,12 @@
           }
         }, 100, 0, true);
 
-        // init function
-        $scope.roles = Roles.query();
+        // get role function
+        Roles.query(function(res) {
+          $scope.roles = res.slice(1, res.length);
+        });
 
+        $scope.docDetail = '';
         // load document to view
         $scope.getDoc = function() {
           Documents.get({
@@ -65,6 +68,8 @@
             Utils.toast('Your document has been successfully deleted');
             $state.go('dashboard', {
               id: $rootScope.loggedInUser._id
+            }, {
+              reload: true
             });
           }, function() {
             $scope.status = 'There was problem deleting document';
@@ -87,6 +92,8 @@
             Utils.toast(res.message);
             $state.go('dashboard', {
               id: $rootScope.loggedInUser._id
+            }, {
+              reload: true
             });
           }, function(err) {
             $scope.status = err.message || err || 'Could not Update';
@@ -115,11 +122,13 @@
 
         // Authenticate edit privileges
         $scope.canEdit = function() {
-          if ($rootScope.loggedInUser.role === $scope.docDetail.role ||
-            $rootScope.loggedInUser.role === 'SuperAdmin') {
+          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId) {
             return true;
           }
-          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
+          if ($rootScope.loggedInUser.role === 'SuperAdmin') {
+            return true;
+          }
+          if ($rootScope.loggedInUser.role === $scope.docDetail.role ||
             $rootScope.loggedInUser.role === 'Documentarian') {
             return true;
           } else {

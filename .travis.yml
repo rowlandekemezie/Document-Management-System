@@ -20,6 +20,7 @@ notifications:
 branches:
   only:
     - develop
+    - master
 before_install:
   - npm i -g npm@^2.0.0
   - "export DISPLAY=:99.0"
@@ -37,14 +38,11 @@ script:
 after_success:
   - npm run report-coverage
   - npm run coveralls
-
 deploy:
   provider: heroku
   api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
-  app: dockip-develop
-  on:
-    repo: andela-rekemezie/Document-Management-System
-    branch: develop
+  app:
+    develop: dockip-develop
+    master: dockip
 after_deploy:
-  - gulp heroku:develop
-  - "heroku ps:scale web=1 --app dockip-develop"
+  - gulp heroku

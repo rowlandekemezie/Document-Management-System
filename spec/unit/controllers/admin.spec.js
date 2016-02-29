@@ -15,7 +15,9 @@
           cb([1, 2, 3]);
         },
         save: function(user, cb, cbb) {
-          cb();
+          if (user) {
+            cb(user);
+          }
           cbb();
         },
         get: function(id, cb, cbb) {
@@ -72,6 +74,9 @@
         res: 'yes'
       });
 
+      httpBackend.when('GET', 'views/404.html').respond(200, [{
+        res: 'res'
+      }]);
     }));
 
     it('should call init function', function() {
@@ -94,8 +99,7 @@
     it('should call scope.createUserBtn', function() {
       spyOn(Users, 'save').and.callThrough();
       spyOn(Utils, 'toast').and.callThrough();
-      spyOn(state, 'reload');
-      scope.user = {
+      scope.newUser = {
         userName: 'Row',
         lastName: 'Igwe',
         firstName: 'Eke',
@@ -106,7 +110,6 @@
       scope.createUserBtn();
       expect(Users.save).toHaveBeenCalled();
       expect(Utils.toast).toHaveBeenCalledWith('A new user has been created');
-      expect(state.reload).toBeDefined();
     });
 
     it('should test that $scope.deleteUserBtn and deleteUserFn is defined',
@@ -128,8 +131,7 @@
         Utils.dialog.args[0][3]();
         httpBackend.flush();
         expect(Users.remove.called).toBe(true);
-        Users.remove.args[0][1]();
-        expect(Utils.toast.called).toBe(true);
+        Users.remove.args[0][1]('res');
       });
 
     it('should call $scope.deleteUserBtn and deleteUserFn and fail',
@@ -151,21 +153,19 @@
         Utils.dialog.args[0][3]();
         httpBackend.flush();
         expect(Users.remove.called).toBe(true);
-        Users.remove.args[0][1]();
+        Users.remove.args[0][1]('res');
       });
 
 
     it('should call scope.createRoleBtn', function() {
-      scope.role = {
+      scope.newRole = {
         title: 'Trainer'
       };
       spyOn(Roles, 'save').and.callThrough();
       spyOn(Utils, 'toast').and.callThrough();
-      spyOn(state, 'reload');
       scope.createRoleBtn();
       expect(Roles.save).toHaveBeenCalled();
       expect(Utils.toast).toHaveBeenCalledWith('Role created');
-      expect(state.reload).toHaveBeenCalled();
     });
 
     it('should call scope.createRoleBtn and fail', function() {
@@ -198,9 +198,8 @@
         Utils.dialog.args[0][3]();
         httpBackend.flush();
         expect(Roles.remove.called).toBe(true);
-        Roles.remove.args[0][1]();
+        Roles.remove.args[0][1]('res');
         expect(Utils.toast.called).toBe(true);
-        expect(state.reload.called).toBe(true);
       });
 
     it('should unsuccessfully call $scope.deleteRoleBtn and deleteRoleFn',
@@ -222,7 +221,7 @@
         Utils.dialog.args[0][3]();
         httpBackend.flush();
         expect(Roles.remove.called).toBe(true);
-        Roles.remove.args[0][1]();
+        Roles.remove.args[0][1]('res');
         expect(Utils.toast.called).toBe(true);
       });
 
@@ -246,9 +245,8 @@
       Utils.dialog.args[0][3]();
       httpBackend.flush();
       expect(Documents.remove.called).toBe(true);
-      Documents.remove.args[0][1]();
+      Documents.remove.args[0][1]('res');
       expect(Utils.toast.called).toBe(true);
-      expect(state.reload.called).toBe(true);
     });
 
     it('should unsuccessfully call scope.deleteDocBtn and deleteDoc function', function() {
@@ -269,7 +267,7 @@
       Utils.dialog.args[0][3]();
       httpBackend.flush();
       expect(Documents.remove.called).toBe(true);
-      Documents.remove.args[0][1]();
+      Documents.remove.args[0][1]('res');
       expect(Utils.toast.called).toBe(true);
     });
   });

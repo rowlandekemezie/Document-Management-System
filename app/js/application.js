@@ -126,7 +126,7 @@
            }
          })
            .state('admin', {
-             url: '/{id}/control-panel',
+             url: '/{id}/control-panel/{section}',
              authenticate: true,
              templateUrl: 'views/admin.html',
              controller: 'AdminCtrl'

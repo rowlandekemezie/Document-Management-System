@@ -21,12 +21,13 @@
           });
         } else {
           var newRole = new Role(adminRole);
-          newRole.save(function(err) {
+          newRole.save(function(err, role) {
             if (err) {
               res.json(err);
             } else {
               res.status(200).json({
                 success: true,
+                role: role,
                 message: 'Role successfuly created'
               });
             }
@@ -122,6 +123,7 @@
       } else {
         res.status(200).json({
           success: true,
+          role: role,
           message: 'Successfully deleted'
         });
       }

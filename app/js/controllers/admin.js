@@ -11,6 +11,19 @@
       '$scope',
       '$stateParams',
       function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
+        switch($stateParams.section){
+          case 'user':
+            $scope.selectedIndex = 1;
+            break;
+          case 'role':
+            $scope.selectedIndex = 0;
+            break;
+          case 'documents':
+            $scope.selectedIndex = 2;
+            break;
+          default:
+            $scope.selectedIndex = 0;
+          }
 
         $scope.init = function() {
           Users.query(function(res) {
@@ -34,27 +47,7 @@
           console.log(err);
         });
 
-        // pagination
-        $scope.options = {
-          autoSelect: true,
-          boundaryLinks: false,
-          largeEditDialog: false,
-          pageSelector: false,
-          rowSelection: true
-        };
-
-        $scope.query = {
-          order: '_id',
-          limit: 5,
-          page: 1
-        };
-
-        $scope.logPagination = function(page, limit) {
-          console.log('page: ', page);
-          console.log('limit: ', limit);
-        };
-
-        //delete buttoon for document
+        // Delete buttoon for document
         $scope.deleteDocBtn = function(event, doc) {
           $scope.doc = doc;
           Utils.dialog('Warning: Delete Document, ' +
@@ -65,13 +58,13 @@
           );
         };
 
-        // delete document function
+        // Delete document function
         function deleteDoc() {
           Documents.remove({
             id: $scope.doc._id
-          }, function() {
+          }, function(res) {
             Utils.toast('Your document has been successfully deleted');
-            $state.reload();
+            $scope.documents.splice($scope.documents.indexOf(res.doc), 1);
           }, function() {
             $scope.status = 'There was problem deleting document';
           });
@@ -79,29 +72,29 @@
 
         // Create user function
         $scope.createUserBtn = function() {
-          Users.save($scope.user, function() {
+          Users.save($scope.newUser, function(res) {
             Utils.toast('A new user has been created');
-            $state.reload();
+            $scope.users.push(res.user);
+            $scope.newUser = {};
           }, function() {
             Utils.toast('Can not create User');
             $scope.status = 'An error occured';
           });
         };
 
-        //Delete button
+        // Delete user button
         function deleteUser() {
           Users.remove({
             id: $scope.user._id
-          }, function() {
+          }, function(res) {
             Utils.toast('User deleted successfully');
-            $state.reload($state.current.name);
+            $scope.users.splice($scope.users.indexOf(res.user), 1);
           }, function() {
             $scope.status = 'There was error deleting the user';
           });
         }
 
-        // Loading confirmation dialog box
-        // A confirmation message before deleting
+        // A confirmation dialog before deleting
         $scope.deleteUserBtn = function(event, user) {
           $scope.user = user;
           Utils.dialog('Warning: Delete User ' +
@@ -112,14 +105,12 @@
           );
         };
 
-        /**
-         * CRUD for Roles
-         *
-         */
+        // Create role button
         $scope.createRoleBtn = function() {
-          Roles.save($scope.role, function() {
+          Roles.save($scope.newRole, function(res) {
             Utils.toast('Role created');
-            $state.reload();
+            $scope.roles.push(res.role);
+            $scope.newRole = {};
           }, function() {
             Utils.toast('Can not create role');
             $scope.status =
@@ -127,19 +118,19 @@
           });
         };
 
-        // delete role function
+        // Delete role function
         function deleteRole() {
           Roles.remove({
             id: $scope.role._id
-          }, function() {
+          }, function(res) {
             Utils.toast('Role successfully deleted');
-            $state.reload();
+            $scope.roles.splice($scope.roles.indexOf(res.role), 1);
           }, function() {
             $scope.status = 'There was problem deleting the role';
           });
         }
 
-        //laod up a comfirmation dialog
+        // Comfirmation dialog for delete role
         $scope.deleteRoleBtn = function(event, role) {
           $scope.role = role;
           Utils.dialog('Warning: Delete Role, ' +
@@ -150,6 +141,5 @@
           );
         };
       }
-
     ]);
 })();

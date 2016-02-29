@@ -18,7 +18,7 @@
             md-select.md-padding.md-margin(placeholder="role" ng-model="loggedInUser.role" aria-label="role" flex)
               md-option(ng-repeat="role in roles" ng-value="role.title") {{role.title}}
         md-input-container.md-block(md-no-float layout="row" flex)
-          input(ng-model="loggedInUser.password" type="password" placeholder="password" ng-required="true")
+          input(ng-model="password" type="password" placeholder="password" ng-required="true")
 
         p {{status}}
 
@@ -26,6 +26,6 @@
           md-button.md-raised.md-margin.button(ng-click="editProfile()")
             md-icon(class="material-icons") update
             | Update Profile
-          md-button.md-raised.md-warn(ui-sref="dashboarwarnd")
+          md-button.md-raised.md-accent(ui-sref="dashboard")
             md-icon(class="material-icons") cancel
             | Cancel

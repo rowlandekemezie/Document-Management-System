@@ -57,7 +57,7 @@
     it('should call query on roles', function() {
       spyOn(Roles, 'query').and.callThrough();
       scope.init();
-      expect(scope.roles).toEqual([1, 2, 3]);
+      expect(scope.roles).toEqual([2, 3]);
       expect(scope.roles).toBeDefined();
     });
 

@@ -18,10 +18,17 @@
         .respond(200, {
           res: 'res'
         });
+
       httpBackend.when('GET', 'views/home.html')
         .respond(200, [{
           res: 'res'
         }]);
+
+        httpBackend.when('GET', 'views/404.html')
+        .respond(200, [{
+          res: 'res'
+        }]);
+
       http = $injector.get('$http');
       Users = $injector.get('Users');
     }));

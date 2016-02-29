@@ -24,6 +24,10 @@
         .respond(200, [{
           res: 'res'
         }]);
+
+      httpBackend.when('GET', 'views/404.html').respond(200, [{
+        res: 'res'
+      }]);
     }));
 
     describe('getAllDocs service tests', function() {
