@@ -42,7 +42,7 @@ after_success:
 deploy:
   provider: heroku
   api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
-  app: dockip-develop
+  app:
     develop: dockip-develop
     master: dockip
 after_deploy:
