@@ -1,14 +1,14 @@
-.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" flex="100" layout-align="center center" ng-cloak)
-  div(layout-padding)
-    div(layout-gt-sm="column" flex)
-      h4.header-display.sign-up-header Sign In
+.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" flex="100" layout-align="center center" ng-cloak="")
+  div(layout-align="center center")
     form(name="login" method="post" ng-submit="loginUser()")
+      div(layout-gt-sm="column" flex layout-align="center center")
+        h3.header-display.sign-up-header Sign In
       div(layout-gt-sm="column" flex)
-        md-input-container.md-block(flex)
+        md-input-container.md-block(flex layout="row" md-no-float)
           input(md-no-float ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
           div(ng-messages="login.userName.$error && login.userName.$touched")
             div(ng-if="login.userName.$invalid && login.userName.$dirty") This is required!
-        md-input-container.md-block(flex)
+        md-input-container.md-block(flex layout="row" md-no-float)
           input(md-no-float ng-model="user.password" name="password" type="password" placeholder="password" required="true" minlength="8")
           div(ng-messages="login.password.$error" ng-show="login.password.$touched")
             div(ng-if="login.password.$invalid && login.password.$dirty") Your password must not be less than 8 characters

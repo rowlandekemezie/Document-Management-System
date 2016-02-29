@@ -14,6 +14,9 @@ DocKip is a custom document magement system built with Express, Node, and Mongod
 6. Run `bower install` to install frontend dependencies
 7. Run `npm run initDb` to initialize your database with a role.
 
+### Project Management
+Checkout [Pivotal tracker](https://www.pivotaltracker.com/n/projects/1515820)
+
 ### Usage
 The application allows for the SuperAdmin to manage the entire process and assign authorization for different roles.
 Run `npm start` on your terminal.

@@ -3,30 +3,28 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
   div(flex)
-    h2.md-padding(ng-if="!userDocs") It seems you've got no document. Start today
+    h4.md-padding(ng-if="!userDocs") It seems you've got no document. Start today
     md-divider(md-inset)
     div(ng-if="userDocs" layout="column" layout-align="center center")
-      div(layout="row" layout-align="end end")
+      div.hide-sm.hide-md(layout="row" layout-align="end end" flex-sm="33"  flex-md="66")
         .preview-header(layout="end end") ««« MY DOCUMENTS «««
-        div(layout="row" layout-align="center end")
-          .search-bar(layout="row" layout-align="center center")
-            input(type="text" ng-model="searchBox" placeholder="search by title")
-            md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
-            h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
-            md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
+        .search-bar(layout="row" layout-align="center center")
+          md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
+          h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
+          md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
     md-divider(md-inset)
       div.doc-container
-        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy:'-lastModified' | filter:searchBox track by $index")
+        div.doc-display.grid-border(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index")
           h3.grid-header « {{ doc.title }} «
           md-divider
           div(layout="column" layout-align="start start")
-          .doc-content.md-margin(layout-padding ng-bind-html="doc.content | limitTo:100" md-ink-ripple class="md-clickable")
-          div(layout-align="column" style="margin-bottom:2px")
-            div.doc-operations(layout="row" layout-padding layout-align="center end" flex)
+          .doc-content.md-margin(layout-padding ng-bind-html="doc.content" md-ink-ripple class="md-clickable")
+          div(layout-align="column")
+            div.doc-operations(layout="row" layout-padding layout-align="center center" flex)
               i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
                 md-tooltip click to preview
               i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
                 md-tooltip click to edit
             div.preview-footer(flex layout="column" layout-padding)
-              h5 LastModified  on {{ doc.lastModified | DateFormatter }}
-              | by {{ user.userName }}
+              h5 Created {{ doc.lastModified | DateFormatter }}
+              | by you
