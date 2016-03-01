@@ -32,6 +32,7 @@ module.exports = function(config) {
       'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/sinonjs/sinon.js',
       'public/lib/jasmine-sinon/lib/jasmine-sinon.js',
+      'public/lib/moment/min/moment.min.js',
       'public/js/application.js',
       'spec/unit/**/*.spec.js'
     ],

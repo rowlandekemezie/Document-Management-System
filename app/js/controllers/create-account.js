@@ -14,6 +14,21 @@
       function($state, $scope, Auth, Users, $rootScope,
         $mdDialog, $stateParams, Roles, Utils) {
 
+        // cancel the dialog
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
+        // hide the dialog
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
+        $scope.signup = function() {
+          $scope.signUp();
+        };
+        $scope.login = function() {
+          $scope.loginUser();
+        };
+
         // get all roles from the Db
         $scope.init = function() {
           Roles.query(function(res) {
@@ -21,7 +36,7 @@
           });
         };
 
-        $scope.loginUser = function() {
+        $scope.userLogin = function() {
           $scope.status = '';
           Users.login($scope.user, function(err, res) {
             if (!err && res) {
@@ -44,10 +59,10 @@
         };
 
         // function to submit form
-        $scope.signUp = function() {
+        $scope.createUser = function() {
           $scope.status = '';
           Users.save($scope.user, function() {
-            $scope.loginUser();
+            $scope.userLogin();
           }, function(err) {
             if (err.status === 409) {
               $scope.status = 'User already exist';

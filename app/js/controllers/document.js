@@ -9,21 +9,8 @@
       'Utils',
       '$scope',
       '$stateParams',
-      '$interval',
       function(Documents, Roles, $state, $rootScope,
-        Utils, $scope, $stateParams, $interval) {
-
-        // progress bar
-        $scope.determinateValue = 30;
-
-        // Iterate every 100ms, non-stop
-        $interval(function() {
-          // Increment the Determinate loader
-          $scope.determinateValue += 1;
-          if ($scope.determinateValue > 100) {
-            $scope.determinateValue = 30;
-          }
-        }, 100, 0, true);
+        Utils, $scope, $stateParams) {
 
         // get role function
         Roles.query(function(res) {

@@ -1,8 +1,9 @@
-.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" ng-controller="UserAccountCtrl" flex="100" layout-align="center center" ng-cloak="")
+.sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" flex="100" layout-align="center center" ng-cloak="")
   div(layout-align="center center")
-    form(name="login" method="post" ng-submit="loginUser()")
+    form(name="login" method="post" ng-submit="userLogin()")
       div(layout-gt-sm="column" flex layout-align="center center")
         h3.header-display.sign-up-header Sign In
+        h3(ng-click="cancel()")
       div(layout-gt-sm="column" flex)
         md-input-container.md-block(flex layout="row" md-no-float)
           input(md-no-float ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
@@ -17,4 +18,4 @@
           div(layout="column")
             md-button.md-raised.md-accent(type="submit" layout-padding ng-disabled="login.$invalid") Login
             h5 Create new account? &nbsp;
-              a(ng-click="cancel()") Sign Up
+              a(ng-click="signup()") Sign Up

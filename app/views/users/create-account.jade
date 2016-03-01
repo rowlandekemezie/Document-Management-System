@@ -1,6 +1,6 @@
-.sign-up-wrap(layout="column" flex="100" layout-sm="column" layout-md="column" ng-controller="UserAccountCtrl" layout-align="center center" ng-cloak="" ng-init="init()")
+.sign-up-wrap(layout="column" flex="100" layout-sm="column" layout-md="column" layout-align="center center" ng-cloak="" ng-init="init()")
   div(layout-gt-sm="column" layout-align="center center")
-    form(Name="signup" method="post" ng-submit="signUp()")
+    form(Name="signup" method="post" ng-submit="createUser()")
       div(layout="row" layout-align="center center")
         h3.sign-up-header.md-margin Sign Up
       div(layout-gt-sm="row" flex)
@@ -38,4 +38,4 @@
           p.link {{status}}
           md-button.md-raised.md-accent(type="submit" ng-disabled="signup.$invalid || (signup.confirmPassword.$modelValue !== signup.password.$modelValue)") Sign Up
           h5 Already registered? &nbsp;
-            a(ng-click="cancel()") Login
+            a(ng-click="login()") Login
