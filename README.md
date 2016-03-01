@@ -1,5 +1,6 @@
 [![Travis Ci](https://img.shields.io/travis/andela-rekemezie/Document-Management-System/develop.svg)](https://travis-ci.org/andela-rekemezie/Document-Management-System)
 [![Coveralls](https://img.shields.io/coveralls/andela-rekemezie/Document-Management-System.svg)](https://coveralls.io/github/andela-rekemezie/Document-Management-System)
+[![Codecov](https://img.shields.io/codecov/c/github/andela-rekemezie/Document-Management-System.svg)](https://codecov.io/github/andela-rekemezie/Document-Management-System)
 # DocKip
 
 DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and management documents with easy. 
@@ -11,17 +12,22 @@ DocKip is a custom document magement system built with Express, Node, and Mongod
 3. Clone the [**repository here**](hhttps://github.com/andela-rekemezie/Document-Management-System.git) or go to the project github page [**here**](https://github.com/andela-rekemezie/Document-Management-System) and download the zip file of the project. Unzip it.
 4. Navigate to your terminal and change your directory to the **Document-Manager-MANAGEMENT-SYSTEM**.
 5. Run `npm install` to install node dependencies.
-6. Run `bower install` to install frontend dependencies
-7. Run `npm run initDb` to initialize your database with a role.
+6. Run `bower install` to install frontend dependencies.
+7. Place a `.env` file on the project's root directory and add your database configuration.
+
+ **EXAMPLE**
+   `DATABASE_URL=mongodb://mongodb://localhost:27017/testdb.`
+8. Run `npm run initDb` to initialize your database with a SuperAdmin user.
 
 ### Project Management
-Checkout [Pivotal tracker](https://www.pivotaltracker.com/n/projects/1515820)
+Pivotal Tracker was used as the management too; throughout the process of building this application.
+Checkout [Pivotal Tracker Board](https://www.pivotaltracker.com/n/projects/1515820)
 
 ### Usage
 The application allows for the SuperAdmin to manage the entire process and assign authorization for different roles.
-1. Run `npm install gulp -g`
-2. Run `gulp` on your terminal.
-3. Navigate to `http://localhost:5555` on your browser.
+ 1. Run `npm install gulp -g`.
+ 2. Run `gulp` on your terminal.
+ 3. Navigate to `http://localhost:5555` on your browser.
 
 ### Test
 Run `gulp test` on your terminal. Remember to  run test on the project root directory.
