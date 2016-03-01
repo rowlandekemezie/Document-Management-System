@@ -1,27 +1,31 @@
 .home-page
   .jumbobox(layout="column" flex-sm="33" layout-sm="row" flex-md="66" layout-md="row" ng-controller="UserDialogCtrl" layout-align="center center" ng-cloak)
-    .box(flex="100")
-      span CREATE | SHARE | MANAGE
-    div.home-page-description(layout-padding layout-align="center center")
-      span Safe and easy way to manage documents
+    .banner
+      .box(flex="100")
+        span CREATE | SHARE | MANAGE
+      div.home-page-description(layout-padding layout-align="center center")
+        span Safe and easy way to manage documents
 
-      div(ng-if="!loggedInUser")
-        br
-        div
-        h1.md-button.md-raised.md-primary.md-accent(ng-click="signInUser($event)" md-no-ink) GET STARTED TODAY
-        div
-        h4 Have no account, &nbsp;
-         a(ng-click="createAccount($event)" md-no-ink) Sign Up - It's free
-      div(ng-if="loggedInUser" flex)
-        div
-          h1.md-button.md-raised.md-primary.md-accent(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
+        div(ng-if="!loggedInUser")
+          br
+          div
+          md-button.md-raised.md-primary(ng-click="signInUser($event)" md-no-ink) GET STARTED
+        div(ng-if="loggedInUser" flex)
+          br
+          div
+          md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
   div.md-margin(layout="row" md-padding flex)
     .describe-page
       h3 About
-      h5 DocKip is a document management system that helps you manage your documents efficiently
+      i.fa.fa-user
+      h5 DocKip is a document management system that helps you  collaborate and manage documents efficiently.
+    md-divider
     .describe-page
       h3 Contact Us
-      h5 Do well to contact us as the case maybe for support
+      i.fa.fa-fax
+      h5 Contact the SuperAdmin for support and inquiries. Or email the document service team.
+    md-divider
     .describe-page
       h3 Privileges
-      h5 privileges are assigned based on the role given to a document. Also, the Super Admin manages the entire application for smooth operations. Reach out to the Admin for any support.
+      i.fa.fa-user-secret
+      h5 Privileges are assigned based on the role of a user. The Super Admin manages the entire application.
