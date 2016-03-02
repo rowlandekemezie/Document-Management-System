@@ -10,7 +10,7 @@ DocKip is a custom document magement system built with Express, Node, and Mongod
 1. Download and install [**Node JS**](https://nodejs.org/en/) if not already installed.
 2. Download and install [**Mongodb**](https://www.mongodb.org/downloads/) if not already installed.
 3. Clone the [**repository here**](hhttps://github.com/andela-rekemezie/Document-Management-System.git) or go to the project github page [**here**](https://github.com/andela-rekemezie/Document-Management-System) and download the zip file of the project. Unzip it.
-4. Navigate to your terminal and change your directory to the **Document-Manager-MANAGEMENT-SYSTEM**.
+4. Navigate to your terminal and change your directory to the **Document-Management-System**.
 5. Run `npm install` to install node dependencies.
 6. Run `bower install` to install frontend dependencies.
 7. Place a `.env` file on the project's root directory and add your database configuration.
