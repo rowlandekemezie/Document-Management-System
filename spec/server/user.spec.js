@@ -231,9 +231,32 @@
           done();
         });
     });
+
+    it('should not create user without userName and email', function(done) {
+      var newuser = {
+        userName: '',
+        firstName: 'Mmadu',
+        lastName: 'Adamu',
+        email: '',
+        role: 'Librarian',
+        password: 'awesomecool'
+      };
+      request.post('/api/users/')
+        .send(newuser)
+        .end(function(err, res) {
+          expect(res.status).to.equal(406);
+          expect(res.body).contain({
+            success: false,
+            message: 'Please enter your userName and email'
+          });
+          expect(err).not.to.be.a('undefined');
+          expect(err).to.be.a('null');
+          done();
+        });
+    });
   });
 
-  describe('GET USERS GET /api/users', function() {
+  describe('GET USERS GET /api/users', function(done) {
     var id, userToken;
     beforeEach(function(done) {
       var newUser = new User(userData[1]);
@@ -317,6 +340,26 @@
           done();
         });
     });
+
+    it('should get the use in sesssion', function(done) {
+      var newUser = new User(userData[2]);
+      newUser.save();
+      id = newUser._id;
+      var token = jwt.sign(newUser, config.secret, {
+        expiresIn: 86400 // expires in 24hrs
+      });
+
+      request.get('/api/users/UserInSession')
+        .set('x-access-token', token)
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body).contain({
+            userName: userData[2].userName,
+            email: userData[2].email
+          });
+          done();
+        });
+    });
   });
 
   describe('UPDATE USER PUT /api/users/', function() {
@@ -394,6 +437,7 @@
 
     it('should be authenticated before user can update', function(done) {
       request.put('/api/users/' + id)
+        .set('x-access-token', userToken)
         .send({
           userName: 'Haski',
           name: {
@@ -402,6 +446,55 @@
           },
           email: 'lamboniruskina@gmail.com',
           password: 'PythonPhpJavascript',
+          role: 'Documentarian'
+        })
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body).contain({
+            message: 'User details updated',
+            success: true
+          });
+          expect(err).not.to.be.a('undefined');
+          expect(err).to.be.a('null');
+          done();
+        });
+    });
+
+    it('should update user without any detail provided', function(done) {
+      request.put('/api/users/' + id)
+        .set('x-access-token', userToken)
+        .send({
+          userName: '',
+          name: {
+            firstName: '',
+            lastName: '',
+          },
+          email: '',
+          password: '',
+          role: ''
+        })
+        .end(function(err, res) {
+          expect(res.status).to.equal(200);
+          expect(res.body).contain({
+            message: 'User details updated',
+            success: true
+          });
+          expect(err).not.to.be.a('undefined');
+          expect(err).to.be.a('null');
+          done();
+        });
+    });
+
+    it('should update a user without password', function(done) {
+      request.put('/api/users/' + id)
+        .send({
+          userName: 'Haski',
+          name: {
+            firstName: 'Lamboni',
+            lastName: 'Ruskima',
+          },
+          email: 'lamboniruskina@gmail.com',
+          password: '',
           role: 'Documentarian'
         })
         .end(function(err, res) {
@@ -430,6 +523,7 @@
       });
       done();
     });
+
     afterEach(function(done) {
       User.remove({}, function() {
         Role.remove({}, function() {
@@ -437,6 +531,7 @@
         });
       });
     });
+
     it('should delete user with a specific id', function(done) {
       request.delete('/api/users/' + id)
         .set('x-access-token', userToken)
@@ -481,5 +576,21 @@
           done();
         });
     });
+
+    it('should not authenticate use with an invalid token', function(done){
+      var token = 'fbgvkjvabsldfamdsfbnajsdfbasdbfjb'
+      request.delete('/api/users/' + id)
+        .set('x-access-token', token)
+        .end(function(err, res) {
+          expect(res.status).to.equal(401);
+          expect(res.body).contain({
+            message: 'Authentication failed',
+            success: false
+          });
+          expect(err).not.to.be.a('undefined');
+          expect(err).to.be.a('null');
+          done();
+        });
+    })
   });
 })();

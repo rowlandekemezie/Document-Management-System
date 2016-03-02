@@ -94,7 +94,6 @@
               error: 'Session has expired or does not exist.'
             });
           } else {
-
             User.findById(decoded._id, function(err, user) {
               if (!user) {
                 res.status(404).json({

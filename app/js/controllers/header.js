@@ -26,7 +26,8 @@
         //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
 
-        $rootScope.toggleList = function() {
+        // Navbar toggle
+        $scope.toggleList = function() {
           $mdSidenav('left').toggle();
         };
       }

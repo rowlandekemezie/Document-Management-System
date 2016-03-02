@@ -121,8 +121,7 @@
            authenticate: true,
            views: {
              'inner-view@dashboard': {
-               templateUrl: 'views/all-documents.html',
-               controller: 'DashboardCtrl'
+               templateUrl: 'views/all-documents.html'
              }
            }
          })

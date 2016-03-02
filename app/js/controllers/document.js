@@ -96,32 +96,6 @@
             event, $scope.updateDocFn
           );
         };
-
-        // Authenticate view privilieges
-        $scope.canDelete = function() {
-          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
-            $rootScope.loggedInUser.role === 'SuperAdmin') {
-            return true;
-          } else {
-            return false;
-          }
-        };
-
-        // Authenticate edit privileges
-        $scope.canEdit = function() {
-          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId) {
-            return true;
-          }
-          if ($rootScope.loggedInUser.role === 'SuperAdmin') {
-            return true;
-          }
-          if ($rootScope.loggedInUser.role === $scope.docDetail.role ||
-            $rootScope.loggedInUser.role === 'Documentarian') {
-            return true;
-          } else {
-            return false;
-          }
-        };
       }
     ]);
 })();

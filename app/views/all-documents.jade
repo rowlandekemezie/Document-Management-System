@@ -23,7 +23,8 @@ md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="
             div.doc-operations(layout="row" layout-padding layout-align="center center" flex)
               i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
                 md-tooltip click to preview
-              i.fa.fa-pencil-square-o(ng-disabled="!canEdit()" layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+
+              i.fa.fa-pencil-square-o(ng-hide="canEdit(doc) !== true" layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
                 md-tooltip click to edit
             div.preview-footer(flex layout="column" layout-padding)
               h5 Modified {{ doc.lastModified | DateFormatter }}

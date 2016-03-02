@@ -34,7 +34,6 @@
           expiresIn: 86400 // expires in 24hrs
         });
         done();
-
       });
 
       afterEach(function(done) {
@@ -56,6 +55,22 @@
             expect(res.body).contain({
               success: true,
               message: 'Role successfuly created'
+            });
+            done();
+          });
+      });
+
+      it('should not create role without title', function(done) {
+        request.post('/api/roles/')
+          .set('x-access-token', adminToken)
+          .send('')
+          .end(function(err, res) {
+            expect(res.status).to.equal(406);
+            expect(err).to.be.a('null');
+            expect(err).not.to.be.a('undefined');
+            expect(res.body).contain({
+              success: false,
+              message: 'Please, provide role to continue'
             });
             done();
           });
@@ -207,6 +222,25 @@
             expect(err).to.be.a('null');
             expect(res.body).contain({
               message: 'Role not found',
+              success: false
+            });
+            done();
+          });
+      });
+
+      it('should not create a role if not superAdmin', function(done) {
+        var newUser = new User(userData[1]);
+        newUser.save();
+        var hackerToken = jwt.sign(newUser, config.secret, {
+          expiresIn: 86400
+        });
+        request.delete('/api/roles/' + roleId)
+          .set('x-access-token', hackerToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(401);
+            expect(err).to.be.a('null');
+            expect(res.body).contain({
+              message: 'Not authorized',
               success: false
             });
             done();
