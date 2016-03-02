@@ -2,8 +2,8 @@
   'use strict';
 
   angular.module('docKip.services')
-    .service('Utils', ['$mdToast', '$interval', '$mdDialog',
-      function($mdToast, $interval, $mdDialog) {
+    .service('Utils', ['$mdToast', '$mdDialog',
+      function($mdToast, $mdDialog) {
         this.toast = function(msg) {
           $mdToast.show($mdToast.simple().content(msg));
         };

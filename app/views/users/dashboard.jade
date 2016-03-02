@@ -4,9 +4,9 @@
       span(flex)
       .md-toolbar-tools-bottom.inset(layout="column")
         span
-        .text-center {{loggedInUser.userName}}
+        .text-center {{ loggedInUser.userName }}
         .text-center(style="font-size:0.8em") Role: {{loggedInUser.role}}
-        .text-center.doc-no You've {{docCount || 0}} documents
+        .text-center.doc-no You've {{ docCount || 0 }} documents
     md-divider
     md-content
       md-list

@@ -13,7 +13,9 @@
               Auth.logout();
               $rootScope.loggedInUser = '';
               Utils.toast(res.message);
-              $state.go('home', {reload: true});
+              $state.go('home', {
+                reload: true
+              });
               $route.reload();
             } else {
               return err;
@@ -24,7 +26,8 @@
         //  check that the user is logged in
         $scope.loggedIn = Auth.isLoggedIn();
 
-        $rootScope.toggleList = function() {
+        // Navbar toggle
+        $scope.toggleList = function() {
           $mdSidenav('left').toggle();
         };
       }

@@ -9,9 +9,9 @@
             md-tooltip Go back
           span.md-margin.success-status {{status}}
         div(layout="row" layout-align="end end")
-          i.material-icons.back-icon(ng-disabled="!canEdit()" ng-click="updateDoc($event)") save
+          i.material-icons.back-icon(ng-click="updateDoc($event)") save
             md-tooltip Update
-          i.material-icons.back-icon(ng-disabled="!canDelete()" ng-click="deleteDoc($event)") delete_forever
+          i.material-icons.back-icon(ng-click="deleteDoc($event)") delete_forever
             md-tooltip Delete
           i.material-icons.back-icon(ui-sref="dashboard({id:loggedInUser._id})")
             md-tooltip cancel

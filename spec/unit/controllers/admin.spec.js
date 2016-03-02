@@ -156,7 +156,6 @@
         Users.remove.args[0][1]('res');
       });
 
-
     it('should call scope.createRoleBtn', function() {
       scope.newRole = {
         title: 'Trainer'

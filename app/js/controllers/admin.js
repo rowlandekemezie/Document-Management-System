@@ -11,19 +11,19 @@
       '$scope',
       '$stateParams',
       function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
-        switch($stateParams.section){
-          case 'user':
-            $scope.selectedIndex = 1;
-            break;
+        switch ($stateParams.section) {
           case 'role':
             $scope.selectedIndex = 0;
+            break;
+          case 'user':
+            $scope.selectedIndex = 1;
             break;
           case 'documents':
             $scope.selectedIndex = 2;
             break;
           default:
             $scope.selectedIndex = 0;
-          }
+        }
 
         $scope.init = function() {
           Users.query(function(res) {

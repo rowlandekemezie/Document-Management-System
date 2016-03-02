@@ -9,21 +9,8 @@
       'Utils',
       '$scope',
       '$stateParams',
-      '$interval',
       function(Documents, Roles, $state, $rootScope,
-        Utils, $scope, $stateParams, $interval) {
-
-        // progress bar
-        $scope.determinateValue = 30;
-
-        // Iterate every 100ms, non-stop
-        $interval(function() {
-          // Increment the Determinate loader
-          $scope.determinateValue += 1;
-          if ($scope.determinateValue > 100) {
-            $scope.determinateValue = 30;
-          }
-        }, 100, 0, true);
+        Utils, $scope, $stateParams) {
 
         // get role function
         Roles.query(function(res) {
@@ -108,32 +95,6 @@
             $scope.docDetail.title + '?',
             event, $scope.updateDocFn
           );
-        };
-
-        // Authenticate view privilieges
-        $scope.canDelete = function() {
-          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId ||
-            $rootScope.loggedInUser.role === 'SuperAdmin') {
-            return true;
-          } else {
-            return false;
-          }
-        };
-
-        // Authenticate edit privileges
-        $scope.canEdit = function() {
-          if ($rootScope.loggedInUser._id === $scope.docDetail.ownerId) {
-            return true;
-          }
-          if ($rootScope.loggedInUser.role === 'SuperAdmin') {
-            return true;
-          }
-          if ($rootScope.loggedInUser.role === $scope.docDetail.role ||
-            $rootScope.loggedInUser.role === 'Documentarian') {
-            return true;
-          } else {
-            return false;
-          }
         };
       }
     ]);

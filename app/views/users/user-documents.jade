@@ -1,4 +1,4 @@
-md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
+md-content(ng-if="loggedInUser" flex md-scroll-y)
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
@@ -18,7 +18,7 @@ md-content(layout-padding ng-if="loggedInUser" flex md-scroll-y)
           h3.grid-header « {{ doc.title }} «
           md-divider
           div(layout="column" layout-align="start start")
-          .doc-content.md-margin(layout-padding ng-bind-html="doc.content" md-ink-ripple class="md-clickable")
+          .doc-content.md-margin(layout-padding ng-bind-html="doc.content" class="md-clickable")
           div(layout-align="column")
             div.doc-operations(layout="row" layout-padding layout-align="center center" flex)
               i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview

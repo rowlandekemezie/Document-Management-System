@@ -54,6 +54,26 @@
       mdDialog = $injector.get('$mdDialog');
     }));
 
+    it('should assset that scope.cancel is a function', function(){
+      spyOn(mdDialog, 'cancel')
+      scope.cancel();
+      expect(mdDialog.cancel).toHaveBeenCalled();
+    });
+
+    it('should assset that scope.hide is a function', function(){
+      spyOn(mdDialog, 'hide')
+      scope.hide();
+      expect(mdDialog.hide).toHaveBeenCalled();
+    });
+
+    it('should assset that scope.signup is a function', function(){
+      expect(typeof scope.signup).toBe('function');
+    });
+
+    it('should assset that scope.login is a function', function(){
+      expect(typeof scope.login).toBe('function');
+    });
+
     it('should call query on roles', function() {
       spyOn(Roles, 'query').and.callThrough();
       scope.init();
@@ -65,7 +85,7 @@
       spyOn(Users, 'save').and.callThrough();
       spyOn(Auth, 'setToken').and.callThrough();
       spyOn(state, 'go').and.callThrough();
-      spyOn(scope, 'loginUser').and.callThrough();
+      spyOn(scope, 'userLogin').and.callThrough();
       scope.user = {
         firstName: 'Abu',
         lastName: 'lulu',
@@ -75,12 +95,12 @@
         password: 'Bummerick',
         confirmPassword: 'Bummerick'
       };
-      scope.signUp();
+      scope.createUser();
       expect(Users.save).toHaveBeenCalled();
       expect(Auth.setToken).toHaveBeenCalled();
       expect(state.go).toHaveBeenCalled();
       expect(scope.loggedInUser).toBeDefined();
-      expect(scope.loginUser).toHaveBeenCalled();
+      expect(scope.userLogin).toHaveBeenCalled();
     });
 
     it('should call the save function unsuccesfully', function() {
@@ -88,7 +108,7 @@
       spyOn(Auth, 'setToken');
       spyOn(state, 'go');
       scope.user = null;
-      scope.signUp();
+      scope.createUser();
       expect(Users.save).toHaveBeenCalled();
       expect(Auth.setToken).not.toHaveBeenCalled();
       expect(state.go).not.toHaveBeenCalled();
@@ -102,7 +122,7 @@
       spyOn(state, 'go');
       spyOn(Utils, 'toast');
       scope.user = true;
-      scope.loginUser();
+      scope.userLogin();
       expect(Users.login).toBeDefined();
       expect(Users.login).toHaveBeenCalled();
       expect(Auth.setToken).toHaveBeenCalled();
@@ -118,7 +138,7 @@
       spyOn(state, 'go');
       spyOn(Utils, 'toast');
       scope.user = null;
-      scope.loginUser();
+      scope.userLogin();
       expect(Users.login).toBeDefined();
       expect(Users.login).toHaveBeenCalled();
       expect(Auth.setToken).not.toHaveBeenCalled();
