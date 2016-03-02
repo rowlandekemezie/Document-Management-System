@@ -14,6 +14,7 @@
       function($state, $scope, Auth, Users, $rootScope,
         $mdDialog, $stateParams, Roles, Utils) {
 
+        $scope.status = '';
         // cancel the dialog
         $scope.cancel = function() {
           $mdDialog.cancel();

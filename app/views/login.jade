@@ -1,21 +1,22 @@
 .sign-in-wrap(layout="column" layout-sm="column" layout-md="colum" flex="100" layout-align="center center" ng-cloak="")
-  div(layout-align="center center")
+  div(layout-align="center center" layout-padding)
     form(name="login" method="post" ng-submit="userLogin()")
-      div(layout-gt-sm="column" flex layout-align="center center")
-        h3.header-display.sign-up-header Sign In
-        h3(ng-click="cancel()")
+      div(layout-gt-sm="column" flex layout-padding layout-align="center center")
+        h3.md-subheadline.sign-up-header.md-margin Sign In
       div(layout-gt-sm="column" flex)
-        md-input-container.md-block(flex layout="row" md-no-float)
-          input(md-no-float ng-model="user.userName" name="username" type="text" placeholder="username or email" ng-required="true")
-          div(ng-messages="login.userName.$error && login.userName.$touched")
+        md-input-container.md-block(flex layout="row")
+          md-icon(md-font-set="fa fa-user")
+          input( ng-model="user.userName" name="username" type="text" placeholder="Username" ng-required="true")
+          div.messages(ng-messages="login.userName.$error && login.userName.$touched")
             div(ng-if="login.userName.$invalid && login.userName.$dirty") This is required!
-        md-input-container.md-block(flex layout="row" md-no-float)
-          input(md-no-float ng-model="user.password" name="password" type="password" placeholder="password" required="true" minlength="8")
-          div(ng-messages="login.password.$error" ng-show="login.password.$touched")
+        md-input-container.md-block(flex layout="row")
+          md-icon(md-font-set="fa fa-key")
+          input( ng-model="user.password" name="password" type="password" placeholder="Password" required="true" minlength="8")
+          div.messages(ng-messages="login.password.$error" ng-show="login.password.$touched")
             div(ng-if="login.password.$invalid && login.password.$dirty") Your password must not be less than 8 characters
-        div(layout="column" flex layout-align="center center")
+        .sign-in-footer(layout="column" flex layout-align="center center")
           p.link {{status}}
-          div(layout="column")
+          div(layout="column" layout-padding)
             md-button.md-raised.md-accent(type="submit" layout-padding ng-disabled="login.$invalid") Login
             h5 Create new account? &nbsp;
-              a(ng-click="signup()") Sign Up
+              a.sign-up-link(ng-click="signup()") Sign Up

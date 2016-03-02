@@ -7,21 +7,20 @@
         .text-center {{ loggedInUser.userName }}
         .text-center(style="font-size:0.8em") Role: {{loggedInUser.role}}
         .text-center.doc-no You've {{ docCount || 0 }} documents
-    md-divider
     md-content
-      md-list
-        md-subheader.md-no-sticky Dashboard
+      md-list.sidebar-widgits
+        div.md-padding.md-no-sticky Dashboard
         md-list-item(layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex)
-          i.navbar-icons(class="fa fa-file")
+          i(class="fa fa-file")
           h4 My Documents
         md-list-item(layout="column" ui-sref="dashboard.all")
-          i.navbar-icons(class="fa fa-file")
+          i(class="fa fa-file")
           h4 View Documents
-        md-list-item(ui-sref="dashboard.editProfile")
-          i.navbar-icons(class="fa fa-pencil-square-o")
+        md-list-item(layout="column" ui-sref="dashboard.editProfile")
+          i(class="fa fa-pencil-square")
           h4 Edit Profile
         md-divider
-        md-subheader.md-no-sticky(ng-if="isAdmin()" ui-sref="admin({id:loggedInUser._id})" flex layout-align="center center") Admin Panel
+        div.md-padding.md-no-sticky(ng-if="isAdmin()" ui-sref="admin({id:loggedInUser._id})" flex layout-align="center center") Admin Panel
         md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'role'})")
           i.navbar-icons(class="fa fa-user-secret")
           h4 Manage Roles
