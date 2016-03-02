@@ -1,15 +1,15 @@
 .admin-page
   div(ng-cloak)
-    md-content
+    md-content.dash
       md-tabs(md-dynamic-height, md-border-bottom md-selected="selectedIndex")
         md-tab(label='ROLES')
-          div(layout="row" layout-sm="column" flex-sm="33" style="background: whitesmoke")
-            h3.md-display-2.md-margin.text-center.admin-header ROLES DASHBOARD
+          div(layout="row" style="background: whitesmoke")
+            div.md-title.md-margin.text-center.admin-header(flex) ROLES DASHBOARD
             .admin-search-bar(layout="row" layout-align="end end")
               input(type="text" ng-model="searchBox" placeholder="Search role")
           md-content.md-padding(layout-align="start center")
             md-divider
-            div.md-margin(layout="row" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+            div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
               md-card
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
@@ -17,7 +17,7 @@
                       tr(md-row)
                         th(md-column, md-text) Role Id
                         th(md-column, md-text) Role Title
-                        th(md-column, md-text) Authorized Operations
+                        th(md-column, md-text) Action
                     tbody(md-body)
                       tr(md-row ng-repeat="role in roles | filter:searchBox")
                         td(md-cell) {{role._id}}
@@ -28,7 +28,7 @@
                 md-card-content
                   h5 Create New Role
                   p.sucess-text {{status}}
-                  form(method="post" enctype="multipart/form-data" ng-submit="createRoleBtn()")
+                  form.roles(method="post" enctype="multipart/form-data" ng-submit="createRoleBtn()")
                     md-input-container(md-block)
                       label Title
                       input(type="text" md-no-float placecholder="Enter your role here" ng-model="newRole.title" ng-required)
