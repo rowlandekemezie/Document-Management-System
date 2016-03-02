@@ -441,12 +441,16 @@ md-toolbar~md-content>md-list {
 .sidebar-widgits {
     text-align: left;
     font-size: 1.0em;
-    md-list-item {h4 {
-        font-size: 1.0em;
-        margin-left: 7px;
-        margin-top: 17px;
-    }}
+    md-list-item {
+        h4 {
+            font-size: 0.8em;
+            margin-left: 7px;
+            margin-top: 15px;
+        }
+    }
     .fa {
+            font-size: 0.8em;
+            margin-top: 5px;
         color: #2d355f !important;
     }
 }
@@ -494,10 +498,20 @@ md-sidenav .ripple-container {
 
 .editForm {
     border: 3px solid ghostwhite;
-    background-color: whitesmoke;
     text-align: center;
     border-radius: 10px;
     z-index: 20px;
+    min-width: 450px;
+    .fa {
+        color: #2d355f !important;
+        margin-right: 5px;
+    }
+    .md-button {
+        span {
+            margin-left: 5px;
+            font-size: 12px;
+        }
+    }
 }
 
 
@@ -518,20 +532,7 @@ md-card {
     width: 50%;
     text-align: center;
     color: grey;
-    > md-card {
-        background-color: #D7D9E0;
-        border-radius: 10px;
-        opacity: 0.2%;
-        > theme .md-input,
-        md-input-container .md-input {
-            background-color: #D7D9E0;
-            color: black;
-        }
-        > container.md-default-theme .md-input,
-        md-input-container .md-input {
-            color: black!important;
-        }
-    }
+    min-width: 450px;
 }
 
 md-input-container textarea.md-input {
