@@ -3,7 +3,7 @@
 [![Codecov](https://img.shields.io/codecov/c/github/andela-rekemezie/Document-Management-System.svg)](https://codecov.io/github/andela-rekemezie/Document-Management-System)
 # DocKip
 
-DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and management documents with easy. 
+DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and manage documents with ease. 
 
 ## Installation
 
