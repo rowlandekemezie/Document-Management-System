@@ -17,7 +17,7 @@
    require('./controllers/header');
    require('./controllers/create-account');
    require('./controllers/dashboard');
-   require('./controllers/user-dialog');
+   require('./controllers/home.js');
    require('./controllers/document');
    require('./controllers/profile');
    require('./controllers/admin');
@@ -78,6 +78,7 @@
            .state('home', {
              url: '/',
              templateUrl: 'views/home.html',
+             controller: 'HomeCtrl'
            })
 
          .state('dashboard', {
@@ -86,15 +87,15 @@
            views: {
              '@': {
                templateUrl: 'views/users/dashboard.html',
-                controller: 'DashboardCtrl'
+               controller: 'DashboardCtrl'
              },
              'inner-view@dashboard': {
                templateUrl: 'views/users/user-documents.html'
              }
            }
          })
-         // TODO: Better use modal to edit profile
-         .state('dashboard.editProfile', {
+
+          .state('dashboard.editProfile', {
            url: '/edit',
            authenticate: true,
            views: {
@@ -120,8 +121,7 @@
            authenticate: true,
            views: {
              'inner-view@dashboard': {
-               templateUrl: 'views/all-documents.html',
-               controller: 'DashboardCtrl'
+               templateUrl: 'views/all-documents.html'
              }
            }
          })

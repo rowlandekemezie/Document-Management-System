@@ -6,14 +6,6 @@
       controller,
       Utils,
       state,
-      nav,
-      mdSidenav = function(direction) {
-        return {
-          toggle: function() {
-            nav = direction;
-          }
-        };
-      },
       stateParams = {
         id: ''
       },
@@ -21,7 +13,7 @@
         getUserDocs: function(id, limit, page, cb) {
           cb(null, ['Novels', 'Ado', 'Poets']);
         },
-        get: function(id, cb, cbb){
+        get: function(id, cb, cbb) {
           var user;
           cb(null, user);
           cbb();
@@ -35,8 +27,17 @@
           cb(null, [5]);
         },
         allDocCount: function(cb) {
-           cb(null, [5]);
+          cb(null, [5]);
         }
+      },
+      loggedInUser = {
+        _id: 1,
+        userName: 'Maryam',
+        firstName: 'Lawrence',
+        lastName: 'Emmanuel',
+        email: 'dotunrowland@gmail.com',
+        password: 'myPassword',
+        role: 'Trainer'
       };
 
     beforeEach(function() {
@@ -53,10 +54,10 @@
           $scope: scope,
           Users: Users,
           Documents: Documents,
-          $stateParams: stateParams,
-          $mdSidenav: mdSidenav
+          $stateParams: stateParams
         });
       });
+      scope.loggedInUser = loggedInUser;
       stateParams = {
         id: 1
       };
@@ -87,30 +88,30 @@
       expect(scope.userDocs).toEqual(['Novels', 'Ado', 'Poets']);
     });
 
-    it('should load anotheer page', function(){
-        scope.nextPage();
-        expect(scope.param.page).toEqual(2);
+    it('should load anotheer page', function() {
+      scope.nextPage();
+      expect(scope.param.page).toEqual(2);
     });
 
-    it('should load previous page', function(){
+    it('should load previous page', function() {
       scope.previousPage();
       expect(scope.param.page).toEqual(0);
     });
 
-    it('should disable next page button', function(){
-       scope.allDocCount = 4;
+    it('should disable next page button', function() {
+      scope.allDocCount = 4;
       spyOn(scope, 'numberOfPages').and.callThrough();
       expect(scope.disableNextPage()).toBe(false);
     });
 
-    it('should disable previous page button', function(){
+    it('should disable previous page button', function() {
       spyOn(scope, 'numberOfPages').and.callThrough();
       expect(scope.disablePreviousPage()).toBe(true);
     });
 
-    it('should call numberOfPages', function(){
-       scope.allDocCount = 4;
-       expect(scope.numberOfPages()).toEqual(2);
+    it('should call numberOfPages', function() {
+      scope.allDocCount = 4;
+      expect(scope.numberOfPages()).toEqual(2);
     });
 
     it('should call isAdmin function and be truthy', function() {
@@ -131,9 +132,70 @@
       expect(isAdmin).toBeFalsy();
     });
 
-    it('should call toggleList function', function() {
-      scope.toggleList();
-      expect(nav).toEqual('left');
+    it('should assign delete privilege on a document', function() {
+      scope.loggedInUser = {
+        role: 'SuperAdmin',
+        _id: 1
+      };
+      scope.doc = {
+        ownerId: 1
+      };
+
+      expect(scope.canDelete({
+        doc: scope.doc
+      })).toBeTruthy();
+    });
+
+    it('should assert that only SuperAdmin and document owner can delete a documen', function() {
+      scope.loggedInUser = {
+        role: 'Documentarian',
+        _id: 2
+      };
+      scope.doc = {
+        ownerId: 1
+      };
+      expect(scope.canDelete({
+        doc: scope.doc
+      })).toBeFalsy();
+    });
+
+    it('should assign edit privilege on a document', function() {
+      scope.loggedInUser = {
+        role: 'Documentarian',
+        _id: 1
+      };
+      scope.doc = {
+        ownerId: 2
+      };
+      expect(scope.canEdit({
+        doc: scope.doc
+      })).toBeTruthy();
+    });
+
+    it('should assert that same role has edit privilege on a document', function() {
+      scope.loggedInUser = {
+        role: 'Trainer',
+      };
+      scope.doc = {
+        role: 'Trainer',
+      };
+      expect(scope.canEdit({
+        doc: scope.doc
+      })).toBeTruthy();
+    });
+
+    it('should assert that only SuperAdmin, Documentarian, and owner or same role can edit a document', function() {
+      scope.loggedInUser = {
+        _id: 1,
+        role: 'Trainer'
+      };
+      scope.doc = {
+        _id: 2,
+        role: 'Admin'
+      };
+      expect(scope.canEdit({
+        doc: scope.doc
+      })).toBeFalsy();
     });
   });
 })();

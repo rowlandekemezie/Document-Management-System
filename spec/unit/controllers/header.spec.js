@@ -65,14 +65,12 @@
       spyOn(state, 'go').and.callThrough();
       spyOn(scope, 'loggedIn').and.callThrough();
       spyOn(route, 'reload').and.callThrough();
-      // spyOn(console, 'log').and.callThrough();
       scope.logoutUser();
       expect(Users.logout).toHaveBeenCalled();
       expect(Auth.logout).not.toHaveBeenCalled();
       expect(state.go).not.toHaveBeenCalled();
       expect(route.reload).not.toHaveBeenCalled();
       expect(scope.loggedIn).toBeTruthy();
-      //expect(console.log).toHaveBeenCalled();
     });
 
     it('should call toggleList function', function() {

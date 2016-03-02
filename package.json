@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "build": "gulp build && node index.js",
-    "test": "istanbul cover -x *.spec.js _mocha -- -R spec spec/server/",
+    "test": "istanbul cover -x *.spec.js  -x **/seeds/** -x index.js _mocha -- -R spec spec/server/",
     "fend:test": "gulp test:fend",
     "initDb": "node index.js initDb",
     "check-coverage": "istanbul check-coverage --statements 80 --branches 60 --statements 80 --lines 80",

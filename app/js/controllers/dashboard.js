@@ -9,10 +9,8 @@
       '$scope',
       '$rootScope',
       '$stateParams',
-      '$state',
-      '$mdSidenav',
       function(Users, Roles, Documents, $scope, $rootScope,
-        $stateParams, $state, $mdSidenav) {
+        $stateParams) {
 
         $scope.param = {
           limit: 6,
@@ -81,7 +79,7 @@
           return Math.ceil($scope.allDocCount / $scope.param.limit);
         };
 
-
+        // Admin privilege
         $scope.isAdmin = function() {
           if ($rootScope.loggedInUser.role === 'SuperAdmin' &&
             $rootScope.loggedInUser.userName === 'BuddyMaster') {
@@ -91,8 +89,29 @@
           }
         };
 
-        $scope.toggleList = function() {
-          $mdSidenav('left').toggle();
+        // Delete priviliege
+        $scope.canDelete = function(doc) {
+          if ($rootScope.loggedInUser._id === doc.ownerId ||
+            $rootScope.loggedInUser.role === 'SuperAdmin') {
+            return true;
+          } else {
+            return false;
+          }
+        };
+
+        // Edit privileges
+        $scope.canEdit = function(doc) {
+          if ($rootScope.loggedInUser._id === doc.ownerId) {
+            return true;
+          }
+          if ($rootScope.loggedInUser.role === 'SuperAdmin') {
+            return true;
+          }
+          if ($rootScope.loggedInUser.role === doc.role ||
+            $rootScope.loggedInUser.role === 'Documentarian') {
+            return true;
+          }
+          return false;
         };
       }
     ]);

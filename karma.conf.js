@@ -32,6 +32,7 @@ module.exports = function(config) {
       'public/lib/angular-mocks/angular-mocks.js',
       'public/lib/sinonjs/sinon.js',
       'public/lib/jasmine-sinon/lib/jasmine-sinon.js',
+      'public/lib/moment/min/moment.min.js',
       'public/js/application.js',
       'spec/unit/**/*.spec.js'
     ],
@@ -53,7 +54,7 @@ module.exports = function(config) {
     // possible values: 'dots', 'progress', 'junit', 'growl',
     // 'coverage', 'spec', 'failed'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: [ 'coverage', 'progress', 'coveralls'],
+    reporters: ['coverage', 'progress', 'coveralls'],
 
     // web server port
     port: 9876,

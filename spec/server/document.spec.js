@@ -274,6 +274,20 @@
           });
       });
 
+      it('should return null when a role has no document', function(done) {
+        request.get('/api/documents/role/' + 'admin' + '/' + limit)
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(404);
+            expect(res.body).not.to.be.a('null');
+            expect(res.body).contain({
+              success: false,
+              message: 'Role has no document'
+            });
+            done();
+          });
+      });
+
       it('should return documents for a specfic date', function(done) {
         request.get('/api/documents/date/' + date + '/' + limit)
           .set('x-access-token', userToken)
@@ -286,6 +300,27 @@
                 'their great outward look at all times as a demonstration of ' +
                 'their royalty',
               role: 'Documentarian'
+            });
+            done();
+          });
+      });
+
+      it('should return null when a date has no document', function(done) {
+         Document.remove({}, function() {
+          User.remove({}, function() {
+            Role.remove({}, function() {
+              done();
+            });
+          });
+        });
+        request.get('/api/documents/date/' + 'wrongdate' + '/' + limit)
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(404);
+            expect(res.body).not.to.be.a('null');
+            expect(res.body).contain({
+              success: false,
+              message: 'No document found'
             });
             done();
           });
@@ -351,6 +386,17 @@
               success: true,
               message: 'Document updated successfully'
             });
+            done();
+          });
+      });
+
+      it('should not return document for invalid id', function(done) {
+        var invalidId = '4edd40c86762e0fb1200000fdff3';
+        request.put('/api/documents/' + invalidId)
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(500);
+            expect(res).not.to.be.a('null');
             done();
           });
       });
