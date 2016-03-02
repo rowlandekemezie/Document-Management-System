@@ -16,7 +16,7 @@ DocKip is a custom document magement system built with Express, Node, and Mongod
 7. Place a `.env` file on the project's root directory and add your database configuration.
 
  **EXAMPLE**
-   `DATABASE_URL=mongodb://mongodb://localhost:27017/testdb.`
+   `DATABASE_URL=mongodb://localhost:27017/testdb.`
 8. Run `npm run initDb` to initialize your database with a SuperAdmin user.
 
 ### Project Management
