@@ -41,16 +41,7 @@
           $scope.status = '';
           Users.login($scope.user, function(err, res) {
             if (!err && res) {
-              Auth.setToken(res.token);
-              $rootScope.loggedInUser = res.user;
-              $state.go('dashboard', {
-                id: res.user._id
-              }, {
-                reload: true
-              });
-              Utils.toast('Welcome to DocKip ' + res.user.userName);
-              $scope.status = res.message;
-              $mdDialog.cancel();
+              setToken(res);
             } else if (err.status === 406) {
               $scope.status = 'Error logging in.';
             } else {
@@ -62,8 +53,8 @@
         // function to submit form
         $scope.createUser = function() {
           $scope.status = '';
-          Users.save($scope.user, function() {
-            $scope.userLogin();
+          Users.save($scope.user, function(res) {
+            setToken(res);
           }, function(err) {
             if (err.status === 409) {
               $scope.status = 'User already exist';
@@ -74,6 +65,18 @@
             }
           });
         };
+
+        function setToken(res) {
+          Auth.setToken(res.token);
+          $rootScope.loggedInUser = res.user;
+          $state.go('dashboard', {
+            id: res.user._id
+          }, {
+            reload: true
+          });
+          Utils.toast('Welcome to DocKip ' + res.user.userName);
+          $mdDialog.cancel();
+        }
       }
     ]);
 })();

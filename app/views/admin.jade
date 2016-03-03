@@ -34,13 +34,13 @@
                       input(type="text" md-no-float placecholder="Enter your role here" ng-model="newRole.title" ng-required)
                     md-button.md-raised.md-accent(type="submit") Create
         md-tab(label='USERS')
-          md-content.md-padding
-            div.hide-sm(layout="row" layout-sm="column" flex style="background: whitesmoke")
-              h3.md-display-2.text-center.admin-header USERS DASHBOARD
-              .admin-search-bar(layout="row" layout-align="end end")
-                input(type="text" ng-model="searchBox" placeholder="Search users")
+          div(layout="row" style="background: whitesmoke")
+            div.md-title.md-margin.text-center.admin-header(flex) USERS DASHBOARD
+            .admin-search-bar(layout="row" layout-align="end end")
+              input(type="text" ng-model="searchBox" placeholder="Search users")
+          md-content.md-padding(layout-align="start center")
             md-divider
-            div.md-margin(layout="column" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+            div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
               md-card
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
@@ -52,7 +52,7 @@
                         th(md-column, md-text) LastName
                         th(md-column, md-text) Email
                         th(md-column, md-text) Role
-                        th(md-column, md-text) Authorized Operations
+                        th(md-column, md-text) Actions
                     tbody(md-body)
                       tr(md-row ng-repeat="user in users | filter:searchBox")
                         td(md-cell) {{user._id}}
@@ -91,15 +91,13 @@
                       md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
                       md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})") Cancel
         md-tab(label='DOCUMENTS')
-          md-content.md-padding
-            md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
-              span.fa.fa-plus.fa-lg
-              md-tooltip(md-direction='left') create new document
-            div.hide-sm(layout="row" layout-sm="column" flex style="background: whitesmoke")
-              h3.md-display-2.text-center.admin-header DOCUMENTS DASHBOARD
-              .admin-search-bar(layout="row" layout-align="end end")
-                input(type="text" ng-model="searchBox" placeholder="Search documents")
+          div(layout="row" style="background: whitesmoke")
+            div.md-title.md-margin.text-center.admin-header(flex) DOCUMENTS DASHBOARD
+            .admin-search-bar(layout="row" layout-align="end end")
+              input(type="text" ng-model="searchBox" placeholder="Search document")
+          md-content.md-padding(layout-align="start center")
             md-divider
+            div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
             md-card
               md-table-container
                 table(md-table style="border:2px")
@@ -112,7 +110,7 @@
                       th(md-column, md-text) Date Modified
                       th(md-column, md-text) Document Title
                       th(md-column, md-text) Document Content
-                      th(md-column, md-text) Authorized Operations
+                      th(md-column, md-text) Actions
                   tbody(md-body)
                     tr(md-row ng-repeat="doc in documents | filter:searchBox")
                       td(md-cell) {{doc._id}}

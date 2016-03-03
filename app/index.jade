@@ -1,10 +1,13 @@
 doctype html
 html(lang="en" ng-app="docKip")
-	head
-		include shared/head
-	body
-		main
-			include shared/header
-			md-content(ui-view)
-	footer
-		include shared/footer
+  head
+    include shared/head
+  body
+    main
+      div(layout="row" flex)
+        include views/users/side
+        div(layout="column" flex)
+          include shared/header
+          div(ui-view)
+  footer
+    include shared/footer

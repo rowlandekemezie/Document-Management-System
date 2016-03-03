@@ -11,6 +11,7 @@
       '$scope',
       '$stateParams',
       function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
+        $scope.currentState = $state.current.name;
         switch ($stateParams.section) {
           case 'role':
             $scope.selectedIndex = 0;
@@ -84,6 +85,7 @@
 
         // Delete user button
         function deleteUser() {
+          $scope.status = '';
           Users.remove({
             id: $scope.user._id
           }, function(res) {
@@ -107,6 +109,7 @@
 
         // Create role button
         $scope.createRoleBtn = function() {
+          $scope.status = '';
           Roles.save($scope.newRole, function(res) {
             Utils.toast('Role created');
             $scope.roles.push(res.role);
@@ -120,6 +123,7 @@
 
         // Delete role function
         function deleteRole() {
+          $scope.status = '';
           Roles.remove({
             id: $scope.role._id
           }, function(res) {

@@ -13,7 +13,7 @@
         $stateParams) {
 
         $scope.param = {
-          limit: 6,
+          limit: 8,
           page: 1
         };
 
@@ -33,16 +33,16 @@
             }
           });
 
-          Documents.userDocCount($stateParams.id, function(err, num) {
-            if (!err && num) {
-              $scope.docCount = num;
-            }
-          });
-
           // Get document count for pagination
           Documents.allDocCount(function(err, num) {
             if (!err && num) {
               $scope.allDocCount = num;
+            }
+          });
+
+          Documents.userDocCount($stateParams.id, function(err, num) {
+            if (!err && num) {
+              $rootScope.loggedInUser.docCount = num;
             }
           });
 
@@ -55,7 +55,7 @@
           });
         };
 
-        $scope.init($scope.param);
+       $scope.init($scope.param);
 
         $scope.nextPage = function() {
           $scope.param.page += 1;
@@ -73,6 +73,14 @@
 
         $scope.disablePreviousPage = function() {
           return $scope.param.page === 1;
+        };
+
+        $scope.numberOfPage = function(){
+          return Math.ceil($rootScope.loggedInUser.docCount / $scope.param.limit);
+        };
+
+        $scope.disableNextPageUser = function(){
+          return $scope.param.page + 1 > $scope.numberOfPage();
         };
 
         $scope.numberOfPages = function() {

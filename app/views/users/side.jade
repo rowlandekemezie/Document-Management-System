@@ -1,0 +1,34 @@
+md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser"  ng-hide = "ui-sref(admin({id: loggedInUser._id}))")
+  div(ng-controller="DashboardCtrl")
+    md-toolbar.md-hue-2.toolbar-header
+      span(flex)
+      .md-toolbar-tools-bottom.inset(layout="column")
+        span
+        .logo-text.text-center(layout-padding) DocKip
+        md-divider
+        .sidebar-role
+          h5 {{ loggedInUser.role }}
+          .doc-no You've {{ loggedInUser.docCount || 0 }} document(s)
+    md-content
+      md-list.sidebar-widgits
+        div.md-padding.md-no-sticky Dashboard
+        md-list-item(layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex)
+          i(class="fa fa-file")
+          h4 My Documents
+        md-list-item(layout="column" ui-sref="dashboard.all")
+          i(class="fa fa-file")
+          h4 View Documents
+        md-list-item(layout="column" ui-sref="dashboard.editProfile")
+          i(class="fa fa-pencil-square")
+          h4 Edit Profile
+        md-divider
+        div.md-padding.md-no-sticky(ng-if="isAdmin()" ui-sref="admin({id:loggedInUser._id})" flex layout-align="center center") Admin Panel
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'role'})")
+          i.navbar-icons(class="fa fa-user-secret")
+          h4 Manage Roles
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeUsers($event)" ui-sref="admin({id:loggedInUser._id, section: 'user'})")
+          i.navbar-icons(class="fa fa-user")
+          h4 Manage Users
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeDoc($event)" ui-sref="admin({id:loggedInUser._id, section: 'documents'})")
+          i.navbar-icons(class="fa fa-list")
+          h4 Manage Documents
