@@ -38,6 +38,7 @@
           });
         };
 
+        console.log($scope.documents, 'All documents');
         $scope.init();
 
         Users.get({

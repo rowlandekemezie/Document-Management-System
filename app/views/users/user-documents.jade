@@ -1,4 +1,4 @@
-md-content.viewDocs(ng-if="loggedInUser" flex)
+md-content.viewDocs(ng-if="loggedInUser" flex="100")
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
@@ -6,7 +6,7 @@ md-content.viewDocs(ng-if="loggedInUser" flex)
     h4.md-padding(ng-if="userDocs.length === 0") It seems you've got no document. Start today
     div(ng-if="userDocs.length > 0" layout="column")
       .preview-header(layout layout-padding) MY DOCUMENTS
-      div.doc-container(layout="row" layout-align="start center")
+      div.doc-container(layout="row" layout-padding layout-align="start center" flex="100")
         div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index")
           md-card(flex-sm="100%")
             md-card-title.grid-header {{ doc.title }}

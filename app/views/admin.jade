@@ -40,7 +40,7 @@
               input(type="text" ng-model="searchBox" placeholder="Search users")
           md-content.md-padding(layout-align="start center")
             md-divider
-            div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
+            div.md-margin(md-padding flex layout="column" layout-align="center center")
               md-card
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
@@ -89,7 +89,7 @@
                         md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
                     div(layout="row")
                       md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
-                      md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})") Cancel
+                      md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" style="width:70px;") Cancel
         md-tab(label='DOCUMENTS')
           div(layout="row" style="background: whitesmoke")
             div.md-title.md-margin.text-center.admin-header(flex) DOCUMENTS DASHBOARD

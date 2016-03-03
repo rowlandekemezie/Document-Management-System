@@ -1,14 +1,14 @@
-md-content.viewDocs(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="column")
+md-content.viewDocs(ng-if="loggedInUser" flex="100")
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
   div(flex)
     h4.md-padding(ng-if="documents.length === 0") There are currently no documents. Start today
     div(ng-if="documents.length > 0" layout="column")
-      div.md-margin(style="margin-bottom: -6px;" layout="row" layout-sm="column" flex)
-        .preview-header(layout="start start")  DOCUMENTS VIEW
+      div.md-margin(style="margin-bottom: 0px;" layout="row" layout-sm="column" flex)
+        .preview-header(layout layout-padding)  DOCUMENTS VIEW
         md-button.md-primary.doc-no.all-doc Total documents {{ allDocCount }}
-      div.doc-container(layout="row" layout-align="center start" layout-wrap)
+      div.doc-container(layout="row" layout-align=" start center")
         div.doc-display(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
           md-card
             md-card-title.grid-header {{ doc.title }}

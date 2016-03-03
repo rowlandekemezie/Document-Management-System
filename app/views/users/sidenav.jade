@@ -1,4 +1,4 @@
-md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser"  ng-hide = "ui-sref(admin({id: loggedInUser._id}))")
+md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser"  ng-hide="ui-sref(admin({id: loggedInUser._id}))")
   div(ng-controller="DashboardCtrl")
     md-toolbar.md-hue-2.toolbar-header
       span(flex)
