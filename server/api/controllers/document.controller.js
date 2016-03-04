@@ -77,11 +77,6 @@
         .exec(function(err, docs) {
           if (err) {
             res.status(500).json(err);
-          } else if (docs.length < 1) {
-            res.json({
-              success: false,
-              message: 'No document found'
-            });
           } else {
             res.json(docs);
           }
@@ -101,7 +96,7 @@
           if (err) {
             res.status(500).json(err);
           } else if (!doc) {
-            res.status.json({
+            res.status(404).json({
               success: false,
               message: 'No document found for the Id'
             });
@@ -178,7 +173,12 @@
       Document.findByIdAndUpdate(req.params.id, req.body, function(err, doc) {
         if (err) {
           res.status(500).json(err);
-        } else {
+        } else if (!doc) {
+          res.status(404).json({
+            success: false,
+            message: 'Document not available'
+          });
+        }else {
           res.json({
             success: true,
             doc: doc,
@@ -197,6 +197,11 @@
       Document.findByIdAndRemove(req.params.id, function(err, doc) {
         if (err) {
           res.status(500).json(err);
+        } else if (!doc) {
+          res.status(404).json({
+            success: false,
+            message: 'Document not available'
+          });
         } else {
           res.json({
             success: true,

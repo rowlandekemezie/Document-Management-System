@@ -204,12 +204,7 @@
       User.find({}, function(err, users) {
         if (err) {
           res.status(500).json(err);
-        } else if (!users) {
-          res.json({
-            success: false,
-            message: 'No user found'
-          });
-        } else {
+        }  else {
           res.json(users);
         }
       });

@@ -55,7 +55,7 @@
           });
         };
 
-       $scope.init($scope.param);
+       // $scope.init($scope.param);
 
         $scope.nextPage = function() {
           $scope.param.page += 1;

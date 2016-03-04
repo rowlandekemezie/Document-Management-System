@@ -1,8 +1,10 @@
 md-toolbar.header-tab.md-whiteframe-z2(layout="row" ng-cloak='' ng-controller="HeadCtrl")
   .md-toolbar-tools
-    i.hide-gt-md(class="material-icons" ng-click="toggleList()", aria-label="toggleList") view_headline
+    i.hide-gt-sm(class="material-icons" ng-click="toggleList()", aria-label="toggleList") view_headline
     a.logo-text(ng-if="!loggedInUser") DocKip
     span(flex='')
+    md-button.md-icon-button(ui-sref="home")
+      i.material-icons home
     a(ng-if="loggedIn" ui-sref="dashboard({id: loggedInUser._id})")
       | {{ loggedInUser.userName }}
       md-tooltip {{ loggedInUser.userName }}

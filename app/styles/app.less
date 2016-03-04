@@ -29,17 +29,16 @@ img {
 
 .jumbobox {
     text-align: center;
-    min-width: 200px;
+    width: 100%;
     height: 500px;
     animation: jux 5s infinite;
     background: url("../images/banner1.jpg");
-    background-repeat: repeat-x;
     @media (max-width: 599px) {
         width: 100%;
         height: auto;
     }
     @media (min-width: 1440px) {
-        width: 60%;
+        width: 100%;
     }
     ;
 }
@@ -60,16 +59,52 @@ img {
     ;
 }
 
+.home-page {
+    width: 100%;
+    min-width: 256px;
+    padding-top: 3px;
+    position: relative;
+    margin: auto;
+    opacity: 80%;
+    color: black;
+    overflow: hidden;
+
+}
+.home-page-menu {
+    width: 100%;
+}
+.home-page-description {
+    margin-top: -15px;
+    font-size: 1.4em
+}
+
+.describe-page {
+    text-align: left;
+    width: 100%;
+    position: relative;
+    line-height: 40px;
+    font-size: 1.8em;
+    padding-left: 20px;
+    min-width: 256px;
+    > .fa {
+        color: #2d355f;
+        float: left;
+        padding-right: 10px;
+    }
+
+    > h3,
+    h5 {
+        line-height: 1.5em;
+    }
+}
+
 .box {
     text-align: center;
     width: 100%;
-    margin-top: 50px;
+    margin-top: 70px;
     font-size: 40px;
     padding-top: 10px;
-    min-width: 300px !important;
     line-height: 1.5em;
-    height: 150px !important;
-    max-height: 45% !important;
     color: white;
     animation: jux 5s infinite;
     z-index: 50px;
@@ -102,17 +137,6 @@ a.md-button.md-primary.md-raised {
     transform: translateY(4px);
 }
 
-.home-page {
-    width: 100%;
-    min-height: 660px;
-    padding-top: 3px;
-    position: relative;
-    margin: auto;
-    opacity: 80%;
-    color: black;
-    overflow: hidden;
-    min-width: 500px;
-}
 
 a {
     font-size: 18px;
@@ -211,13 +235,15 @@ input {
 }
 
 .messages {
+    font-size:12px;
     >div {
         margin-top: 5px;
     }
-    font-size:12px;
+
 }
 
 .sign-up-wrap {
+    color: black;
     margin: 0 auto;
     width: 350px;
     background-color: #fff;
@@ -228,7 +254,7 @@ input {
         a {
             font-size: 12px;
         }
-        color: black;
+
     }
     form {
         width: 90%;
@@ -409,6 +435,7 @@ div > md-button {
     color: rgb(232, 58, 144);
     font-weight: bolder;
     font-size: 15px;
+    margin-left: 65px;
 }
 
 .text-center {
@@ -658,6 +685,9 @@ md-input-container textarea.md-input {
         color: black !important;
         background-color: white;
     }
+    .page-font {
+        font-size: 0.4em;
+    }
 }
 .admin-header {
     background: whitesmoke;
@@ -673,10 +703,6 @@ md-input-container textarea.md-input {
     cursor: pointer;
     font-size: 1.3em;
     text-decoration: none;
-}
-.home-page-description {
-    margin-top: -15px;
-    font-size: 1.4em
 }
 .back-icon {
     font-size: 3em;
@@ -713,20 +739,7 @@ md-input-container textarea.md-input {
         font-size: 1.0em;
     }
 }
-.describe-page {
-    text-align: left;
-    width: 33%;
-    line-height: 40px;
-    font-size: 1.8em;
-    padding-left: 20px;
-    > .fa {
-        color: #2d355f;
-        float: left;
-        padding-right: 10px;
-    }
-
-    > h3,
-    h5 {
-        line-height: 1.5em;
-    }
+.custom-btn  {
+    width: 50px;
+    height: 20px;
 }

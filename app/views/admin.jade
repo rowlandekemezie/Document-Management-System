@@ -19,7 +19,7 @@
                         th(md-column, md-text) Role Title
                         th(md-column, md-text) Action
                     tbody(md-body)
-                      tr(md-row ng-repeat="role in roles | filter:searchBox")
+                      tr(md-row ng-repeat="role in roles | filter:searchBox track by $index")
                         td(md-cell) {{role._id}}
                         td(md-cell) {{role.title}}
                         td(md-cell)
@@ -54,7 +54,7 @@
                         th(md-column, md-text) Role
                         th(md-column, md-text) Actions
                     tbody(md-body)
-                      tr(md-row ng-repeat="user in users | filter:searchBox")
+                      tr(md-row ng-repeat="user in users | filter:searchBox track by $index")
                         td(md-cell) {{user._id}}
                         td(md-cell) {{user.userName}}
                         td(md-cell) {{user.name.firstName}}
@@ -100,7 +100,7 @@
             div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
             md-card
               md-table-container
-                table(md-table style="border:2px")
+                table.page-font(md-table style="border:2px")
                   thead(md-head)
                     tr(md-row)
                       th(md-column, md-text) DocNo Id
@@ -109,18 +109,16 @@
                       th(md-column, md-text) Date Created
                       th(md-column, md-text) Date Modified
                       th(md-column, md-text) Document Title
-                      th(md-column, md-text) Document Content
                       th(md-column, md-text) Actions
                   tbody(md-body)
-                    tr(md-row ng-repeat="doc in documents | filter:searchBox")
+                    tr(md-row ng-repeat="doc in documents | filter:searchBox track by $index")
                       td(md-cell) {{doc._id}}
                       td(md-cell) {{doc.role}}
                       td(md-cell) {{user.userName}}
                       td(md-cell) {{doc.createdAt | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.lastModified | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.title}}
-                      td(md-cell ng-bind-html="doc.content | limitTo: 50")
-                      td(md-cell)
+                      td(md-cell layout="row")
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
                         i.material-icons(ui-sref="dashboard.view-document({docid: doc._id})") pageview
 

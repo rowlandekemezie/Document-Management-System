@@ -11,7 +11,6 @@
       '$scope',
       '$stateParams',
       function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
-        $scope.currentState = $state.current.name;
         switch ($stateParams.section) {
           case 'role':
             $scope.selectedIndex = 0;
@@ -33,12 +32,13 @@
           Roles.query(function(res) {
             $scope.roles = res;
           });
-          Documents.query(function(res) {
-            $scope.documents = res;
+          Documents.getAllDocs(0, 0, function(err, res) {
+            if (!err && res) {
+              $scope.documents = res;
+            }
           });
         };
 
-        console.log($scope.documents, 'All documents');
         $scope.init();
 
         Users.get({
@@ -65,7 +65,7 @@
           Documents.remove({
             id: $scope.doc._id
           }, function(res) {
-            Utils.toast('Your document has been successfully deleted');
+            Utils.toast('Document successfully deleted');
             $scope.documents.splice($scope.documents.indexOf(res.doc), 1);
           }, function() {
             $scope.status = 'There was problem deleting document';
