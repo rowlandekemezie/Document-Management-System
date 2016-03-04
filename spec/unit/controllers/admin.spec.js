@@ -62,7 +62,7 @@
       state = $injector.get('$state');
       httpBackend = $injector.get('$httpBackend');
 
-      httpBackend.when('GET', '/api/users/userInSession').respond(200, {
+      httpBackend.when('GET', '/api/users/session').respond(200, {
         user: {
           userName: 'rowlandigwe',
           email: 'great@email.com',

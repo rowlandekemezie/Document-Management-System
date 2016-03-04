@@ -16,7 +16,7 @@
       httpBackend = $injector.get('$httpBackend');
       http = $injector.get('$http');
 
-      httpBackend.when('GET', '/api/users/userInSession').respond(200, [{
+      httpBackend.when('GET', '/api/users/session').respond(200, [{
         res: 'res'
       }]);
 

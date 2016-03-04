@@ -349,7 +349,7 @@
         expiresIn: 86400 // expires in 24hrs
       });
 
-      request.get('/api/users/UserInSession')
+      request.get('/api/users/session')
         .set('x-access-token', token)
         .end(function(err, res) {
           expect(res.status).to.equal(200);

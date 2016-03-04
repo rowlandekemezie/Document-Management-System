@@ -14,7 +14,7 @@
     beforeEach(inject(function($injector) {
       httpBackend = $injector.get('$httpBackend');
       scope = $injector.get('$rootScope');
-      httpBackend.when('GET', '/api/users/userInSession')
+      httpBackend.when('GET', '/api/users/session')
         .respond(200, {
           res: 'res'
         });
@@ -83,18 +83,6 @@
         expect(cb.args[0][0]).toBe(null);
         expect(cb.args[0][1].res).toBe('res');
       });
-
-      //   it('should return err on session is invalid', function() {
-      //     var cb = sinon.spy();
-      //     httpBackend.when('GET', '/api/users/userInSession')
-      //     .respond(500, {
-      //       err: 'err'
-      //     });
-      //     Users.getUser(cb);
-      //     httpBackend.flush();
-      //     expect(cb.called).toBe(true);
-      //     expect(cb.args[0][0].err).toBe('err');
-      //   });
     });
 
     describe('User logout tests', function() {
