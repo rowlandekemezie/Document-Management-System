@@ -23,16 +23,16 @@
             }
           });
         },
-        save: function(user, cb) {
+        save: function(user, cb, cbb) {
+          var res = {user:{name: 'Abiodun', email: '1'}, name: 'Abiodun', token: '12345'};
           if (user) {
-            cb(user);
-          } else {
-            cb({
-              err: {
-                status: 406
-              }
-            });
+            cb(res);
           }
+          cbb({
+            err: {
+              status: 406
+            }
+          });
         }
       };
 
@@ -55,22 +55,22 @@
     }));
 
     it('should assset that scope.cancel is a function', function(){
-      spyOn(mdDialog, 'cancel')
+      spyOn(mdDialog, 'cancel');
       scope.cancel();
       expect(mdDialog.cancel).toHaveBeenCalled();
     });
 
-    it('should assset that scope.hide is a function', function(){
-      spyOn(mdDialog, 'hide')
+    it('should assset that scope.hide is a function', function() {
+      spyOn(mdDialog, 'hide');
       scope.hide();
       expect(mdDialog.hide).toHaveBeenCalled();
     });
 
-    it('should assset that scope.signup is a function', function(){
+    it('should assset that scope.signup is a function', function() {
       expect(typeof scope.signup).toBe('function');
     });
 
-    it('should assset that scope.login is a function', function(){
+    it('should assset that scope.login is a function', function() {
       expect(typeof scope.login).toBe('function');
     });
 
@@ -85,7 +85,8 @@
       spyOn(Users, 'save').and.callThrough();
       spyOn(Auth, 'setToken').and.callThrough();
       spyOn(state, 'go').and.callThrough();
-      spyOn(scope, 'userLogin').and.callThrough();
+      spyOn(mdDialog, 'cancel');
+      spyOn(Utils, 'toast');
       scope.user = {
         firstName: 'Abu',
         lastName: 'lulu',
@@ -100,7 +101,8 @@
       expect(Auth.setToken).toHaveBeenCalled();
       expect(state.go).toHaveBeenCalled();
       expect(scope.loggedInUser).toBeDefined();
-      expect(scope.userLogin).toHaveBeenCalled();
+      expect(mdDialog.cancel).toHaveBeenCalled();
+      expect(Utils.toast).toHaveBeenCalled();
     });
 
     it('should call the save function unsuccesfully', function() {
@@ -113,6 +115,8 @@
       expect(Auth.setToken).not.toHaveBeenCalled();
       expect(state.go).not.toHaveBeenCalled();
       expect(scope.loggedInUser).not.toBeDefined();
+      expect(scope.loggedInUser).not.toBeDefined();
+      expect(Utils.toast).not.toHaveBeenCalled();
     });
 
     it('should call login function on loginUser', function() {

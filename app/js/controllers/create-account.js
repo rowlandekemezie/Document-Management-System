@@ -41,7 +41,7 @@
           $scope.status = '';
           Users.login($scope.user, function(err, res) {
             if (!err && res) {
-              setToken(res);
+              storeToken(res);
             } else if (err.status === 406) {
               $scope.status = 'Error logging in.';
             } else {
@@ -54,7 +54,7 @@
         $scope.createUser = function() {
           $scope.status = '';
           Users.save($scope.user, function(res) {
-            setToken(res);
+            storeToken(res);
           }, function(err) {
             if (err.status === 409) {
               $scope.status = 'User already exist';
@@ -66,7 +66,7 @@
           });
         };
 
-        function setToken(res) {
+        function storeToken(res) {
           Auth.setToken(res.token);
           $rootScope.loggedInUser = res.user;
           $state.go('dashboard', {

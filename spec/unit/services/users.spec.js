@@ -24,7 +24,7 @@
           res: 'res'
         }]);
 
-        httpBackend.when('GET', 'views/404.html')
+      httpBackend.when('GET', 'views/404.html')
         .respond(200, [{
           res: 'res'
         }]);
@@ -144,7 +144,8 @@
           });
         var cb = sinon.spy();
         Users.getUserDocs({
-          id: 'id'}, 10, 5, cb);
+          id: 'id'
+        }, 10, 5, cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
@@ -159,8 +160,9 @@
           });
         var cb = sinon.spy();
         Users.getUserDocs({
-          id: 'id'}, 10, 5,cb);
-          httpBackend.flush();
+          id: 'id'
+        }, 10, 5, cb);
+        httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0].err).toBe('err');
       });

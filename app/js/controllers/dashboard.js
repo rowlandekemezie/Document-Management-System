@@ -55,8 +55,6 @@
           });
         };
 
-       // $scope.init($scope.param);
-
         $scope.nextPage = function() {
           $scope.param.page += 1;
           $scope.init($scope.param);
@@ -76,7 +74,8 @@
         };
 
         $scope.numberOfPage = function(){
-          return Math.ceil($rootScope.loggedInUser.docCount / $scope.param.limit);
+          var docCount = $rootScope.loggedInUser.docCount;
+          return Math.ceil(docCount / $scope.param.limit);
         };
 
         $scope.disableNextPageUser = function(){

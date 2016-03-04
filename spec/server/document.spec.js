@@ -257,6 +257,25 @@
           });
       });
 
+      it('should return null when a role has no document', function(done) {
+        Document.remove({}, function() {
+          User.remove({}, function() {
+            Role.remove({}, function() {
+              done();
+            });
+          });
+        });
+
+        request.get('/api/documents/role/' + 'admin' + '/' + limit)
+          .set('x-access-token', userToken)
+          .end(function(err, res) {
+            expect(res.status).to.equal(404);
+            expect(res.body).not.to.be.a('null');
+            expect(res.body.length).to.equal(0);
+            done();
+          });
+      });
+
       it('should return documents for a specfic role', function(done) {
         request.get('/api/documents/role/' + roleTitle + '/' + limit)
           .set('x-access-token', userToken)
@@ -269,20 +288,6 @@
                 'their great outward look at all times as a demonstration ' +
                 'of their royalty',
               role: 'Documentarian'
-            });
-            done();
-          });
-      });
-
-      it('should return null when a role has no document', function(done) {
-        request.get('/api/documents/role/' + 'admin' + '/' + limit)
-          .set('x-access-token', userToken)
-          .end(function(err, res) {
-            expect(res.status).to.equal(404);
-            expect(res.body).not.to.be.a('null');
-            expect(res.body).contain({
-              success: false,
-              message: 'Role has no document'
             });
             done();
           });
@@ -306,13 +311,14 @@
       });
 
       it('should return null when a date has no document', function(done) {
-         Document.remove({}, function() {
+        Document.remove({}, function() {
           User.remove({}, function() {
             Role.remove({}, function() {
               done();
             });
           });
         });
+
         request.get('/api/documents/date/' + 'wrongdate' + '/' + limit)
           .set('x-access-token', userToken)
           .end(function(err, res) {
@@ -327,16 +333,21 @@
       });
 
       it('should not return document for an invalid user Id', function(done) {
-        var invalidId = mongoose.Types.ObjectId('4edd40c86762e0fb12000003');
+        var invalidId = mongoose.Types.ObjectId('4ecc40c86762e0fb12000003');
+        Document.remove({}, function() {
+          User.remove({}, function() {
+            Role.remove({}, function() {
+              done();
+            });
+          });
+        });
+
         request.get('/api/users/' + invalidId + '/documents')
           .set('x-access-token', userToken)
           .end(function(err, res) {
             expect(res.status).to.equal(404);
             expect(res.body).not.to.be.a('null');
-            expect(res.body).contain({
-              success: false,
-              message: 'User has no document'
-            });
+            expect(res.body.length).to.equal(0);
             done();
           });
       });

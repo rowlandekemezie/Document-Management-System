@@ -14,14 +14,14 @@ md-content.viewDocs(ng-if="loggedInUser" flex="100" ng-init="init(param)")
             md-card-content.doc-content.md-margin(layout="column" layout-align="start start" layout-padding ng-bind-html="doc.content" class="md-clickable")
             div(layout-align="column")
               div.md-card-actions.doc-operations(layout="row" layout-align="end end" layout-padding)
-                i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
+                i.fa.fa-eye.preview-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})")
                   md-tooltip click to preview
-                i.fa.fa-pencil-square-o(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+                i.fa.fa-pencil-square-o.preview-icons(layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
                   md-tooltip click to edit
               div.preview-footer(flex layout="column" layout-padding)
                 h5 Created {{ doc.lastModified | DateFormatter }}
                 | by you
-    div(layout="row" layout-align="end end")
-      md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
-      .paginate {{ param.page }} / {{ numberOfPages() }}
-      md-button.md-primary.page-button(ng-disabled="disableNextPageUser()" ng-click="nextPage()") Next
+      div(layout="row" layout-align="end end")
+        md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
+        .paginate {{ param.page }} / {{ numberOfPages() || 1 }}
+        md-button.md-primary.page-button(ng-disabled="disableNextPageUser()" ng-click="nextPage()") Next
