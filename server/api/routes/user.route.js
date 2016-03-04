@@ -12,7 +12,7 @@
       .post(userController.login);
 
     // getting the user information
-    router.route('/users/UserInSession')
+    router.route('/users/session')
      .get(userController.session);
 
     // route for logout. This requires that a user is signIn
