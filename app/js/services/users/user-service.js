@@ -40,7 +40,7 @@
 
         // get the details of the loggedIn user
         user.getUser = function(cb) {
-          $http.get('/api/users/userInSession', {
+          $http.get('/api/users/session', {
             cache: true
           })
             .success(function(res) {

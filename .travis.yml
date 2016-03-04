@@ -42,7 +42,7 @@ deploy:
   provider: heroku
   api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
   app:
-    develop: dockip-develop
+    develop: dockip
     master: dockip
 after_deploy:
   - gulp heroku
