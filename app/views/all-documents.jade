@@ -1,33 +1,30 @@
-md-content(ng-if="loggedInUser" flex layout="row" layout-sm="column" layout-md="column" md-scroll-y)
+md-content.viewDocs(ng-if="loggedInUser" flex="100")
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
   div(flex)
-    h4.md-padding(ng-if="!documents") There are currently no documents. Start today
-    md-divider(md-inset)
-    div(ng-if="documents" layout="column" layout-align="center center")
+    h4.md-padding(ng-if="documents.length === 0") There are currently no documents. Start today
+    div(ng-if="documents.length > 0" layout="column")
+      div.md-margin(style="margin-bottom: 0px;" layout="row" layout-sm="column" flex)
+        .preview-header(layout layout-padding)  DOCUMENTS VIEW
+        md-button.md-primary.doc-no.all-doc Total documents {{ allDocCount }}
+      div.doc-container(layout="row" layout-align=" start center")
+        div.doc-display(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
+          md-card.md-whiteframe-z2
+            md-card-title.grid-header {{ doc.title }}
+            md-divider
+            div(layout="column" layout-align="start start")
+            md-card-content.doc-content.md-margin(layout-padding ng-bind-html="doc.content" class="md-clickable")
+            div(layout-align="column")
+              div.md-card-actions.doc-operations(layout="row" layout-align="end center" flex layout-padding)
+                i.fa.fa-eye.preview-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})")
+                  md-tooltip click to preview
+                i.fa.fa-pencil-square-o.preview-icons(ng-hide="canEdit(doc) !== true" layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+                  md-tooltip click to edit
+              div.preview-footer(flex layout="column" layout-padding)
+                h5 Modified {{ doc.lastModified | DateFormatter }}
+                | by {{ doc.ownerId[0].userName }}
       div(layout="row" layout-align="end end")
-        .preview-header(layout="end end") ∞ DOCUMENTS VIEW ∞
-        .search-bar(layout="row" layout-align="center center")
-          md-button.md-primary(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
-          h6(style="display:inline-block") {{ param.page }} / {{ numberOfPages() }}
-          md-button.md-primary(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
-    md-divider(md-inset)
-      div.doc-container
-        div.doc-display.grid-border(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
-          h3.grid-header « {{ doc.title }} «
-          md-divider
-          div(layout="column" layout-align="start start")
-          .doc-content.md-margin(layout-padding ng-bind-html="doc.content" md-ink-ripple class="md-clickable")
-          div(layout-align="column")
-            div.doc-operations(layout="row" layout-padding layout-align="center center" flex)
-              i.material-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})") pageview
-                md-tooltip click to preview
-
-              i.fa.fa-pencil-square-o(ng-hide="canEdit(doc) !== true" layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
-                md-tooltip click to edit
-            div.preview-footer(flex layout="column" layout-padding)
-              h5 Modified {{ doc.lastModified | DateFormatter }}
-              | by {{ doc.ownerId[0].userName }}
-
-
+        md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
+        .paginate {{ param.page }} / {{ numberOfPages() }}
+        md-button.md-primary.page-button(ng-disabled="disableNextPage()" ng-click="nextPage()") Next

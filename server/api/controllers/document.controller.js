@@ -45,7 +45,7 @@
                   if (err) {
                     res.status(500).json(err);
                   } else {
-                    res.status(200).json({
+                    res.json({
                       success: true,
                       doc: doc,
                       message: 'Document successfully created'
@@ -77,13 +77,8 @@
         .exec(function(err, docs) {
           if (err) {
             res.status(500).json(err);
-          } else if (docs.length < 1) {
-            res.status(404).json({
-              success: false,
-              message: 'No document found'
-            });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     },
@@ -106,7 +101,7 @@
               message: 'No document found for the Id'
             });
           } else {
-            res.status(200).json(doc);
+            res.json(doc);
           }
         });
     },
@@ -124,13 +119,8 @@
         .exec(function(err, docs) {
           if (err) {
             res.status(500).json(err);
-          } else if (docs.length < 1) {
-            res.status(404).json({
-              success: false,
-              message: 'No document found'
-            });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     },
@@ -150,13 +140,8 @@
         .exec(function(err, docs) {
           if (err) {
             res.status(500).json(err);
-          } else if (docs.length < 1) {
-            res.status(404).json({
-              success: false,
-              message: 'User has no document'
-            });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     },
@@ -173,13 +158,8 @@
         .exec(function(err, docs) {
           if (err) {
             res.status(500).json(err);
-          } else if (docs.length < 1) {
-            res.status(404).json({
-              success: false,
-              message: 'Role has no document'
-            });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     },
@@ -193,8 +173,13 @@
       Document.findByIdAndUpdate(req.params.id, req.body, function(err, doc) {
         if (err) {
           res.status(500).json(err);
-        } else {
-          res.status(200).json({
+        } else if (!doc) {
+          res.status(404).json({
+            success: false,
+            message: 'Document not available'
+          });
+        }else {
+          res.json({
             success: true,
             doc: doc,
             message: 'Document updated successfully'
@@ -212,8 +197,13 @@
       Document.findByIdAndRemove(req.params.id, function(err, doc) {
         if (err) {
           res.status(500).json(err);
+        } else if (!doc) {
+          res.status(404).json({
+            success: false,
+            message: 'Document not available'
+          });
         } else {
-          res.status(200).json({
+          res.json({
             success: true,
             doc: doc,
             message: 'Document deleted successfully'
@@ -240,7 +230,7 @@
               message: 'There was a problem fetching the documents'
             });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     },
@@ -255,7 +245,7 @@
               message: 'There was a problem fetching the documents'
             });
           } else {
-            res.status(200).json(docs);
+            res.json(docs);
           }
         });
     }

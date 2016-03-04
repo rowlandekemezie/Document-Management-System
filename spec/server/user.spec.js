@@ -130,7 +130,7 @@
       request.post('/api/users/')
         .send(newUser)
         .end(function(err, res) {
-          expect(res.status).to.equal(200);
+          expect(res.status).to.equal(201);
           expect(err).to.be.a('null');
           expect(res.body).contain({
             success: true,

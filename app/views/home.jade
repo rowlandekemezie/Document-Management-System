@@ -1,31 +1,31 @@
 .home-page
-  .jumbobox(layout="column" flex-sm="33" layout-sm="row" flex-md="66" layout-md="row" layout-align="center center" ng-cloak)
+  .jumbobox(layout="column" layout-align="center center" ng-cloak)
     .banner
-      .box(flex="100")
+      .box
         span CREATE | SHARE | MANAGE
-      div.home-page-description(layout-padding layout-align="center center")
-        span Safe and easy way to manage documents
+      div.home-page-description.md-margin(layout-padding layout="column" layout-align="center center")
+        br
+        div.md-margin
+          span Safe and easy way to manage documents
 
         div(ng-if="!loggedInUser")
-          br
-          div
+          div.md-margin
           md-button.md-raised.md-primary(ng-click="signInUser($event)" md-no-ink) GET STARTED
         div(ng-if="loggedInUser" flex)
-          br
           div
           md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
-  div.md-margin(layout="row" md-padding flex)
-    .describe-page
+  .home-page-menu(layout-gt-sm="row" layout-padding  layout="column" layout-gt-md="row" layout-align="center center")
+    .describe-page(flex)
       h3 About
       i.fa.fa-user
       h5 DocKip is a document management system that helps you  collaborate and manage documents efficiently.
     md-divider
-    .describe-page
+    .describe-page(flex)
       h3 Contact Us
       i.fa.fa-fax
       h5 Contact the SuperAdmin for support and inquiries. Or email the document service team.
     md-divider
-    .describe-page
+    .describe-page(flex)
       h3 Privileges
       i.fa.fa-user-secret
       h5 Privileges are assigned based on the role of a user. The Super Admin manages the entire application.

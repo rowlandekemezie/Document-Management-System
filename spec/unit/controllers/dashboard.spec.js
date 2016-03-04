@@ -68,12 +68,11 @@
     });
 
     it('should call init function and resolve', function() {
-
       spyOn(Users, 'getUserDocs').and.callThrough();
       spyOn(Users, 'get').and.callThrough();
       spyOn(Documents, 'getAllDocs').and.callThrough();
-      spyOn(Documents, 'userDocCount');
-      spyOn(Documents, 'allDocCount');
+      spyOn(Documents, 'userDocCount').and.callThrough();
+      spyOn(Documents, 'allDocCount').and.callThrough();
       expect(scope.init).toBeDefined();
       scope.init(scope.param);
       expect(scope.documents).toBeDefined();
@@ -83,7 +82,7 @@
       expect(Users.getUserDocs).toHaveBeenCalled();
       expect(Users.get).toHaveBeenCalled();
       expect(scope.allDocCount).toEqual([5]);
-      expect(scope.docCount).toEqual([5]);
+      expect(scope.loggedInUser.docCount).toEqual([5]);
       expect(scope.userDocs).toBeDefined();
       expect(scope.userDocs).toEqual(['Novels', 'Ado', 'Poets']);
     });
@@ -104,6 +103,12 @@
       expect(scope.disableNextPage()).toBe(false);
     });
 
+    it('should disable next page button for user', function() {
+      scope.docCount = 4;
+      spyOn(scope, 'numberOfPage').and.callThrough();
+      expect(scope.disableNextPageUser()).toBe(false);
+    });
+
     it('should disable previous page button', function() {
       spyOn(scope, 'numberOfPages').and.callThrough();
       expect(scope.disablePreviousPage()).toBe(true);
@@ -112,6 +117,11 @@
     it('should call numberOfPages', function() {
       scope.allDocCount = 4;
       expect(scope.numberOfPages()).toEqual(2);
+    });
+
+    it('should call numberOfPage for user', function() {
+      scope.docCount = 4;
+      expect(scope.numberOfPage()).toEqual(2);
     });
 
     it('should call isAdmin function and be truthy', function() {

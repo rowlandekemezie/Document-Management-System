@@ -19,7 +19,7 @@
                         th(md-column, md-text) Role Title
                         th(md-column, md-text) Action
                     tbody(md-body)
-                      tr(md-row ng-repeat="role in roles | filter:searchBox")
+                      tr(md-row ng-repeat="role in roles | filter:searchBox track by $index")
                         td(md-cell) {{role._id}}
                         td(md-cell) {{role.title}}
                         td(md-cell)
@@ -34,13 +34,13 @@
                       input(type="text" md-no-float placecholder="Enter your role here" ng-model="newRole.title" ng-required)
                     md-button.md-raised.md-accent(type="submit") Create
         md-tab(label='USERS')
-          md-content.md-padding
-            div.hide-sm(layout="row" layout-sm="column" flex style="background: whitesmoke")
-              h3.md-display-2.text-center.admin-header USERS DASHBOARD
-              .admin-search-bar(layout="row" layout-align="end end")
-                input(type="text" ng-model="searchBox" placeholder="Search users")
+          div(layout="row" style="background: whitesmoke")
+            div.md-title.md-margin.text-center.admin-header(flex) USERS DASHBOARD
+            .admin-search-bar(layout="row" layout-align="end end")
+              input(type="text" ng-model="searchBox" placeholder="Search users")
+          md-content.md-padding(layout-align="start center")
             md-divider
-            div.md-margin(layout="column" md-padding flex layout-sm="column" layout-md="column" layout-align="center center")
+            div.md-margin(md-padding flex layout="column" layout-align="center center")
               md-card
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
@@ -52,9 +52,9 @@
                         th(md-column, md-text) LastName
                         th(md-column, md-text) Email
                         th(md-column, md-text) Role
-                        th(md-column, md-text) Authorized Operations
+                        th(md-column, md-text) Actions
                     tbody(md-body)
-                      tr(md-row ng-repeat="user in users | filter:searchBox")
+                      tr(md-row ng-repeat="user in users | filter:searchBox track by $index")
                         td(md-cell) {{user._id}}
                         td(md-cell) {{user.userName}}
                         td(md-cell) {{user.name.firstName}}
@@ -89,20 +89,18 @@
                         md-option(ng-repeat="role in roles" ng-value="role.title" ng-selected="role.title") {{role.title}}
                     div(layout="row")
                       md-button.md-raised.md-accent(type="submit" ng-click="createUserBtn()") Create
-                      md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})") Cancel
+                      md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" style="width:70px;") Cancel
         md-tab(label='DOCUMENTS')
-          md-content.md-padding
-            md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
-              span.fa.fa-plus.fa-lg
-              md-tooltip(md-direction='left') create new document
-            div.hide-sm(layout="row" layout-sm="column" flex style="background: whitesmoke")
-              h3.md-display-2.text-center.admin-header DOCUMENTS DASHBOARD
-              .admin-search-bar(layout="row" layout-align="end end")
-                input(type="text" ng-model="searchBox" placeholder="Search documents")
+          div(layout="row" style="background: whitesmoke")
+            div.md-title.md-margin.text-center.admin-header(flex) DOCUMENTS DASHBOARD
+            .admin-search-bar(layout="row" layout-align="end end")
+              input(type="text" ng-model="searchBox" placeholder="Search document")
+          md-content.md-padding(layout-align="start center")
             md-divider
+            div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
             md-card
               md-table-container
-                table(md-table style="border:2px")
+                table.page-font(md-table style="border:2px")
                   thead(md-head)
                     tr(md-row)
                       th(md-column, md-text) DocNo Id
@@ -111,18 +109,16 @@
                       th(md-column, md-text) Date Created
                       th(md-column, md-text) Date Modified
                       th(md-column, md-text) Document Title
-                      th(md-column, md-text) Document Content
-                      th(md-column, md-text) Authorized Operations
+                      th(md-column, md-text) Actions
                   tbody(md-body)
-                    tr(md-row ng-repeat="doc in documents | filter:searchBox")
+                    tr(md-row ng-repeat="doc in documents | filter:searchBox track by $index")
                       td(md-cell) {{doc._id}}
                       td(md-cell) {{doc.role}}
                       td(md-cell) {{user.userName}}
                       td(md-cell) {{doc.createdAt | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.lastModified | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.title}}
-                      td(md-cell ng-bind-html="doc.content | limitTo: 50")
-                      td(md-cell)
+                      td(md-cell layout="row")
                         i.material-icons(ng-click="deleteDocBtn($event, doc)") delete
                         i.material-icons(ui-sref="dashboard.view-document({docid: doc._id})") pageview
 

@@ -13,8 +13,8 @@
           },
           query: {
             method: 'GET',
-            isArray: true
-          },
+            isArray: false
+          }
         }, {
           stripeTrailingSpaces: false
         });
