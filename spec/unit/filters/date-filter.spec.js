@@ -5,7 +5,7 @@
 
     var filter, dateFormat;
 
-    beforeEach(function(){
+    beforeEach(function() {
       module('docKip');
     });
 
@@ -13,7 +13,7 @@
       filter = $injector.get('$filter');
     }));
 
-    it('should return a string', function (){
+    it('should return a string', function() {
       dateFormat = filter('DateFormatter')('2016-02-29T11:34:47+00:00');
       expect(typeof dateFormat).toBe('string');
     });

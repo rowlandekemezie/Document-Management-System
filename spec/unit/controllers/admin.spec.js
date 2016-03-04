@@ -27,8 +27,8 @@
         }
       },
       Documents = {
-        query: function(cb) {
-          cb([1, 2, 3]);
+        getAllDocs: function(limit, page, cb) {
+          cb(null, [1, 2, 3]);
         }
       },
       Roles = {
@@ -82,7 +82,7 @@
     it('should call init function', function() {
       spyOn(Users, 'query').and.callThrough();
       spyOn(Roles, 'query').and.callThrough();
-      spyOn(Documents, 'query').and.callThrough();
+      spyOn(Documents, 'getAllDocs').and.callThrough();
       expect(scope.init).toBeDefined();
       scope.init();
       expect(Users.query).toHaveBeenCalled();
@@ -91,7 +91,7 @@
       expect(Roles.query).toHaveBeenCalled();
       expect(scope.roles).toBeDefined();
       expect(scope.roles).toEqual([1, 2, 4]);
-      expect(Documents.query).toHaveBeenCalled();
+      expect(Documents.getAllDocs).toHaveBeenCalled();
       expect(scope.documents).toBeDefined();
       expect(scope.documents).toEqual([1, 2, 3]);
     });

@@ -3,8 +3,7 @@
 
   describe('HomeCtrl tests', function() {
 
-    var mdDialog,
-      scope, controller;
+    var mdDialog, scope, controller;
 
     beforeEach(function() {
       module('docKip');
@@ -28,11 +27,10 @@
       spyOn(mdDialog, 'show').and.callThrough();
       expect(mdDialog.show).toBeDefined();
       expect(typeof mdDialog.show).toBe('function');
-      mdDialog.show('signup');
       scope.signUp({
         ev: 'ev'
       });
-      expect(mdDialog.show).toHaveBeenCalledWith('signup');
+      expect(mdDialog.show).toHaveBeenCalled();
     });
 
     it('should assert that scope.loginUser is a function', function() {
@@ -43,11 +41,10 @@
       spyOn(mdDialog, 'show').and.callThrough();
       expect(mdDialog.show).toBeDefined();
       expect(typeof mdDialog.show).toBe('function');
-      mdDialog.show('login');
       scope.loginUser({
         ev: 'ev'
       });
-      expect(mdDialog.show).toHaveBeenCalledWith('login');
+      expect(mdDialog.show).toHaveBeenCalled();
     });
 
     it('should assert signInUser to be a function', function() {
