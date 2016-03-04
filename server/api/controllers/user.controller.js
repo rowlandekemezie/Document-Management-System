@@ -32,12 +32,12 @@
      * @param  {[http response]} res [response on request]
      * @return {[json]}     [Json response]
      */
-      logout: function(req, res) {
+    logout: function(req, res) {
       req.session.destroy(function(err) {
         if (err) {
           res.status(500).send(err);
         } else {
-          res.status(200).json({
+          res.json({
             success: true,
             message: 'You are logged out'
           });
@@ -52,7 +52,7 @@
      */
     login: function(req, res) {
       User.findOne({
-          userName: req.body.userName
+        userName: req.body.userName
       }, function(err, user) {
         if (err) {
           res.status(500).json(err);
@@ -74,7 +74,7 @@
               expiresIn: 1440 // expires in 24 hrs
             });
             delete user.password;
-            res.status(200).json({
+            res.json({
               token: token,
               success: true,
               user: user,
@@ -172,13 +172,18 @@
                   role: userData.role
                 };
                 var newUser = new User(userDetail);
+                var token = jwt.sign(newUser, config.secret, {
+                  expiresIn: 1440 // expires in 24 hrs
+                });
                 newUser.save(function(err, user) {
                   if (err) {
                     res.status(500).json(err);
                   } else {
-                    res.status(200).json({
+                    user.password = null;
+                    res.status(201).json({
                       success: true,
                       user: user,
+                      token: token,
                       message: 'User created successfully'
                     });
                   }
@@ -199,13 +204,8 @@
       User.find({}, function(err, users) {
         if (err) {
           res.status(500).json(err);
-        } else if (!users) {
-          res.status(404).json({
-            success: false,
-            message: 'No user found'
-          });
-        } else {
-          res.status(200).json(users);
+        }  else {
+          res.json(users);
         }
       });
     },
@@ -225,7 +225,7 @@
             message: 'No user found by that Id'
           });
         } else {
-          res.status(200).json(user);
+          res.json(user);
         }
       });
     },
@@ -270,7 +270,7 @@
                 var token = jwt.sign(user, config.secret, {
                   expiresIn: 1440 // expires in 24 hrs
                 });
-                res.status(200).json({
+                res.json({
                   success: true,
                   message: 'User details updated',
                   token: token,
@@ -313,7 +313,7 @@
             message: 'User not available'
           });
         } else {
-          res.status(200).json({
+          res.json({
             user: user,
             success: true,
             message: 'User deleted successfully'

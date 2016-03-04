@@ -32,8 +32,10 @@
           Roles.query(function(res) {
             $scope.roles = res;
           });
-          Documents.query(function(res) {
-            $scope.documents = res;
+          Documents.getAllDocs(0, 0, function(err, res) {
+            if (!err && res) {
+              $scope.documents = res;
+            }
           });
         };
 
@@ -63,7 +65,7 @@
           Documents.remove({
             id: $scope.doc._id
           }, function(res) {
-            Utils.toast('Your document has been successfully deleted');
+            Utils.toast('Document successfully deleted');
             $scope.documents.splice($scope.documents.indexOf(res.doc), 1);
           }, function() {
             $scope.status = 'There was problem deleting document';
@@ -84,6 +86,7 @@
 
         // Delete user button
         function deleteUser() {
+          $scope.status = '';
           Users.remove({
             id: $scope.user._id
           }, function(res) {
@@ -107,6 +110,7 @@
 
         // Create role button
         $scope.createRoleBtn = function() {
+          $scope.status = '';
           Roles.save($scope.newRole, function(res) {
             Utils.toast('Role created');
             $scope.roles.push(res.role);
@@ -120,6 +124,7 @@
 
         // Delete role function
         function deleteRole() {
+          $scope.status = '';
           Roles.remove({
             id: $scope.role._id
           }, function(res) {

@@ -25,7 +25,7 @@
             if (err) {
               res.json(err);
             } else {
-              res.status(200).json({
+              res.json({
                 success: true,
                 role: role,
                 message: 'Role successfuly created'
@@ -52,12 +52,12 @@
       if (err) {
         res.status(500).json(err);
       } else if (!roles) {
-        res.status(404).json({
+        res.json({
           message: 'No role exist',
           success: true
         });
       } else {
-        res.status(200).json(roles);
+        res.json(roles);
       }
     });
   };
@@ -79,7 +79,7 @@
           message: 'No role found for the Id'
         });
       } else {
-        res.status(200).json(role);
+        res.json(role);
       }
     });
   };
@@ -99,7 +99,7 @@
           message: 'No role found for the Id'
         });
       } else {
-        res.status(200).json({
+        res.json({
           message: 'Role successfully updated',
           success: true
         });
@@ -121,7 +121,7 @@
           message: 'Role not found'
         });
       } else {
-        res.status(200).json({
+        res.json({
           success: true,
           role: role,
           message: 'Successfully deleted'
