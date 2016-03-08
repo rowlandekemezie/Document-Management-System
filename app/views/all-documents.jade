@@ -11,20 +11,20 @@ md-content.viewDocs(ng-if="loggedInUser" flex="100")
       div.doc-container(layout="row" layout-align=" start center")
         div.doc-display(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
           md-card.md-whiteframe-z2
-            md-card-title.grid-header {{ doc.title }}
+            md-card-title.md-headline.grid-header {{ doc.title }}
             md-divider
-            div(layout="column" layout-align="start start")
-            md-card-content.doc-content.md-margin(layout-padding ng-bind-html="doc.content" class="md-clickable")
+            md-card-content.md-subhead.doc-content.md-margin(layout-padding ng-bind-html="doc.content" class="md-clickable")
             div(layout-align="column")
-              div.md-card-actions.doc-operations(layout="row" layout-align="end center" flex layout-padding)
-                i.fa.fa-eye.preview-icons(layout-align="end end" ui-sref="dashboard.view-document({docid: doc._id})")
+              div.md-card-actions.doc-operations(layout="row" layout-align="end center" flex)
+                md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
                   md-tooltip click to preview
-                i.fa.fa-pencil-square-o.preview-icons(ng-hide="canEdit(doc) !== true" layout-align="end end" ui-sref="dashboard.edit-document({docid: doc._id})")
+                md-button.preview-icons(ng-hide="canEdit(doc) !== true" ui-sref="dashboard.edit-document({docid: doc._id})") Edit
                   md-tooltip click to edit
               div.preview-footer(flex layout="column" layout-padding)
                 h5 Modified {{ doc.lastModified | DateFormatter }}
-                | by {{ doc.ownerId[0].userName }}
-      div(layout="row" layout-align="end end")
+                p by {{ doc.ownerId[0].userName }}
+
+      div.md-margin(layout="row" layout-align="end end")
         md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
         .paginate {{ param.page }} / {{ numberOfPages() }}
         md-button.md-primary.page-button(ng-disabled="disableNextPage()" ng-click="nextPage()") Next
