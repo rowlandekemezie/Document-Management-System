@@ -207,5 +207,10 @@
         doc: scope.doc
       })).toBeFalsy();
     });
+
+    it('should assert that scope.close is a function', function () {
+      expect(scope.close).toBeDefined();
+      expect(typeof scope.close).toBe('function');
+    })
   });
 })();

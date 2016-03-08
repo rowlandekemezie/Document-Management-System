@@ -9,11 +9,12 @@
       '$scope',
       '$rootScope',
       '$stateParams',
+      '$mdSidenav',
       function(Users, Roles, Documents, $scope, $rootScope,
-        $stateParams) {
+        $stateParams, $mdSidenav) {
 
         $scope.param = {
-          limit: 8,
+          limit: 6,
           page: 1
         };
 
@@ -73,12 +74,12 @@
           return $scope.param.page === 1;
         };
 
-        $scope.numberOfPage = function(){
+        $scope.numberOfPage = function() {
           var docCount = $rootScope.loggedInUser.docCount;
           return Math.ceil(docCount / $scope.param.limit);
         };
 
-        $scope.disableNextPageUser = function(){
+        $scope.disableNextPageUser = function() {
           return $scope.param.page + 1 > $scope.numberOfPage();
         };
 
@@ -119,6 +120,10 @@
             return true;
           }
           return false;
+        };
+
+        $scope.close = function() {
+          $mdSidenav('left').close();
         };
       }
     ]);
