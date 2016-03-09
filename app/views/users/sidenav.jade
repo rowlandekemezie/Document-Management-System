@@ -1,10 +1,10 @@
-md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser"  ng-hide="ui-sref(admin({id: loggedInUser._id}))")
+md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser")
   div(ng-controller="DashboardCtrl")
     md-toolbar.md-hue-2.toolbar-header
       span(flex)
       .md-toolbar-tools-bottom.inset(layout="column")
         span
-        .logo-text.text-center(layout-padding) DocKip
+        .logo-text.text-center(layout-padding ui-sref="home") DocKip
         md-divider
         .sidebar-role
           h5 {{ loggedInUser.role }}
@@ -26,9 +26,12 @@ md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex 
         md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'role'})")
           i.navbar-icons(class="fa fa-user-secret")
           h4 Manage Roles
-        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeUsers($event)" ui-sref="admin({id:loggedInUser._id, section: 'user'})")
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'user'})")
           i.navbar-icons(class="fa fa-user")
           h4 Manage Users
-        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ng-click="manangeDoc($event)" ui-sref="admin({id:loggedInUser._id, section: 'documents'})")
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'documents'})")
           i.navbar-icons(class="fa fa-list")
           h4 Manage Documents
+        md-list-item.hide-gt-md(md-ink-ripple layout="column" flex layout-align="center start" ng-click="close()")
+          i.navbar-icons(class="fa fa-times-circle fa-lg")
+          h4 Close
