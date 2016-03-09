@@ -1,4 +1,4 @@
-md-content.viewDocs(ng-if="loggedInUser" flex="100" ng-init="init(param)")
+.viewDocs(ng-if="loggedInUser" ng-init="init(param)")
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
@@ -6,21 +6,20 @@ md-content.viewDocs(ng-if="loggedInUser" flex="100" ng-init="init(param)")
     h4.md-padding(ng-if="userDocs.length === 0") It seems you've got no document. Start today
     div(ng-if="userDocs.length > 0" layout="column")
       .preview-header(layout layout-padding) MY DOCUMENTS
-      div.doc-container(layout="row" layout-padding layout-align="start center" flex="100")
-        div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index")
+      div.doc-container(layout="row" layout-padding layout-align="start center")
+        div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index" flex-xs="25" flex-sm="33")
           md-card.md-whiteframe-z2
             md-card-title.md-headline.grid-header {{ doc.title }}
             md-divider
             md-card-content.md-subhead.doc-content.md-margin(layout="column" layout-align="start start" layout-padding ng-bind-html="doc.content" class="md-clickable")
-            div(layout-align="column")
-              div.md-card-actions.doc-operations(layout="row" layout-align="end center")
-                md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
-                  md-tooltip click to preview
-                md-button.preview-icons(ui-sref="dashboard.edit-document({docid: doc._id})") Edit
-                  md-tooltip click to edit
-              div.preview-footer(flex layout="column" layout-padding)
-                h5 Created {{ doc.lastModified | DateFormatter }}
-                p by you
+            div.md-card-actions.doc-operations(layout="row" layout-align="end center" layout-sm="column")
+              md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
+                md-tooltip click to preview
+              md-button.preview-icons(ui-sref="dashboard.edit-document({docid: doc._id})") Edit
+                md-tooltip click to edit
+            div.preview-footer(flex layout="column" layout-padding)
+              h5 Created {{ doc.lastModified | DateFormatter }}
+              p by you
 
       div.md-margin(layout="row" layout-align="end end")
         md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
