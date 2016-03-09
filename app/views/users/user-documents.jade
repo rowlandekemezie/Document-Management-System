@@ -7,7 +7,7 @@
     div(ng-if="userDocs.length > 0" layout="column")
       .preview-header(layout layout-padding) MY DOCUMENTS
       div.doc-container(layout="row" layout-padding layout-align="start center")
-        div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index")
+        div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index" flex-xs="25" flex-sm="33")
           md-card.md-whiteframe-z2
             md-card-title.md-headline.grid-header {{ doc.title }}
             md-divider
