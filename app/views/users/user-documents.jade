@@ -4,10 +4,10 @@
     md-tooltip(md-direction='left') create new document
   div(flex)
     h4.md-padding(ng-if="userDocs.length === 0") It seems you've got no document. Start today
-    div(ng-if="userDocs.length > 0" layout="column" flex)
-      div.doc-container(layout="row" layout-padding layout-align="start center")
+    div(ng-if="userDocs.length > 0" layout="column")
+      div.doc-container(layout="row" layout-align="start center")
         div.doc-display(ng-repeat="doc in userDocs | orderBy:'-lastModified' track by $index" flex-xs="100" flex-sm="70" flex-md="100")
-          md-card.md-whiteframe-z2
+          md-card.md-whiteframe-8dp
             md-card-title.md-headline.grid-header {{ doc.title }}
             span.post-info.md-subhead(flex layout="column" layout-padding)
               i.fa.fa-user &nbsp; Created by you

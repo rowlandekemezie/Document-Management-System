@@ -1,13 +1,10 @@
 .docForm-view.md-padding(layout-align="center center" layout-padding flex="75" ng-init="getDoc()")
-  md-content(flex="100" layout-align="center center")
+  md-card.md-whiteframe-8dp(flex="100" layout-align="center center")
     form(name="view-form" method="post" layout-align="center center")
       div(layout-gt-sm="row" flex)
         i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({id:loggedInUser._id})") arrow_back
           md-tooltip Go back
-        div(layout-gt-sm="row" layout-align="end center" flex)
-          md-button.md-raised.md-primary(ng-click="updateDoc($event)") save
-          md-button.md-raised.md-warn(ng-click="deleteDoc($event)") delete
-      md-divider
+        .preview-header(layout-align="center center" flex) DOCUMENT UPDATE
       div(layout="column")
         div(layout="row" align-wrap flex layout-align="start end")
           md-input-container.md-block(md-no-float flex)
@@ -16,5 +13,7 @@
           md-input-container.md-block(md-no-float flex)
             md-select.md-padding.md-margin(placeholder="role" ng-model="loggedInUser.role" aria-label="role")
               md-option(ng-repeat="role in roles" ng-value="role.title" ng-required) {{role.title}}
-
         div.adjust-text-area(text-angular ng-model="docDetail.content" class="ta-editor" ta-text-editor-class="ta-editor border-around" ta-html-editor-class="border-around" placeholder="Enter your content here" ng-required="true" aria-label="docDetail.content")
+        md-button-actions(layout-gt-sm="row" layout-align="end center" flex)
+          md-button.edit-button(ng-click="updateDoc($event)") save
+          md-button.edit-button(ng-click="deleteDoc($event)") delete

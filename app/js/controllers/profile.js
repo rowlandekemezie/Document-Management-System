@@ -5,6 +5,7 @@
     .controller('EditProfileCtrl', ['Utils', 'Roles', 'Users', '$rootScope', '$scope', '$state',
       function(Utils, Roles, Users, $rootScope, $scope, $state) {
 
+        $rootScope.stateName = 'Dashboard - Profile';
         // initialize
         $scope.init = function() {
           Roles.query(function(res) {
