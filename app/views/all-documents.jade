@@ -1,29 +1,21 @@
-.viewDocs(ng-if="loggedInUser" flex="100")
+.viewDocs(ng-if="loggedInUser" flex="100" ng-init="init(param)")
   md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
     span.fa.fa-plus.fa-lg
     md-tooltip(md-direction='left') create new document
   div(flex)
     h4.md-padding(ng-if="documents.length === 0") There are currently no documents. Start today
     div(ng-if="documents.length > 0" layout="column")
-      div.md-margin(style="margin-bottom: 0px;" layout="row" layout-sm="column" flex)
-        .preview-header(layout layout-padding)  DOCUMENTS VIEW
-        md-button.md-primary.doc-no.all-doc Total documents {{ allDocCount }}
       div.doc-container(layout="row" layout-align=" start center")
         div.doc-display(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
           md-card.md-whiteframe-z2
             md-card-title.md-headline.grid-header {{ doc.title }}
-            md-divider
-            md-card-content.md-subhead.doc-content.md-margin(layout-padding ng-bind-html="doc.content" class="md-clickable")
-            div(layout-align="column")
-              div.md-card-actions.doc-operations(layout="row" layout-align="end center" flex)
-                md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
-                  md-tooltip click to preview
-                md-button.preview-icons(ng-hide="canEdit(doc) !== true" ui-sref="dashboard.edit-document({docid: doc._id})") Edit
-                  md-tooltip click to edit
-              div.preview-footer(flex layout="column" layout-padding)
-                h5 Modified {{ doc.lastModified | DateFormatter }}
-                p by {{ doc.ownerId[0].userName }}
-
+            span.post-info.md-subhead(flex layout="column" layout-padding)
+              i.fa.fa-user &nbsp; Modified by {{ doc.ownerId[0].userName }}
+              span {{ doc.lastModified | DateFormatter }}
+            md-card-content.doc-content.md-margin(layout="column" layout-padding ng-bind-html="doc.content")
+            md-card-actions.md-margin(layout="row" layout-align="end center" layout-padding layout-sm="column")
+              md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
+              md-button.preview-icons(ui-sref="dashboard.edit-document({docid: doc._id})") Edit
       div.md-margin(layout="row" layout-align="end end")
         md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
         .paginate {{ param.page }} / {{ numberOfPages() }}

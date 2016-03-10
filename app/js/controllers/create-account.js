@@ -71,9 +71,7 @@
           $rootScope.loggedInUser = res.user;
           $state.go('dashboard', {
             id: res.user._id
-          }, {
-            reload: true
-          });
+          }, {reload: true});
           Utils.toast('Welcome to DocKip ' + res.user.userName);
           $mdDialog.cancel();
         }

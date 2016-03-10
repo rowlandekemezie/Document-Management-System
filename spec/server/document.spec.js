@@ -257,25 +257,6 @@
           });
       });
 
-      it('should return null when a role has no document', function(done) {
-        Document.remove({}, function() {
-          User.remove({}, function() {
-            Role.remove({}, function() {
-              done();
-            });
-          });
-        });
-
-        request.get('/api/documents/role/' + 'admin' + '/' + limit)
-          .set('x-access-token', userToken)
-          .end(function(err, res) {
-            expect(res.status).to.equal(404);
-            expect(res.body).not.to.be.a('null');
-            expect(res.body.length).to.equal(0);
-            done();
-          });
-      });
-
       it('should return documents for a specfic role', function(done) {
         request.get('/api/documents/role/' + roleTitle + '/' + limit)
           .set('x-access-token', userToken)

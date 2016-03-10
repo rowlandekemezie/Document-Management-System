@@ -2,18 +2,17 @@
   .jumbobox(layout="column" layout-align="center center" ng-cloak)
     .banner
       .box
-        span CREATE | SHARE | MANAGE
+        .jumbo-text  CREATE | SHARE | MANAGE
       div.home-page-description.md-margin(layout-padding layout="column" layout-align="center center")
         br
         div.md-margin
           span Safe and easy way to manage documents
-
         div(ng-if="!loggedInUser")
           div.md-margin
-          md-button.md-raised.md-primary(ng-click="signInUser($event)" md-no-ink) GET STARTED
+          md-button.md-raised.home-page-button.md-primary(ng-click="signInUser($event)" md-no-ink) GET STARTED
         div(ng-if="loggedInUser" flex)
           div
-          md-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
+          md-button.home-page-button.md-raised.md-primary(ui-sref="dashboard({id:loggedInUser._id})" md-no.ink) View documents
   .home-page-menu(layout-gt-sm="row" layout-padding  layout="column" layout-gt-md="row" layout-align="center center")
     .describe-page(flex)
       h3 About
