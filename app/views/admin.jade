@@ -10,7 +10,7 @@
           md-content.md-padding(layout-align="start center")
             md-divider
             div.md-margin(layout-gt-sm="row" md-padding flex layout="column" layout-align="center center")
-              md-card
+              md-card.md-white-frame.8dp
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
                     thead(md-head)
@@ -24,7 +24,7 @@
                         td(md-cell) {{role.title}}
                         td(md-cell)
                           i.material-icons(ng-click="deleteRoleBtn($event, role)") delete
-              md-card
+              md-card.md-white-frame.8dp
                 md-card-content
                   h5 Create New Role
                   p.sucess-text {{status}}
@@ -41,7 +41,7 @@
           md-content.md-padding(layout-align="start center")
             md-divider
             div.md-margin(md-padding flex layout="column" layout-align="center center")
-              md-card
+              md-card.md-white-frame.8dp
                 md-table-container
                   table(md-table md-progress="promise" style="border:2px")
                     thead(md-head)
@@ -63,7 +63,7 @@
                         td(md-cell) {{user.role}}
                         td(md-cell)
                           i.material-icons(ng-click="deleteUserBtn($event, user)") delete
-              md-card
+              md-card.md-white-frame.8dp
                 md-card-content
                   h5 Manage Users
                   p.success-text {{status}}

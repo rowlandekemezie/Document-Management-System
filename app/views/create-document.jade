@@ -1,5 +1,5 @@
 .docForm.md-padding(flex="90" layout-padding ng-cloak="")
-  md-card.md-whiteframe-z2
+  md-card.md-whiteframe-8dp
     div(flex layout-gt-sm="row")
       i.material-icons.back-icon(ui-sref="dashboard({id:loggedInUser._id})") arrow_back
         md-tooltip Go back
@@ -13,7 +13,6 @@
             div.adjust-text-area(text-angular ng-model="document.content" class="ta-editor" ta-text-editor-class="ta-editor border-around" ta-html-editor-class="border-around" placeholder="Enter your content here" ng-required="true" aria-label="document.content")
           div.success-status(layout-align="center center")
             | {{status}}
-
           div(layout="row" layout-align="center center")
             md-button.md-raised.md-accent(type="submit") Create
 

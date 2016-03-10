@@ -2,6 +2,16 @@
   font-size: 1.2em !important;
   height: 50px;
   padding-top: 3px;
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  a:hover {
+    text-decoration: none;
+    color: whitesmoke;
+    background: 2px;
+    cursor: pointer;
+  }
 }
 
 main {
@@ -12,6 +22,19 @@ main {
 .viewDocs {
   text-align: left;
   background-color: whitesmoke;
+}
+
+.containDocs {
+  flex-wrap: wrap;
+  md-card {
+    width: 80%;
+    md-card-title {
+      height: 80px;
+    }
+    md-card-content {
+      height: 150px;
+    }
+  }
 }
 
 .menu {
@@ -67,6 +90,7 @@ main {
 .home-page-menu {
   width: 100%;
   padding: 20px;
+  margin-top: -30px;
 }
 
 .home-page-description {
@@ -432,6 +456,7 @@ div > md-button {
   color: rgb(232, 58, 144);
   font-weight: bolder;
   font-size: 15px;
+  padding-top: 10px;
   text-align: center;
 }
 
@@ -489,7 +514,7 @@ md-sidenav .ripple-container {
   position: fixed;
   right: 0;
   color: white;
-  margin-top: 40%;
+  margin-top: 42%;
 }
 
 .fit,
@@ -608,7 +633,6 @@ md-input-container textarea.md-input {
   line-height: 20px;
   color: black;
   text-align: left;
-  z-index: -10px;
   font-weight: normal;
   -webkit-align-content: flex-end;
 }
@@ -674,10 +698,13 @@ md-input-container textarea.md-input {
 
 .post-info {
   color: #949494;
-  font-size: 0.9em;
+  font-size: 0.85em;
   line-height: 0;
   cursor: none !important;
   margin-bottom: 0px;
+  .fa {
+    cursor: inherit;
+  }
 }
 
 .admin-page {
@@ -765,38 +792,12 @@ md-input-container textarea.md-input {
 .preview-icons {
   color: #2d355f !important;
   text-decoration: none;
-  text-transform: none;
   min-width: 60px !important;
   padding: 0;
 }
 
-.doc-count {
-  color: #7b7b7b;
-  i {
-    width: 100px;
-    text-align: center;
-    vertical-align: middle;
-    .bad {
-      font-size: 0.7em;
-      display: block;
-      position: absolute;
-      width: 100px;
-      text-align: center;
-      vertical-align: middle;
-      top: -.75em;
-      right: -.75em;
-      width: 2em;
-      height: 2em;
-      line-height: 2em;
-      border-radius: 50%;
-      text-align: center;
-      color: #fff;
-      background: rgba(0, 0, 0);
-    }
-  }
-  > .fa {
-    position: relative;
-  }
+.edit-button {
+  color: #2d355f;
 }
 
 md-toast.md-success-toast-theme {
@@ -818,4 +819,11 @@ md-toast.md-success-toast-theme {
   text-align: center;
   color: #fff;
   background: rgba(0, 0, 0, 0.5);
+}
+
+.doc-count {
+  font-size: 0.7em;
+  color: grey;
+  padding-top: 7px;
+  align-center: right;
 }

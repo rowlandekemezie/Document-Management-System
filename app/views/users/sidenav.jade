@@ -1,5 +1,5 @@
 md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser")
-  div(ng-controller="DashboardCtrl" ng-init="init(param)")
+  div(ng-controller="DashboardCtrl" ng-init="allDocCount()")
     md-toolbar.md-hue-2.toolbar-header
       span(flex)
       .md-toolbar-tools-bottom.inset(layout="column")
@@ -15,11 +15,11 @@ md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex 
         md-list-item(layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex ng-click="close()")
           i(class="fa fa-file")
           h4 My Documents
-          h4 {{ loggedInUser.docCount || 0 }}
+          .doc-count {{ loggedInUser.docCount || 0 }}
         md-list-item(layout="column" ui-sref="dashboard.all" ng-click="close()")
           i(class="fa fa-file")
           h4 View Documents
-          h4 {{ allDocCount || 0 }}
+          .doc-count {{ allDocCount || 0 }}
         md-list-item(layout="column" ui-sref="dashboard.editProfile" ng-click="close()")
           i(class="fa fa-pencil-square")
           h4 Edit Profile

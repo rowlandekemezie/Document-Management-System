@@ -26,17 +26,17 @@
    require('./filters/date-filter');
 
    angular.module('docKip', [
-     'docKip.services',
-     'docKip.controllers',
-     'docKip.filters',
-     'ngRoute',
-     'ngResource',
-     'ngMaterial',
-     'ui.router',
-     'ngAnimate',
-     'md.data.table',
-     'textAngular',
-   ])
+       'docKip.services',
+       'docKip.controllers',
+       'docKip.filters',
+       'ngRoute',
+       'ngResource',
+       'ngMaterial',
+       'ui.router',
+       'ngAnimate',
+       'md.data.table',
+       'textAngular',
+     ])
      .run(['$rootScope', 'Auth', '$state', 'Users', '$log',
        function($rootScope, Auth, $state, Users, $log) {
 
@@ -45,8 +45,15 @@
          $rootScope.$on('$stateChangeSuccess', fireAuth);
 
          function fireAuth(ev, toState) {
+
            if (toState.authenticate && $rootScope.loggedInUser) {
              ev.preventDefault();
+             if (toState.name === 'dashboard') {
+               $rootScope.stateName = 'Dashboard - My documents';
+             }
+             if (toState.name === 'dashboard.all') {
+               $rootScope.stateName = 'Dashboard - All documents';
+             }
              $state.go(toState);
            } else {
              ev.preventDefault();
@@ -95,16 +102,16 @@
            }
          })
 
-          .state('dashboard.editProfile', {
-           url: '/edit',
-           authenticate: true,
-           views: {
-             'inner-view@dashboard': {
-               controller: 'EditProfileCtrl',
-               templateUrl: 'views/edit-profile.html'
+         .state('dashboard.editProfile', {
+             url: '/edit',
+             authenticate: true,
+             views: {
+               'inner-view@dashboard': {
+                 controller: 'EditProfileCtrl',
+                 templateUrl: 'views/edit-profile.html'
+               }
              }
-           }
-         })
+           })
            .state('dashboard.document', {
              url: '/documents/create',
              authenticate: true,
@@ -117,15 +124,15 @@
            })
 
          .state('dashboard.all', {
-           url: '/documents',
-           authenticate: true,
-           views: {
-             'inner-view@dashboard': {
-               templateUrl: 'views/all-documents.html',
-               controller: 'DashboardCtrl'
+             url: '/documents',
+             authenticate: true,
+             views: {
+               'inner-view@dashboard': {
+                 templateUrl: 'views/all-documents.html',
+                 controller: 'DashboardCtrl'
+               }
              }
-           }
-         })
+           })
            .state('admin', {
              url: '/{id}/control-panel/{section}',
              authenticate: true,

@@ -7,7 +7,7 @@
     div(ng-if="documents.length > 0" layout="column")
       div.doc-container(layout="row" layout-align=" start center")
         div.doc-display(ng-repeat="doc in documents | orderBy:'-lastModified' track by $index")
-          md-card.md-whiteframe-z2
+          md-card.md-whiteframe-8dp
             md-card-title.md-headline.grid-header {{ doc.title }}
             span.post-info.md-subhead(flex layout="column" layout-padding)
               i.fa.fa-user &nbsp; Modified by {{ doc.ownerId[0].userName }}

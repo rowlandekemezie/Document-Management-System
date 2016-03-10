@@ -291,26 +291,6 @@
           });
       });
 
-      it('should not return document for an invalid user Id', function(done) {
-        var invalidId = mongoose.Types.ObjectId('4ecc40c86762e0fb12000003');
-        Document.remove({}, function() {
-          User.remove({}, function() {
-            Role.remove({}, function() {
-              done();
-            });
-          });
-        });
-
-        request.get('/api/users/' + invalidId + '/documents')
-          .set('x-access-token', userToken)
-          .end(function(err, res) {
-            expect(res.status).to.equal(404);
-            expect(res.body).not.to.be.a('null');
-            expect(res.body.length).to.equal(0);
-            done();
-          });
-      });
-
       it('should return document for an id', function(done) {
         request.get('/api/documents/' + docId)
           .set('x-access-token', userToken)
