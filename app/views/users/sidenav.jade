@@ -1,35 +1,37 @@
 md-sidenav(class="md-sidenav-left md-whiteframe-z2" md-component-id="left" flex layout="column" md-is-locked-open="$mdMedia('gt-md')" ng-if="loggedInUser")
-  div(ng-controller="DashboardCtrl")
+  div(ng-controller="DashboardCtrl" ng-init="init(param)")
     md-toolbar.md-hue-2.toolbar-header
       span(flex)
       .md-toolbar-tools-bottom.inset(layout="column")
         span
-        .logo-text.text-center(layout-padding ui-sref="home") DocKip
+        .logo-text(layout-padding ui-sref="home") DocKip
         md-divider
         .sidebar-role
           h5 {{ loggedInUser.role }}
-          .doc-no You've {{ loggedInUser.docCount || 0 }} document(s)
+          .doc-no You have {{ loggedInUser.docCount || 0 }} document(s)
     md-content
       md-list.sidebar-widgits
         div.md-padding.md-no-sticky Dashboard
-        md-list-item(layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex)
+        md-list-item(layout="column" ui-sref="dashboard({id:loggedInUser._id})" flex ng-click="close()")
           i(class="fa fa-file")
           h4 My Documents
-        md-list-item(layout="column" ui-sref="dashboard.all")
+          h4 {{ loggedInUser.docCount || 0 }}
+        md-list-item(layout="column" ui-sref="dashboard.all" ng-click="close()")
           i(class="fa fa-file")
           h4 View Documents
-        md-list-item(layout="column" ui-sref="dashboard.editProfile")
+          h4 {{ allDocCount || 0 }}
+        md-list-item(layout="column" ui-sref="dashboard.editProfile" ng-click="close()")
           i(class="fa fa-pencil-square")
           h4 Edit Profile
         md-divider
-        div.md-padding.md-no-sticky(ng-if="isAdmin()" ui-sref="admin({id:loggedInUser._id})" flex layout-align="center center") Admin Panel
-        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'role'})")
+        div.md-padding.md-no-sticky(ng-if="isAdmin()" ui-sref="admin({id:loggedInUser._id})" flex layout-align="center center" ng-click="close()") Admin Panel
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'role'})" ng-click="close()")
           i.navbar-icons(class="fa fa-user-secret")
           h4 Manage Roles
-        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'user'})")
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'user'})" ng-click="close()")
           i.navbar-icons(class="fa fa-user")
           h4 Manage Users
-        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'documents'})")
+        md-list-item(ng-if="isAdmin()" md-ink-ripple layout="column" flex layout-align="center center" ui-sref="admin({id:loggedInUser._id, section: 'documents'})" ng-click="close()")
           i.navbar-icons(class="fa fa-list")
           h4 Manage Documents
         md-list-item.hide-gt-md(md-ink-ripple layout="column" flex layout-align="center start" ng-click="close()")

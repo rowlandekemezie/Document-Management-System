@@ -8,7 +8,6 @@ md-toolbar.header-tab.md-whiteframe-z2(layout="row" ng-cloak='' ng-controller="H
       md-tooltip home
     a(ng-if="loggedIn" ui-sref="dashboard({id: loggedInUser._id})")
       | {{ loggedInUser.userName }}
-      md-tooltip {{ loggedInUser.userName }}
     a(ng-if="loggedIn" ng-hide="!loggedInUser")
       md-button.md-icon-button(aria-label='logout' ng-click="logoutUser()" layout-wrap)
         i.md-accent.fa.fa-sign-out.fa-lg

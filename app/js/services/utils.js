@@ -5,7 +5,7 @@
     .service('Utils', ['$mdToast', '$mdDialog',
       function($mdToast, $mdDialog) {
         this.toast = function(msg) {
-          $mdToast.show($mdToast.simple().content(msg));
+          $mdToast.show($mdToast.simple().content(msg).position('bottom left').theme('success-toast'));
         };
         this.dialog = function(title, message, event, cb) {
           $mdDialog.show(
@@ -17,7 +17,6 @@
             .ariaLabel('Utils Dialog Service')
             .ok('OK')
             .cancel('CANCEL')
-            .targetEvent(event)
           )
             .then(function() {
               if (typeof cb === 'function') {

@@ -121,7 +121,8 @@
            authenticate: true,
            views: {
              'inner-view@dashboard': {
-               templateUrl: 'views/all-documents.html'
+               templateUrl: 'views/all-documents.html',
+               controller: 'DashboardCtrl'
              }
            }
          })
@@ -166,7 +167,7 @@
          $httpProvider.interceptors.push('AuthInterceptor');
 
          // Theme colors
-         $mdThemingProvider.theme('grey')
+         $mdThemingProvider.theme('lightslategrey')
            .primaryPalette('grey')
            .accentPalette('indigo');
 
