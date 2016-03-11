@@ -15,7 +15,7 @@
             md-card-content.doc-content.md-margin(layout="column" layout-padding ng-bind-html="doc.content")
             md-card-actions.md-margin(layout="row" layout-align="end center" layout-padding layout-sm="column")
               md-button.preview-icons(ui-sref="dashboard.view-document({docid: doc._id})") View
-              md-button.preview-icons(ui-sref="dashboard.edit-document({docid: doc._id})") Edit
+              md-button.preview-icons(ui-sref="dashboard.edit-document({docid: doc._id})" ng-hide="!canEdit(doc)") Edit
       div.md-margin(layout="row" layout-align="end end")
         md-button.md-primary.page-button(ng-disabled="disablePreviousPage()" ng-click="previousPage()") Prev
         .paginate {{ param.page }} / {{ numberOfPages() }}
