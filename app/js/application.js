@@ -57,6 +57,7 @@
              $state.go(toState);
            } else {
              ev.preventDefault();
+             $rootScope.stateName = '';
              $state.go('home');
            }
          }
@@ -174,7 +175,7 @@
          $httpProvider.interceptors.push('AuthInterceptor');
 
          // Theme colors
-         $mdThemingProvider.theme('lightslategrey')
+         $mdThemingProvider.theme('success-toast')
            .primaryPalette('grey')
            .accentPalette('indigo');
 
