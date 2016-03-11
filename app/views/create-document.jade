@@ -1,10 +1,9 @@
 .docForm.md-padding(flex="90" layout-padding ng-cloak="")
   md-card.md-whiteframe-8dp
-    div(flex layout-gt-sm="row")
-      i.material-icons.back-icon(ui-sref="dashboard({id:loggedInUser._id})") arrow_back
-        md-tooltip Go back
-      h4 Create Document
-    md-content(layout-sm="column" flex="100" layout-align="center center")
+    md-card-title
+      md-card-title-text
+        span.preview-color.md-headline CREATE DOCUMENT
+    md-content(layout-sm="column" flex="100" layout-align="center center" layout-padding)
       div(layout="column" flex)
         form(method="post" enctype="multipart/data" ng-submit="createDoc()")
           div(layout="column" flex)
@@ -15,4 +14,3 @@
             | {{status}}
           div(layout="row" layout-align="center center")
             md-button.md-raised.md-accent(type="submit") Create
-

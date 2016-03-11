@@ -2,7 +2,7 @@ md-toolbar.header-tab.md-whiteframe-z2(layout="row" ng-cloak='' ng-controller="H
   .md-toolbar-tools
     i.hide-gt-md(class="fa fa-bars fa-lg" ng-click="toggleList()", aria-label="toggleList")
     .logo-text(ng-if="!loggedInUser" ui-sref="home") DocKip
-    h6 {{ stateName }}
+    h6.md-margin {{ stateName }}
     span(flex='')
     md-button.md-icon-button(ng-hide="!loggedInUser" ui-sref="home")
       i.md-accent.fa.fa-home.fa-lg

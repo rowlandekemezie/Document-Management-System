@@ -49,11 +49,15 @@
            if (toState.authenticate && $rootScope.loggedInUser) {
              ev.preventDefault();
              if (toState.name === 'dashboard') {
-               $rootScope.stateName = 'Dashboard - My documents';
+               $rootScope.stateName = 'My documents';
              }
              if (toState.name === 'dashboard.all') {
-               $rootScope.stateName = 'Dashboard - All documents';
+               $rootScope.stateName = 'All documents';
              }
+             if (toState.name === 'dashboard.view-document') {
+               $rootScope.stateName = 'Document preview';
+             }
+
              $state.go(toState);
            } else {
              ev.preventDefault();
