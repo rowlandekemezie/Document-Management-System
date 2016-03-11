@@ -114,7 +114,7 @@
                     tr(md-row ng-repeat="doc in documents | filter:searchBox track by $index")
                       td(md-cell) {{doc._id}}
                       td(md-cell) {{doc.role}}
-                      td(md-cell) {{user.userName}}
+                      td(md-cell) {{doc.ownerId[0].userName}}
                       td(md-cell) {{doc.createdAt | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.lastModified | date:'dd/mm/yyyy'}}
                       td(md-cell) {{doc.title}}
