@@ -1,6 +1,7 @@
 [![Travis Ci](https://img.shields.io/travis/andela-rekemezie/Document-Management-System/develop.svg)](https://travis-ci.org/andela-rekemezie/Document-Management-System)
 [![Coveralls](https://img.shields.io/coveralls/andela-rekemezie/Document-Management-System.svg)](https://coveralls.io/github/andela-rekemezie/Document-Management-System)
-[![Codecov](https://img.shields.io/codecov/c/github/andela-rekemezie/Document-Management-System.svg)](https://codecov.io/github/andela-rekemezie/Document-Management-System)
+[![codecov](https://codecov.io/gh/andela-rekemezie/Document-Management-System/branch/master/graph/badge.svg)](https://codecov.io/gh/andela-rekemezie/Document-Management-System)
+
 # DocKip
 
 DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and manage documents with ease. 
