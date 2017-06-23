@@ -19,10 +19,10 @@
         // login service
         user.login = function(user, cb) {
           $http.post('/api/users/login', user)
-            .success(function(res) {
-              cb(null, res);
+            .then(function(res) {
+              cb(null, res.data);
             })
-            .error(function(err) {
+            .catch(function(err) {
               cb(err);
             });
         };
@@ -30,10 +30,10 @@
         // logout service
         user.logout = function(cb) {
           $http.get('/api/users/logout')
-            .success(function(res) {
-              cb(null, res);
+            .then(function(res) {
+              cb(null, res.data);
             })
-            .error(function(err) {
+            .catch(function(err) {
               cb(err);
             });
         };
@@ -43,10 +43,10 @@
           $http.get('/api/users/session', {
             cache: true
           })
-            .success(function(res) {
+            .then(function(res) {
               cb(null, res);
             })
-            .error(function(err) {
+            .catch(function(err) {
               cb(err, null);
             });
         };
@@ -55,10 +55,10 @@
         user.getUserDocs = function(userId, limit, page, cb) {
           $http.get('/api/users/' + userId.id + '/documents?limit=' +
             limit + '&page=' + page)
-            .success(function(res) {
+            .then(function(res) {
               cb(null, res);
             })
-            .error(function(err) {
+            .catch(function(err) {
               cb(err, null);
             });
         };
