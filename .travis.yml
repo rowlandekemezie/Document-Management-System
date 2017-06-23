@@ -40,9 +40,9 @@ after_success:
   - npm run coveralls
 deploy:
   provider: heroku
-  api_key: e32c893b-cda7-4512-b544-eaf96ca8bf6f
+  api_key: 8dbc5730-c35c-4c11-9022-e67974b0c1f3
   app:
-    develop: dockip
+    develop: dockip-staging
     master: dockip
 after_deploy:
   - gulp heroku

@@ -53,7 +53,7 @@
           })
           .end(function(err, res) {
             expect(res.status).to.equal(200);
-            expect(err).not.to.be.a('undefined');
+            expect(err).not.to.be.a('null');
             expect(res.body).contain({
               success: true,
               message: 'Document successfully created'
