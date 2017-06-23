@@ -36,7 +36,7 @@
             .then(function(res) {
               cb(null, res.data);
             })
-            .error(function(err) {
+            .catch(function(err) {
               cb(err);
             });
         };

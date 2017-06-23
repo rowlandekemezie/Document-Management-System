@@ -15,6 +15,7 @@
 
     port = process.env.PORT || 5555;
 
+    mongoose.Promise = global.Promise;
   // connection to the database;
     mongoose.connect(database.url, function(err) {
     if (err) {
