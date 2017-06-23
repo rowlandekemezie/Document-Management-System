@@ -57,7 +57,7 @@
          // check that the user is in session and make global the user's details
          Users.getUser(function(err, res) {
            if (!err && res) {
-             $rootScope.loggedInUser = res;
+             $rootScope.loggedInUser = res.data;
            } else {
              $log.debug(err);
            }

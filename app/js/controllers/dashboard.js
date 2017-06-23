@@ -24,7 +24,7 @@
             }, param.limit, param.page,
             function(err, docs) {
               if (!err && docs) {
-                $scope.userDocs = docs;
+                $scope.userDocs = docs.data;
               }
             });
 
