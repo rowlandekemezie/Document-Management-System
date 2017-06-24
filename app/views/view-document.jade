@@ -1,21 +1,12 @@
-md-content.viewDocs(layout-padding ng-if="loggedInUser" flex md-scroll-y ng-init="getDoc()")
-  md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
-    span.fa.fa-plus.fa-lg
-    md-tooltip(md-direction='left') create new document
-  div(flex)
-    div(layout="column" layout-align="start start")
-      div(layout="row" layout-align="end end" flex)
-        i.material-icons.back-icon(layout-align="start start" ui-sref="dashboard({ id:loggedInUser._id })") arrow_back
-          md-tooltip Go back
-        .preview-header  DOCUMENT PREVIEW
-      md-divider(md-inset)
-      .preview-doc
-        .grid-border
-          h3.grid-header {{ docDetail.title }}
-          md-divider
-          div(layout="column" layout-align="start start")
-          .preview-content.md-margin(ng-bind-html="docDetail.content" class="md-clickable")
-          div(layout-align="column" style="margin-bottom:2px")
-            div.preview-footer(flex layout="column" layout-padding)
-              h5 LastModified  on {{docDetail.lastModified | DateFormatter }}
-              | by {{user.userName}}
+.viewDocs(layout-padding ng-if="loggedInUser" flex md-scroll-y ng-init="getDoc()")
+  md-card.md-whiteframe-8dp
+    md-button.md-fab.create-document-btn(ui-sref="dashboard.document({id:loggedInUser._id})")
+      span.fa.fa-plus.fa-lg
+      md-tooltip(md-direction='left') create new document
+    div(flex)
+      div(layout-gt-sm="row")
+      md-card-title.md-headline {{ docDetail.title }}
+      span.post-info.md-subhead(flex layout="column" layout-padding)
+        i.fa.fa-user &nbsp; Lastmodified by  {{ docDetail.ownerId[0].userName}}
+        span {{ docDetail.lastModified | DateFormatter }}
+      md-card-content.preview-content.md-margin(layout-padding ng-bind-html="docDetail.content" class="md-clickable")

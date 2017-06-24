@@ -34,13 +34,6 @@
             }
           });
 
-          // Get document count for pagination
-          Documents.allDocCount(function(err, num) {
-            if (!err && num) {
-              $scope.allDocCount = num;
-            }
-          });
-
           Documents.userDocCount($stateParams.id, function(err, num) {
             if (!err && num) {
               $rootScope.loggedInUser.docCount = num;
@@ -55,6 +48,13 @@
             console.log(err);
           });
         };
+
+        // Get document count for pagination
+        Documents.allDocCount(function(err, num) {
+          if (!err && num) {
+            $scope.allDocCount = num;
+          }
+        });
 
         $scope.nextPage = function() {
           $scope.param.page += 1;

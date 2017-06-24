@@ -10,7 +10,11 @@
       'Users',
       '$scope',
       '$stateParams',
-      function($state, Utils, Roles, Documents, Users, $scope, $stateParams) {
+      '$rootScope',
+      function($state, Utils, Roles, Documents, Users,
+        $scope, $stateParams, $rootScope) {
+        $rootScope.stateName = 'Admin panel';
+
         switch ($stateParams.section) {
           case 'role':
             $scope.selectedIndex = 0;

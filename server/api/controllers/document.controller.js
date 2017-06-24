@@ -92,6 +92,10 @@
       Document.findOne({
         _id: req.params.id
       })
+      .populate({
+          path: 'ownerId',
+          select: 'userName'
+        })
         .exec(function(err, doc) {
           if (err) {
             res.status(500).json(err);
