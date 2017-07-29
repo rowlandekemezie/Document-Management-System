@@ -178,7 +178,7 @@
   });
 
   gulp.task('merge-coverage-report', function(cb) {
-    gulp.src('./coverage/**/lcov.info')
+    gulp.src(['./coverage/**/lcov.info', './coverage/lcov.info'])
     .pipe(merger())
     .pipe(gulp.dest('./coverage/merged/'))
   });
@@ -211,7 +211,7 @@
   ]);
 
   // register test task
-  gulp.task('test', ['test:fend', 'test:bend', 'merge-coverage-report']);
+  gulp.task('test', ['test:fend', 'test:bend']);
   // deployment tasks
   gulp.task('heroku', ['build']);
   gulp.task('production', ['nodemon', 'build']);

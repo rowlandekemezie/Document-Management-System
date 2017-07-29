@@ -35,8 +35,10 @@ before_script:
   - gulp build
 script:
   - yarn test
+  - gulp test:fend
 after_success:
   - yarn run report-coverage
+  - gulp merger-coverage-report
   - yarn run coveralls
 deploy:
   provider: heroku
