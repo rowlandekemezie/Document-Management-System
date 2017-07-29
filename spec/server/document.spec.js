@@ -53,7 +53,7 @@
           })
           .end(function(err, res) {
             expect(res.status).to.equal(200);
-            expect(err).not.to.be.a('null');
+            expect(err).to.be.a('null');
             expect(res.body).contain({
               success: true,
               message: 'Document successfully created'
@@ -229,10 +229,7 @@
         var doc2 = docData[2];
         doc1.ownerId = user1._id;
         doc2.ownerId = user1._id;
-        var newDoc1 = new Document(doc1);
-        var newDoc2 = new Document(doc2);
-        newDoc1.save();
-        newDoc2.save();
+        Document.create([doc1, doc2], function() {})
 
         request.get('/api/users/' + user1._id + '/documents')
           .set('x-access-token', userToken)
