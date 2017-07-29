@@ -317,9 +317,9 @@
         });
     });
 
-    it('should return all users created', function(done) {
-      var newUser = new User(userData[2]);
+    xit('should return all users created', function(done) {
       var newRole = new Role(roleData[2]);
+      var newUser = new User(userData[2]);
       newUser.save();
       newRole.save();
       request.get('/api/users/')
