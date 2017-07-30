@@ -55,7 +55,7 @@
         Documents.getAllDocs(20, 3, cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
-        expect(cb.args[0][0].data.err).toBe('err');
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
 
@@ -84,7 +84,7 @@
       Documents.getDocsByRole(10, 10, cb);
       httpBackend.flush();
       expect(cb.called).toBe(true);
-      expect(cb.args[0][0].data.err).toBe('err');
+      expect(cb.args[0][0].err).toBe('err');
     });
   });
 
@@ -113,7 +113,7 @@
       Documents.getDocsByDate(10, 10, cb);
       httpBackend.flush();
       expect(cb.called).toBe(true);
-      expect(cb.args[0][0].data.err).toBe('err');
+      expect(cb.args[0][0].err).toBe('err');
     });
   });
 
@@ -146,7 +146,7 @@
       }, cb);
       httpBackend.flush();
       expect(cb.called).toBe(true);
-      expect(cb.args[0][0].data.err).toBe('err');
+      expect(cb.args[0][0].err).toBe('err');
     });
   });
 
@@ -175,7 +175,7 @@
       Documents.allDocCount(cb);
       httpBackend.flush();
       expect(cb.called).toBe(true);
-      expect(cb.args[0][0].data.err).toBe('err');
+      expect(cb.args[0][0].err).toBe('err');
     });
   });
 });
