@@ -29,8 +29,7 @@
     minifyCss = require('gulp-minify-css'),
     sourcemaps = require('gulp-sourcemaps'),
     gutil = require('gulp-util'),
-    cache = require('gulp-cache'),
-    merger = require('lcov-result-merger');
+    cache = require('gulp-cache');
 
   // minify css
   gulp.task('less', function() {
@@ -133,21 +132,15 @@
   });
 
   //  task for back end test
-  gulp.task('test:bend', function() {
+  gulp.task('test:bend', ['test:fend'], function() {
     return gulp.src('spec/server/*.js', {
         read: false
       })
       .pipe(mocha({
-        reporter: 'spec',
-        slow: 5000,
-        timeout: 10000,
+        reporter: 'spec'
       }))
       // Creating the reports after tests ran
-      .pipe(istanbul.writeReports({
-        dir: 'coverage/server',
-        reportOpts: { dir: './coverage/server' },
-        reporters: ['lcov', 'text-summary'],
-      }))
+      .pipe(istanbul.writeReports())
       // Enforce a coverage of at least 80%
       .pipe(istanbul.enforceThresholds({
         thresholds: {
@@ -175,12 +168,6 @@
         console.log(e);
       })
       .on('end', cb);
-  });
-
-  gulp.task('merge-coverage-report', function(cb) {
-    gulp.src(['./coverage/**/lcov.info', './coverage/lcov.info'])
-    .pipe(merger())
-    .pipe(gulp.dest('./coverage/merged/'))
   });
 
   // task for nodemon

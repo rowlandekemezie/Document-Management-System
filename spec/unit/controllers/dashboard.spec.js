@@ -11,7 +11,7 @@
       },
       Users = {
         getUserDocs: function(id, limit, page, cb) {
-          cb(null, {data: ['Novels', 'Ado', 'Poets']});
+          cb(null, ['Novels', 'Ado', 'Poets']);
         },
         get: function(id, cb, cbb) {
           var user;
@@ -21,7 +21,7 @@
       },
       Documents = {
         getAllDocs: function(limit, page, cb) {
-          cb(null, {data: [1, 2, 3]});
+          cb(null, [1, 2, 3]);
         },
         userDocCount: function(id, cb) {
           cb(null, [5]);
@@ -77,7 +77,7 @@
       scope.init(scope.param);
       expect(scope.documents).toBeDefined();
       expect(Documents.getAllDocs).toHaveBeenCalled();
-      expect(scope.documents).toEqual({data: [1, 2, 3]});
+      expect(scope.documents).toEqual([1, 2, 3]);
       expect(scope.user).toBeDefined();
       expect(Users.getUserDocs).toHaveBeenCalled();
       expect(Users.get).toHaveBeenCalled();

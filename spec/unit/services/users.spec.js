@@ -65,7 +65,7 @@
         }, cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
-        expect(cb.args[0][0].data.err).toBe('err');
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
 
@@ -81,7 +81,7 @@
         httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
-        expect(cb.args[0][1].data.res).toBe('res');
+        expect(cb.args[0][1].res).toBe('res');
       });
     });
 
@@ -114,7 +114,7 @@
         Users.logout(cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
-        expect(cb.args[0][0].data.err).toBe('err');
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
 
@@ -137,7 +137,7 @@
         httpBackend.flush();
         expect(cb.called).toBe(true);
         expect(cb.args[0][0]).toBe(null);
-        expect(cb.args[0][1].data.res).toBe('res');
+        expect(cb.args[0][1].res).toBe('res');
       });
 
       it('should return error on status 500', function() {
@@ -152,7 +152,7 @@
         }, 10, 5, cb);
         httpBackend.flush();
         expect(cb.called).toBe(true);
-        expect(cb.args[0][0].data.err).toBe('err');
+        expect(cb.args[0][0].err).toBe('err');
       });
     });
   });

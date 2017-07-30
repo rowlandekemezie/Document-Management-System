@@ -117,9 +117,11 @@
           });
       });
 
-      xit('should return all roles created', function(done) {
-        Role.create(roleData, function() {});
-        
+      it('should return all roles created', function(done) {
+        for (var i = 0, n = roleData.length; i < n; i++) {
+          var newRole = new Role(roleData[i]);
+          newRole.save();
+        }
         request.get('/api/roles/')
           .set('x-access-token', adminToken)
           .end(function(err, res) {
