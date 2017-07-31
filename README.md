@@ -1,6 +1,6 @@
-[![Travis Ci](https://img.shields.io/travis/mentrie/Document-Management-System/develop.svg)](https://travis-ci.org/mentrie/Document-Management-System)
+[![Travis Ci](https://img.shields.io/travis/mentrie/Document-Management-System.svg)](https://travis-ci.org/mentrie/Document-Management-System)
 [![Coveralls](https://img.shields.io/coveralls/mentrie/Document-Management-System.svg)](https://coveralls.io/github/mentrie/Document-Management-System)
-[![codecov](https://codecov.io/gh/mentrie/Document-Management-System/branch/master/graph/badge.svg)](https://codecov.io/gh/mentrie/Document-Management-System)
+
 
 # DocKip
 
