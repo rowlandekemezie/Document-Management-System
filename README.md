@@ -4,7 +4,7 @@
 
 # DocKip
 
-DocKip is a custom document magement system built with Express, Node, and Mongodb. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps your to create, share and manage documents with ease. 
+DocKip is a role-based document management system built with Express, Node, and MongoDB. The application allows you to manage users, roles and documents with assigned authorization. Basically, it helps you to create, share and manage documents with ease. 
 
 ## Installation
 
